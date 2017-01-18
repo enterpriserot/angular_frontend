@@ -628,3 +628,18 @@ img::-moz-selection {
 .search{
   display: inline;
 }
+
+/*------------------CONTACT------------------*/
+
+.container-form-contact{
+    width: 35%;
+    margin: 0 auto;
+    /*text-align: center;*/
+}
+
+.container-form-contact input,
+.container-form-contact select,
+.container-form-contact textarea{
+  width: 100%;
+  margin-bottom: 5px;
+}
