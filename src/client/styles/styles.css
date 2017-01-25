@@ -632,6 +632,7 @@ img::-moz-selection {
 /*------------------CONTACT------------------*/
 
 .container-form-contact{
+
     width: 35%;
     margin: 0 auto;
     /*text-align: center;*/
@@ -640,6 +641,15 @@ img::-moz-selection {
 .container-form-contact input,
 .container-form-contact select,
 .container-form-contact textarea{
+  color: black;
   width: 100%;
   margin-bottom: 5px;
+}
+
+.container-form-contact #submitBtn{
+  width: 10em;
+  display: block;
+  margin: 0 auto;
+  color: white;
+  background-color: #da521b;
 }

@@ -17,7 +17,7 @@
         state: 'contact',
         config: {
           url: '/contact',
-          templateUrl: 'app/contact/contact.html',
+          templateUrl: 'app/contact/contact.view.html',
           controller: 'ContactController',
           controllerAs: 'vm',
           title: 'Contact',
