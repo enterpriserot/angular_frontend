@@ -22,3 +22,4 @@ Thumbs.db
 bin/
 node_modules/
 .tmp/
+config.db.js
