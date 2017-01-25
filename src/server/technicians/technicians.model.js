@@ -1,5 +1,5 @@
 
-var mysql = require('../configdb');
+var mysql = require('../config.db');
 
 
 var techniciansModel= {};
