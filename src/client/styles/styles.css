@@ -325,7 +325,7 @@ header .header-content .inner p {
   transform: translate(-50%, -50%);
 }*/
 
-#video-background {
+/*#video-background {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -338,7 +338,7 @@ header .header-content .inner p {
 
 #video-background.collapsing {
   display:none;
-}
+}*/
 
 /*footer {
     background-color:#2d2d2d;
@@ -652,4 +652,14 @@ img::-moz-selection {
   margin: 0 auto;
   color: white;
   background-color: #da521b;
+}
+
+/*---------------------BACKGROUND---------------------*/
+
+.videogular-container {
+	width: 100%;
+	height: 320px;
+	margin: auto;
+	overflow: hidden;
+  z-index: 5;
 }

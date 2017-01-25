@@ -5,34 +5,33 @@
     .module('app.dashboard')
     .controller('DashboardController', DashboardController);
 
-  DashboardController.$inject = ['$q', 'dataservice', 'logger'];
+  DashboardController.$inject = ['$q', 'dataservice', 'logger','$sce'];
   /* @ngInject */
-  function DashboardController($q, dataservice, logger) {
+  function DashboardController($q, dataservice, logger, $sce) {
     var vm = this;
     vm.news = {
-      title: 'Mortgage_calculator',
+      title: 'Repair on time',
       description: 'Hot Towel Angular is a SPA template for Angular developers.'
     };
-    vm.messageCount = 0;
-    vm.people = [];
+
     vm.title = 'Dashboard';
 
+    vm.config = {
+				sources: [
+					// {src: $sce.trustAsResourceUrl('https://repairontime.tk/view/video/mp4/back.mp4'), type: 'video/mp4'},
+          {src: $sce.trustAsResourceUrl('//static.videogular.com/assets/videos/videogular.mp4'), type: 'video/mp4'}/*,
+					{src: $sce.trustAsResourceUrl('https://repairontime.tk/view/video/webm/back.webm'), type: 'video/webm'},
+					{src: $sce.trustAsResourceUrl('https://repairontime.tk/view/video/ogv/back.ogv'), type: 'video/ogg'}*/
+				],
+        plugins: {
+          poster: 'https://repairontime.tk/view/img/static.jpg'
+        }
+    };
     activate();
 
     function activate() {
-      var promises = [getPeople()];
-      return $q.all(promises).then(function() {
-        logger.info('Activated Dashboard View');
-      });
+
     }
 
-
-
-    function getPeople() {
-      return dataservice.getPeople().then(function(data) {
-        vm.people = data;
-        return vm.people;
-      });
-    }
   }
 })();

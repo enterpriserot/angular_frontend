@@ -3,6 +3,9 @@
 
   angular.module('app.dashboard', [
     'app.core',
-    'app.widgets'
+    'app.widgets',
+    'com.2fdevs.videogular',
+    'com.2fdevs.videogular.plugins.overlayplay'/*,
+    'com.2fdevs.videogular.plugins.poster'*/
   ]);
 })();
