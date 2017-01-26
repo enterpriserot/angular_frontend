@@ -13,6 +13,8 @@
         vm.title = 'Technicians';
         vm.technicians= [];
 
+        vm.map = { center: { latitude: 38.8101561, longitude: -0.6043774 }, zoom: 10 };
+
         activate();
 
         function activate() {
