@@ -4,14 +4,14 @@ var sg = require('./sendgrid.env');
 
 exports.sendEmail = function(req, res) {
 
-  var To = '';
-  var From = '';
+  var emailTo = '';
+  var emailFrom = '';
   var body = '';
 
   switch (req.body.type) {
     case 'user':
-      To = req.body.to;
-      From = req.body.from;
+      emailTo = req.body.from;
+      emailFrom = req.body.to;
 
       body = '<body>' +
         '<div id="contact-email">' +
@@ -26,19 +26,19 @@ exports.sendEmail = function(req, res) {
 
       break;
     case 'admin':
-      To = req.body.to;
-      From = req.body.from;
+      emailTo = req.body.to;
+      emailFrom = req.body.from;
 
-    body = '<body>' +
-      '<div id="contact-email">' +
-      '<div> <h1>Contact with Repair on Time</h1> <h4>Subject: ' + req.body.subject +
-      '</h4></div>' +
-      '<section>' +
-      'Name:<p>' + req.body.name + '</p>' +
-      'Email: <p>' + req.body.from + '</p>' +
-      'Message:<p>' + req.body.text + '</p></section>' +
-      '</div>' +
-      ' </body>';
+      body = '<body>' +
+        '<div id="contact-email">' +
+        '<div> <h1>Contact with Repair on Time</h1> <h4>Subject: ' + req.body.subject +
+        '</h4></div>' +
+        '<section>' +
+        'Name:<p>' + req.body.name + '</p>' +
+        'Email: <p>' + req.body.from + '</p>' +
+        'Message:<p>' + req.body.text + '</p></section>' +
+        '</div>' +
+        ' </body>';
 
       break;
     case 'modify':
@@ -102,8 +102,8 @@ exports.sendEmail = function(req, res) {
     '</head>' + body + '</html>';
 
   var email = {
-    from: From,
-    to: To,
+    from: emailFrom,
+    to: emailTo,
     subject: req.body.subject,
     text: req.body.text,
     html: template
