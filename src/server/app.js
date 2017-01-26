@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-// app.use('/api', require('./routes'));//Sobra??
 require('./contact/contact.router.js')(app);
 
 console.log('About to crank up node');

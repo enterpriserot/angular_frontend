@@ -4,11 +4,15 @@ var sg = require('./sendgrid.env');
 
 exports.sendEmail = function(req, res) {
 
-  //template contact recieve
+  var To = '';
+  var From = '';
   var body = '';
+
   switch (req.body.type) {
     case 'user':
-      req.body.to = req.body.from;
+      To = req.body.to;
+      From = req.body.from;
+
       body = '<body>' +
         '<div id="contact-email">' +
         '<div> <h1>Contact with Repair on Time</h1> <h4>Subject: ' + req.body.subject +
@@ -22,6 +26,8 @@ exports.sendEmail = function(req, res) {
 
       break;
     case 'admin':
+      To = req.body.to;
+      From = req.body.from;
 
     body = '<body>' +
       '<div id="contact-email">' +
@@ -96,8 +102,8 @@ exports.sendEmail = function(req, res) {
     '</head>' + body + '</html>';
 
   var email = {
-    from: req.body.from,
-    to: req.body.to,
+    from: From,
+    to: To,
     subject: req.body.subject,
     text: req.body.text,
     html: template
@@ -106,7 +112,6 @@ exports.sendEmail = function(req, res) {
   //Input APIKEY Sendgrid
   var options = {
     auth: {
-      // api_key: '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'
       api_key: sg
     }
   };
