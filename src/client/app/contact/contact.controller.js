@@ -37,7 +37,7 @@
                             vm.resultMessageOk = 'Email sent correctly!';
                             $timeout(function () {
                                 vm.resultMessageOk = '';
-                                $state.go('dashboard');
+                                $state.go('main');
                             }, 3000);
                         } else {
                             vm.resultMessageFail =
