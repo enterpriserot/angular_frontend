@@ -24,3 +24,6 @@ node_modules/
 .tmp/
 sendgrid.env
 build/
+config.db.js
+build/
+bower_components/

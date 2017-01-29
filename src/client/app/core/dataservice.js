@@ -9,7 +9,8 @@
   /* @ngInject */
   function dataservice($http, $q, exception, logger) {
     var service = {
-      sendEmail: sendEmail
+      sendEmail: sendEmail,
+      getTechnicians: getTechnicians
     };
 
     return service;
@@ -27,6 +28,18 @@
       function fail() {
         return false;
       }
+    }
+
+    function getTechnicians() {
+      return $http.get('/api/technicians').then(success).catch(fail);
+
+      function success(response) {
+          return response.data;
+        }
+
+        function fail(e) {
+          return exception.catcher('XHR Failed for getTechnicians')(e);
+        }
     }
   }
 })();

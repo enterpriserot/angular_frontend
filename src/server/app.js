@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 
 require('./contact/contact.router.js')(app);
+require('./technicians/technicians.route')(app);
 
 console.log('About to crank up node');
 console.log('PORT=' + port);

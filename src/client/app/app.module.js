@@ -7,7 +7,8 @@
     'app.admin',
     'app.main',
     'app.layout',
-    'app.contact'
+    'app.contact',
+    'app.technicians'
   ]);
 
 })();
