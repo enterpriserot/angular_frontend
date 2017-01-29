@@ -1,7 +1,17 @@
 
 <section id="main" class="wrapper">
+  Search Technicians: <input type="text" class="filtre" ng-model="filtro" ><hr>
   <div class="col-md-6">
       <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'></ui-gmap-google-map>
+  </div>
+  <div class="of"  ng-repeat="tech in vm.filteredTechnicians| filter:{name:filtro}" id="{{tech.id}}">
+      <div>
+          <div class="desc">{{tech.name}} {{tech.email}}</div>
+          <!-- <div class="fecha"> Fecha: {{of.fecha_inicio}} - {{of.fecha_final}}</div>
+          <div class="hora"> Hora: {{of.hora_inicio}} - {{of.hora_final}}</div>
+          <div class="precio"> Precio: {{of.precio}} €</div>
+          <div class="details" ><a href="#/technicians/{{of.id}}">Ver más</a></div> -->
+      </div>
   </div>
   <div ng-repeat="tech in vm.technicians" >
             <div >
