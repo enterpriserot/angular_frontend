@@ -13,8 +13,8 @@
   }
 
   var config = {
-    appErrorPrefix: '[Mortgage_calculator Error] ',
-    appTitle: 'Mortgage_calculator'
+    appErrorPrefix: '[Repair on time Error] ',
+    appTitle: 'Repair on time'
   };
 
   core.value('config', config);
