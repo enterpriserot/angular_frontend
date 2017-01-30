@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-require('./contact/contact.router.js')(app);
-require('./technicians/technicians.route')(app);
+require('./contact/contact.route.js')(app);
+require('./technicians/technicians.route.js')(app);
 
 console.log('About to crank up node');
 console.log('PORT=' + port);

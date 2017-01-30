@@ -81,7 +81,7 @@ angular.module('video-background', [])
     $video.defaultPlaybackRate = ( attrs.playbackRate ) ? attrs.playbackRate : 1;
 
     // set loop attribute
-    $video.loop = ( typeof attrs.loop !== 'undefined' && attrs.loop !== "false" ) ? true : false;
+    $video.loop = ( typeof attrs.loop !== 'undefined' && attrs.loop !== 'false' ) ? true : false;
 
     // key bindings
     function onKeyUp(e) {
@@ -141,7 +141,7 @@ angular.module('video-background', [])
       scope.currentTime = $video.currentTime;
 
       // if key controls options is enabled
-      if( typeof attrs.keyControls !== 'undefined' && attrs.keyControls !== "false"  ) {
+      if( typeof attrs.keyControls !== 'undefined' && attrs.keyControls !== 'false'  ) {
 
         // add some key bindings
         $document.on('keydown', onKeyUp);
@@ -159,7 +159,7 @@ angular.module('video-background', [])
       videoEl.removeClass('ng-hide');
 
       // if autoplay is set and is not false
-      if( typeof attrs.autoplay !== 'undefined' && attrs.autoplay !== "false" ) {
+      if( typeof attrs.autoplay !== 'undefined' && attrs.autoplay !== 'false' ) {
         // start the video
         return $video.play();
       }
@@ -190,7 +190,7 @@ angular.module('video-background', [])
 
     // by default show the control box
     // if not specified
-    if( attrs.controlBox != 'false' ) {
+    if( attrs.controlBox !== 'false' ) {
 
       /**
       * When the user start seeking
