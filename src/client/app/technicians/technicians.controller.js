@@ -27,7 +27,6 @@
 
         function activate() {
           var promises = [getTechnicians()];
-          console.log(promises);
           return $q.all(promises).then(function(){
             logger.info('Activated Technicians View');
           });
@@ -43,7 +42,6 @@
         function update(){
             var begin = ((vm.currentPage - 1) * vm.numPerPage), end = begin + vm.numPerPage;
             vm.filteredTechnicians = vm.technicians.slice(begin, end);
-            console.log(vm.filteredTechnicians);
         }
     }
 })();

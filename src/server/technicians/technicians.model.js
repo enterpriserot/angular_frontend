@@ -6,12 +6,10 @@ var techniciansModel= {};
 
 techniciansModel.getTechnicians = function (callback){
   if (mysql.connection) {
-        console.log('techniciansModel');
         mysql.connection.query('SELECT * FROM technicians ORDER BY id', function(error, rows) {
             if(error){
                 throw error;
             }else{
-              console.log(rows);
                 callback(null, rows);
             }
         });
