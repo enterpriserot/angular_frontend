@@ -41,7 +41,7 @@ hr.light {
 
 /*Color links de tota la web*/
 a {
-    color: #da521b;
+    color: #FF9800;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -338,6 +338,7 @@ header .header-content .inner p {
 
   #topNav{
     background-color: #da521b;
+    height: 10%;
   }
 
   #logo{
@@ -620,17 +621,26 @@ img::-moz-selection {
 
 /*------------------CONTACT------------------*/
 
-.container-form-contact{
+.container-form-contact {
+	width: 36%;
+	margin: 0 auto;
+	/* text-align: center; */
+	background: #BDBDBD;
+	border: 2px solid #FF9800;
+	border-radius: 10px;
+	color: #212121;
+}
 
-    width: 35%;
-    margin: 0 auto;
-    /*text-align: center;*/
+div.container-form-contact .form-contact {
+	width: 95%;
+	padding-left: 5%;
+	padding-bottom: 1%;
 }
 
 .container-form-contact input,
 .container-form-contact select,
 .container-form-contact textarea{
-  color: black;
+  color: white;
   width: 100%;
   margin-bottom: 5px;
 }
@@ -658,6 +668,81 @@ img::-moz-selection {
 
 .angular-google-map-container {
   height: 400px;
-  width: 50%;
-
+  width: 100%;
 }
+
+section div.techniciansFilter {
+	background: #BDBDBD;
+	color: #DA521B;
+	width: 31%;
+	margin-left: 35%;
+	margin-bottom: 2em;
+	border: 2px solid #FFCCBC;
+  border-radius: 8px;
+}
+
+section div.techniciansFilter h3 {
+  display: inline-block;
+}
+
+section div.techniciansContent {
+	width: 85%;
+	margin-left: 15%;
+}
+
+section div.techniciansContent div.techniciansInfo {
+	width: 35%;
+	display: inline-block;
+}
+
+div.techniciansContent div.techniciansInfo .techBoxInfo {
+	width: 65%;
+	background: #757575;
+	border: 2px solid #FF5722;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin-bottom: 2px;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+/*Start of star rating using CSS*/
+.stars-container {
+  font-size: 30px;
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  margin-bottom: 10px;
+}
+
+.stars-container:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: lightgray;
+}
+
+.stars-container:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: gold;
+  overflow: hidden;
+}
+
+.stars-0:after { width: 0%; }
+.stars-10:after { width: 10%; }
+.stars-20:after { width: 20%; }
+.stars-30:after { width: 30%; }
+.stars-40:after { width: 40%; }
+.stars-50:after { width: 50%; }
+.stars-60:after { width: 60%; }
+.stars-70:after { width: 70%; }
+.stars-80:after { width: 80%; }
+.stars-90:after { width: 90%; }
+.stars-100:after { width: 100; }
+/*End of star rating using CSS*/

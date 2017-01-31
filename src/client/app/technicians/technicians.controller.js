@@ -16,8 +16,12 @@
         vm.numPerPage = 5;
         vm.maxSize = 5;
         vm.currentPage = 1;
+        vm.filtro = '';
+        vm.update = update;
 
-        $scope.$watch(update);
+        console.log(vm.technicians);
+
+        $scope.$watch('vm.filtro', vm.update);
         // var watcher = vm.watch('./technicians.html');
         // watcher.on('change', update);
 
@@ -39,7 +43,7 @@
           });
         }
 
-        function update(){
+        function update(newValue,oldValue){
             var begin = ((vm.currentPage - 1) * vm.numPerPage), end = begin + vm.numPerPage;
             vm.filteredTechnicians = vm.technicians.slice(begin, end);
         }
