@@ -1,12 +1,12 @@
-const _ = require('lodash');
-const passport = require('passport');
-const request = require('request');;
-const LocalStrategy = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
-const TwitterStrategy = require('passport-twitter').Strategy;
+var _ = require('lodash');
+var passport = require('passport');
+var request = require('request');
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 
 
-const User = require('../models/User');
+var User = require('../models/User');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);

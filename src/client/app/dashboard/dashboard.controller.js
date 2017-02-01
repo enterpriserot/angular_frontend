@@ -11,7 +11,7 @@
     var vm = this;
     vm.news = {
       title: 'Repair on time',
-      description: 'Hot Towel Angular is a SPA template for Angular developers.'
+      description: 'Application to search computer technicians near to you.'
     };
 
     vm.title = 'Main';
@@ -22,16 +22,7 @@
     webm: './video/back.webm'
     };
 
-    // vm.config = {
-		// 		sources: [
-		// 			{src: $sce.trustAsResourceUrl('./video/back.mp4'), type: 'video/mp4'},
-		// 			{src: $sce.trustAsResourceUrl('./video/back.webm'), type: 'video/webm'},
-		// 			{src: $sce.trustAsResourceUrl('./video/back.ogv'), type: 'video/ogg'}
-		// 		],
-    //     plugins: {
-    //       poster: 'https://repairontime.tk/view/img/static.jpg'
-    //     }
-    // };
+
     activate();
 
     function activate() {

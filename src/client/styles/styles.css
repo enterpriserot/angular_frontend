@@ -661,3 +661,66 @@ img::-moz-selection {
   width: 50%;
 
 }
+
+/******************CSS modal login*****************/
+@font-face{
+    font-family: "font";
+    src: url('../fonts/font.ttf'),
+    url('../fonts/font.ttf'); /* IE */
+}
+
+    .modal_login h3{
+      text-align: center;
+      font-size: 28px;
+      padding-top: 0.5em;
+      font-weight: bold;
+    }
+
+    .modal_login p{
+      text-align: center;
+    }
+
+    .modal_login input[type="text"],
+    .modal_login input[type="password"]{
+      color: #e28763;
+      background-color: #36333d;
+      width: 250px;
+      padding: 8px;
+      font-family: "font";
+
+      margin-bottom: 1em;
+      border-style:hidden;
+      border-radius: 4px;
+    }
+
+    .modal_baix{
+      text-align: center;
+      position: relative;
+    }
+
+    /* Personalització del botó*/
+    .modal_login input[type="button"]{
+      background-color: #60768d;
+      border-radius: 5px;
+      color: white;
+
+      text-shadow: -1px -1px 0 rgba(140,140,140,0.6), 0 -1px 1px rgba(0,0,0,0.67);
+      /* He aprofitat el gradient del background per al botó*/
+      background: -moz-linear-gradient(top,  #e28763 0%, #da521b 100%, #576c81 100%, #da521b 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top,  #e28763 0%,#da521b 100%,#576c81 100%,#da521b 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom,  #e28763 0%,#da521b 100%,#576c81 100%,#da521b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .modal_login 	.log_link{
+      font-size: 0.9em;
+    }
+
+    .close{
+      color: white !important;
+    }
+
+    #menuImg{
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 2em;
+    }
