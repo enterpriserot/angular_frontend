@@ -4,9 +4,12 @@
     <h3>Search Technicians:</h3> <input type="text" class="filtre" ng-model="vm.filtro" >
   </div>
   <div class="techniciansContent">
-    <div class="col-md-6">
-        <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'></ui-gmap-google-map>
-    </div>
+      <div class="col-md-6">
+          <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+            <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'">
+          </ui-gmap-google-map>
+      </div>
+
     <div class="techniciansInfo">
       <div class="techBoxInfo"  ng-repeat="tech in vm.technicians| filter:{name:vm.filtro}" id="{{tech.id}}">
           <!-- <div ng-click="select(tech.id)"> -->
