@@ -5,12 +5,13 @@
     .module('app.core')
     .factory('dataservice', dataservice);
 
-  dataservice.$inject = ['$http', '$q', 'exception', 'logger'];
+  dataservice.$inject = ['$window', '$http', '$q', 'exception', 'logger'];
   /* @ngInject */
-  function dataservice($http, $q, exception, logger) {
+  function dataservice($window, $http, $q, exception, logger) {
     var service = {
       sendEmail: sendEmail,
-      getTechnicians: getTechnicians
+      getTechnicians: getTechnicians,
+      getLocation: getLocation
     };
 
     return service;
@@ -30,8 +31,10 @@
       }
     }
 
-    function getTechnicians() {
-      return $http.get('/api/technicians').then(success).catch(fail);
+    function getTechnicians(position) {
+      console.log(position);
+      var location = {latitude:position.coords.latitude, longitude:position.coords.longitude};
+      return $http.post('/api/technicians', location).then(success).catch(fail);
 
       function success(response) {
           return response.data;
@@ -40,6 +43,24 @@
         function fail(e) {
           return exception.catcher('XHR Failed for getTechnicians')(e);
         }
+    }
+
+    function getLocation() {
+      var deferred =  $q.defer();
+      if (!$window.navigator.geolocation) {
+        deferred.rejected('Geolocation not suported');
+      } else {
+        $window.navigator.geolocation.getCurrentPosition(
+          function (position) {
+            deferred.resolve(position);
+          },
+
+          function (err) {
+            deferred.rejected(err);
+          }
+        );
+      }
+      return deferred.promise;
     }
   }
 })();

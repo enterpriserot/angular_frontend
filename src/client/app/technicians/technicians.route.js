@@ -30,3 +30,35 @@
         ];
     }
 })();
+//
+// (function() {
+//     'use strict';
+//
+//     angular
+//         .module('module')
+//         .run(appRun);
+//
+//     appRun.$inject = ['routerHelper'];
+//     /* @ngInject */
+//     function appRun(routerHelper) {
+//         routerHelper.configureStates(getStates());
+//     }
+//
+//     function getStates() {
+//         return [
+//             {
+//                 state: 'state',
+//                 config: {
+//                     url: '/',
+//                     templateUrl: 'app/state/state.html',
+//                     controller: 'StateController',
+//                     controllerAs: 'vm',
+//                     title: 'state',
+//                     params: {
+//                         param: value
+//                     }
+//                 }
+//             }
+//         ];
+//     }
+// })();

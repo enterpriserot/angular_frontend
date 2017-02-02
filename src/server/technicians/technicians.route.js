@@ -1,5 +1,5 @@
 var techniciansController = require('./technicians.controller');
 
 module.exports = function(app){
-  app.get('/api/technicians', techniciansController.getTechnicians);
+  app.post('/api/technicians/', techniciansController.getTechnicians);
 };
