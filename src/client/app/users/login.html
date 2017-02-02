@@ -1,22 +1,22 @@
 <div class="modal-body">
-<button class="close" ng-click="$close()">&times;</button>
-<!-- <button class="close" ng-click="vm.closeModal()">&times;</button> -->
-<form id="login_form" name="login_form" class="modal_login">
+<!-- <button class="close" ng-click="$close()">&times;</button> -->
+<button class="close" ng-click="vm.closeModal()">&times;</button>
+<form id="loginForm" name="loginForm" class="modal_login">
           <h3>LOG IN </h3>
   <hr>
   <p>
-    <input type="text" class="loginemail" id="inputUser" name="email" value="" placeholder=" EMAIL ADDRESS">
+    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ng-model="vm.inputEmail" class="loginemail" id="inputUser" name="email" placeholder=" EMAIL ADDRESS" required>
   </p>
   <p>
-    <input type="password" name="loginpassword" id="inputPass" value="" placeholder=" PASSWROD">
+    <input type="password" ng-model="vm.inputPassword" name="loginpassword" id="inputPass" placeholder=" PASSWROD" required>
   </p>
 
   <hr>
 
   <p class="modal_baix">
-    <input type="button" name="loginbutton" id="submitLog" value="SEND">
-    <a class="log_link" href="//localhost/repair_on_time/users/signup/">Register</a>
-    <a class="log_link" href="//localhost/repair_on_time/users/restore/">Forgot your password?</a>
+    <input type="button" ng-disabled="loginForm.$invalid" name="loginbutton" id="submitLog" ng-click="vm.loginSend()" value="SEND">
+    <a class="log_link" href="#">Register</a>
+    <a class="log_link" href="#">Forgot your password?</a>
   </p>
 </form>
 

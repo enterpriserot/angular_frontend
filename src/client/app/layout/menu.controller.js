@@ -9,12 +9,10 @@
   /* @ngInject */
   function MenuController($state, routerHelper,$uibModal) {
     var vm = this;
-    // vm.animationsEnabled = true;
+    vm.animationsEnabled = true;
     var states = routerHelper.getStates();
     vm.isCurrent = isCurrent;
     vm.modalLogin = modalLogin;
-    // vm.closeModal = closeModal;
-
 
     activate();
 
@@ -36,15 +34,12 @@
       return $state.current.title.substr(0, menuName.length) === menuName ? 'current' : '';
     }
 
-    function modalLogin(size){
+    function modalLogin(){
 
-      $uibModal.open({
-        // animation: vm.animationsEnabled,
+      var modalInstance = $uibModal.open({
+        
         templateUrl: './app/users/login.html',
-        size: '',
-        backdrop: 'true',
-        // controller: 'usersController',
-        controller: 'MenuController',
+        controller: 'UsersController',
         controllerAs: 'vm',
         // resolve: {
         //   items: function () {
@@ -52,21 +47,9 @@
         //   }
         // }
       });
+
     }
 
-    // function closeModal(){
-    //   console.log('CLOSE');
-    //   vm.$modalInstance.close();
-    // }
-
-    // vm.ok = function() {
-    // vm.$modalInstance.close();
-    // };
-
-    // function close(){
-    //   console.log('Inside close');
-    //     $uibModal.dismiss();
-    // }
 
   }
 })();

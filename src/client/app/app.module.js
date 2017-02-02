@@ -8,7 +8,8 @@
     'app.main',
     'app.layout',
     'app.contact',
-    'app.technicians'
+    'app.technicians',
+    'app.users'    
   ]);
 
 })();
