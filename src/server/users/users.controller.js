@@ -1,11 +1,12 @@
 var users = require('./users.model');
 
 exports.loginUser = function(req, res){
-  users.loginUser(req.body,
-    function (err, user) {
-      if(err){
-        res.send(err);
+  users.countUser(req.body,
+      function (err, callback) {
+        if(err){
+          res.send(err);
+        }
+        res.json(callback);
       }
-      res.json(user);
-    });
+  );
 };

@@ -811,3 +811,26 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
     margin-right: 5px;
     width: 2em;
     }
+
+/*----------------------SIGNUP-----------------------*/
+
+
+
+
+label.inputLabel,
+input.textBox {
+    display: inline-block;
+    vertical-align: baseline;
+    width: 300px;
+}
+
+#formsignup,
+input.textBox{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#formsignup {
+    width: 550px;
+}

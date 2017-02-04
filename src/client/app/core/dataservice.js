@@ -11,7 +11,9 @@
     var service = {
       sendEmail: sendEmail,
       getTechnicians: getTechnicians,
-      getLocation: getLocation
+      getLocation: getLocation,
+      signup: signup,
+      login: access
     };
 
     return service;
@@ -62,5 +64,37 @@
       }
       return deferred.promise;
     }
+
+    function signup(data){
+        return $http.post('/api/signup', data).then().catch(fail);
+        function success() {
+            console.log('true signup');
+            return true;
+        }
+
+        function fail() {
+          console.log('false signup');
+            return false;
+        }
+    }
+
+    function access(data) {
+            console.log('dataservice:');
+            console.log(data);
+            return $http.post('/api/login', data)
+                    .then(success)
+                    .catch(fail);
+
+            function success(response) {
+                console.log('true main Login');
+                return response.data;
+            }
+
+            function fail() {
+              console.log('false main Login');
+                return false;
+            }
+      }//End login function
+
   }
 })();

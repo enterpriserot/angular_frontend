@@ -1,10 +1,6 @@
 
-<<<<<<< HEAD
 var mysql = require('../config/config.db');
-=======
-var mysql = require('../config.db');
-// var utils = require('../utils/functions.js');
->>>>>>> daurgil_branch
+
 
 
 var techniciansModel= {};

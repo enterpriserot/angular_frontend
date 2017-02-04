@@ -8,6 +8,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var port = process.env.PORT || 8001;
 var four0four = require('./utils/404')();
+var passport = require('passport');
 
 var environment = process.env.NODE_ENV;
 
@@ -21,6 +22,7 @@ app.use(logger('dev'));
 
 require('./contact/contact.route.js')(app);
 require('./technicians/technicians.route.js')(app);
+require('./users/users.route.js')(app);
 
 console.log('About to crank up node');
 console.log('PORT=' + port);
