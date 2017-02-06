@@ -37,7 +37,7 @@
     function modalLogin(){
 
       var modalInstance = $uibModal.open({
-        
+
         templateUrl: './app/users/login.html',
         controller: 'UsersController',
         controllerAs: 'vm',
@@ -47,7 +47,6 @@
         //   }
         // }
       });
-
     }
 
 

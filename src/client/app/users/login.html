@@ -1,6 +1,6 @@
 <div class="modal-body">
 <button class="close" ng-click="vm.closeModal()">&times;</button>
-<form id="loginForm" name="loginForm" class="modal_login">
+<form id="loginForm" name="loginForm" class="modal_login" ng-submit="vm.loginSend()">
           <h3>LOG IN </h3>
   <hr>
   <p>
@@ -13,7 +13,7 @@
   <hr>
 
   <p class="modal_baix">
-    <input type="button" ng-disabled="loginForm.$invalid" name="loginbutton" id="submitLog" ng-click="vm.loginSend()" value="SEND">
+    <input type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" name="loginbutton" id="submitLog" value="SEND">
     <a class="log_link" href="#" ng-click="vm.goToSignup()">Register</a>
     <a class="log_link" href="#">Forgot your password?</a>
   </p>

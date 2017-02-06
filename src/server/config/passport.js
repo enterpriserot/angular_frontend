@@ -1,173 +1,99 @@
-var _ = require('lodash');
-var passport = require('passport');
-var request = require('request');
 var LocalStrategy = require('passport-local').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
-var TwitterStrategy = require('passport-twitter').Strategy;
+var bcrypt = require('bcrypt-nodejs');
+var sql = require('../users/users.model');
 
+//exporta la libreria de funciones
+module.exports = function (passport) {
 
-var User = require('../models/User');
+    // =========================================================================
+    // passport session setup ==================================================
+    // =========================================================================
+    //En una aplicación web típica, las credenciales utilizadas para autenticar un
+    //usuario sólo se transmitirán durante la solicitud de inicio de sesión. Si la
+    //autenticación tiene éxito, se establecerá y mantendrá una sesión a través de
+    //una cookie establecida en el navegador del usuario.
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+    //Cada solicitud posterior no contendrá credenciales, sino la cookie única que
+    //identifica la sesión. Para dar soporte a las sesiones de inicio de sesión,
+    //Passport serializará y deserializará las instancias de usuario de la sesión.
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
-});
-
-/**
- * Sign in using Email and Password.
- */
-passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-  User.findOne({ email: email.toLowerCase() }, (err, user) => {
-    if (err) { return done(err); }
-    if (!user) {
-      return done(null, false, { msg: `Email ${email} not found.` });
-    }
-    user.comparePassword(password, (err, isMatch) => {
-      if (err) { return done(err); }
-      if (isMatch) {
-        return done(null, user);
-      }
-      return done(null, false, { msg: 'Invalid email or password.' });
+    passport.serializeUser(function (user, done) {
+        console.log('uso serializer');//no borrar
+        done(null, user.id);
     });
-  });
-}));
 
-/**
- * Sign in with Facebook.
- */
-passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_ID,
-  clientSecret: process.env.FACEBOOK_SECRET,
-  callbackURL: '/auth/facebook/callback',
-  profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
-  passReqToCallback: true
-}, (req, accessToken, refreshToken, profile, done) => {
-  if (req.user) {
-    User.findOne({ facebook: profile.id }, (err, existingUser) => {
-      if (err) { return done(err); }
-      if (existingUser) {
-        req.flash('errors', { msg: 'There is already a Facebook account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
-        done(err);
-      } else {
-        User.findById(req.user.id, (err, user) => {
-          if (err) { return done(err); }
-          user.facebook = profile.id;
-          user.tokens.push({ kind: 'facebook', accessToken });
-          user.profile.name = user.profile.name || `${profile.name.givenName} ${profile.name.familyName}`;
-          user.profile.gender = user.profile.gender || profile._json.gender;
-          user.profile.picture = user.profile.picture || `https://graph.facebook.com/${profile.id}/picture?type=large`;
-          user.save((err) => {
-            req.flash('info', { msg: 'Facebook account has been linked.' });
-            done(err, user);
-          });
+    // used to deserialize the user
+    passport.deserializeUser(function (id, done) {
+        console.log('uso deserialize');//no borrar
+        sql.getUser(id, function (error, rows) {
+            done(error, rows[0]);
         });
-      }
     });
-  } else {
-    User.findOne({ facebook: profile.id }, (err, existingUser) => {
-      if (err) { return done(err); }
-      if (existingUser) {
-        return done(null, existingUser);
-      }
-      User.findOne({ email: profile._json.email }, (err, existingEmailUser) => {
-        if (err) { return done(err); }
-        if (existingEmailUser) {
-          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with Facebook manually from Account Settings.' });
-          done(err);
-        } else {
-          const user = new User();
-          user.email = profile._json.email;
-          user.facebook = profile.id;
-          user.tokens.push({ kind: 'facebook', accessToken });
-          user.profile.name = `${profile.name.givenName} ${profile.name.familyName}`;
-          user.profile.gender = profile._json.gender;
-          user.profile.picture = `https://graph.facebook.com/${profile.id}/picture?type=large`;
-          user.profile.location = (profile._json.location) ? profile._json.location.name : '';
-          user.save((err) => {
-            done(err, user);
-          });
-        }
-      });
-    });
-  }
-}));
 
-// Sign in with Twitter.
-passport.use(new TwitterStrategy({
-  consumerKey: process.env.TWITTER_KEY,
-  consumerSecret: process.env.TWITTER_SECRET,
-  callbackURL: '/auth/twitter/callback',
-  passReqToCallback: true
-}, (req, accessToken, tokenSecret, profile, done) => {
-  if (req.user) {
-    User.findOne({ twitter: profile.id }, (err, existingUser) => {
-      if (err) { return done(err); }
-      if (existingUser) {
-        req.flash('errors', { msg: 'There is already a Twitter account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
-        done(err);
-      } else {
-        User.findById(req.user.id, (err, user) => {
-          if (err) { return done(err); }
-          user.twitter = profile.id;
-          user.tokens.push({ kind: 'twitter', accessToken, tokenSecret });
-          user.profile.name = user.profile.name || profile.displayName;
-          user.profile.location = user.profile.location || profile._json.location;
-          user.profile.picture = user.profile.picture || profile._json.profile_image_url_https;
-          user.save((err) => {
-            if (err) { return done(err); }
-            req.flash('info', { msg: 'Twitter account has been linked.' });
-            done(err, user);
-          });
-        });
-      }
-    });
-  } else {
-    User.findOne({ twitter: profile.id }, (err, existingUser) => {
-      if (err) { return done(err); }
-      if (existingUser) {
-        return done(null, existingUser);
-      }
-      const user = new User();
-      // Twitter will not provide an email address.  Period.
-      // But a person’s twitter username is guaranteed to be unique
-      // so we can "fake" a twitter email address as follows:
-      user.email = `${profile.username}@twitter.com`;
-      user.twitter = profile.id;
-      user.tokens.push({ kind: 'twitter', accessToken, tokenSecret });
-      user.profile.name = profile.displayName;
-      user.profile.location = profile._json.location;
-      user.profile.picture = profile._json.profile_image_url_https;
-      user.save((err) => {
-        done(err, user);
-      });
-    });
-  }
-}));
+    //En este ejemplo, sólo el ID de usuario se serializa en la sesión, manteniendo
+    //pequeña la cantidad de datos almacenados dentro de la sesión. Cuando se reciben
+    //solicitudes posteriores, este ID se utiliza para encontrar al usuario, que se
+    //restaurará a req.user.
 
-/**
- * Login Required middleware.
- */
-exports.isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};
+    // La lógica de serialización y deserialización es suministrada por la aplicación,
+    // permitiendo a la aplicación elegir una base de datos apropiada y / o un asignador
+    //de objetos, sin imposición por la capa de autenticación.
 
-/**
- * Authorization Required middleware.
- */
-exports.isAuthorized = (req, res, next) => {
-  const provider = req.path.split('/').slice(-1)[0];
+    passport.use(
+            'local-signup',
+            new LocalStrategy({
+                // by default, local strategy uses username and password, we will override with email
+                usernameField: 'email',
+                passwordField: 'password',
+                passReqToCallback: true // allows us to pass back the entire request to the callback
+            },
+                    function (req, email, password, done) {
 
-  if (_.find(req.user.tokens, { kind: provider })) {
-    next();
-  } else {
-    res.redirect(`/auth/${provider}`);
-  }
+                        sql.countUser(email, function (rows) {
+                            if (rows[0].count >= 1) {
+                                return done(null, false, 'e-mail is in use in our database');
+                            } else {
+                                // if there is no user with that email
+                                // create the user
+                                var newUser = {
+                                    email: email,
+                                    password: bcrypt.hashSync(password, null, null),
+                                    name: req.body.email/*,
+                                    usertype: req.body.usertype*/
+                                };
+
+                                sql.insertUser(newUser, function (rows) {
+                                    if (rows) {
+                                        return done(null, email);
+                                    }
+                                });//fin de consulta
+                            }//fin del else
+                        });//fin de count
+                    }));//fin de local
+
+    passport.use(
+            'local-login',
+            new LocalStrategy({
+                // by default, local strategy uses username and password, we will override with email
+                usernameField: 'user',
+                passwordField: 'password',
+                passReqToCallback: true // allows us to pass back the entire request to the callback
+            },
+                    function (req, user, password, done) {
+                        sql.getUser(user, function (error, rows) {
+                            if (!rows.length) {
+
+                                return done(null, false, 'nouser');
+                            }
+                            if (!bcrypt.compareSync(password, rows[0].password)) {
+
+                                return done(null, false, 'wrongpassword');
+                            } else {
+
+                                return done(null, rows[0]);
+                            }
+                        });
+
+                    })
+            );
 };

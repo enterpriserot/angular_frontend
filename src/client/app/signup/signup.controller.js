@@ -16,34 +16,41 @@
         vm.signupPass = '';
         vm.signupPass2 = '';
         vm.sendSignup = sendSignup;
+        vm.user = {};
 
         function sendSignup(){
           console.log('sendSignup');
           if(vm.signupPass2 === vm.signupPass){
-              var data = {
+              vm.user = {
                 'name': vm.signupName,
                 'email': vm.signupEmail,
-                'pass': vm.signupPass
+                'password': vm.signupPass
               };
-              var UserJSON = JSON.stringify(data);
-              dataservice.login(UserJSON).then(function(response){
-
-                  if(response[0].email === data.email){
-                    vm.errorMail = 'e-mail is in use in our database';
+              
+              var UserJSON = JSON.stringify(vm.user);
+              dataservice.signup(UserJSON).then(function (response){
+                  console.log(response);
+                  if(response.data === 'name'){
+                        vm.errorMail = 'email is in use in our database';
+                            $timeout(function () {
+                                vm.errorMail = '';
+                            }, 6000);
+                  }else if (response.data === 'err') {
+                        vm.resultmessage = 'Server error, please try it later';
                         $timeout(function () {
-                            vm.errorMail = '';
+                            vm.resultmessage = '';
+                            $state.go('main');
                         }, 6000);
                   }else{
-                    console.log('ELSE RESPONSE');
+                    vm.resultmessage = 'User created successfull';
+                    $timeout(function () {
+                        vm.resultmessage = '';
+                        $state.go('main');
+                    }, 6000);
                   }
-                  console.log(response);
-                  console.log('login');
               });
-              // dataservice.signup(UserJSON).then(function (response){
-              //     console.log(response);
-              // });
           }else {
-            console.log('passwords són diferents');
+            console.log('els passwords són diferents');
             vm.message = 'Passwords does not match';
                 $timeout(function () {
                     vm.message = '';
