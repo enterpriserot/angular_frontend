@@ -11,18 +11,22 @@ exports.signupUser = function(req, res, next){
           return res.send('name');
       }
       return res.send(true);
-      
+
   })(req, res, next);
 };
 
-
-// exports.loginUser = function(req, res){
-//   users.countUser(req.body,
-//       function (err, callback) {
-//         if(err){
-//           res.send(err);
-//         }
-//         res.json(callback);
-//       }
-//   );
-// };
+exports.loginUser = function(req, res, next){
+console.log(req.body);
+  passport.authenticate('local-login', function (err, user, info){
+        console.log(err);
+        console.log(user);
+        console.log(info);
+      if(err){
+          return res.send('err');
+      }
+      if (!user) {
+          return res.send('errorcredentials');
+      }
+      return res.send(user);
+  })(req, res, next);
+};

@@ -26,7 +26,7 @@
                 'email': vm.signupEmail,
                 'password': vm.signupPass
               };
-              
+
               var UserJSON = JSON.stringify(vm.user);
               dataservice.signup(UserJSON).then(function (response){
                   console.log(response);

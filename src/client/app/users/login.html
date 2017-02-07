@@ -4,7 +4,8 @@
           <h3>LOG IN </h3>
   <hr>
   <p>
-    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ng-model="vm.inputEmail" class="loginemail" id="inputUser" name="email" placeholder=" EMAIL ADDRESS" required>
+    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ng-model="vm.inputEmail" class="loginemail" id="inputUser" name="email" placeholder=" EMAIL ADDRESS" required><br/>
+    <span>{{vm.error}}</span>
   </p>
   <p>
     <input type="password" ng-model="vm.inputPassword" name="loginpassword" id="inputPass" placeholder=" PASSWROD" required>

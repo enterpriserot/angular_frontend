@@ -5,10 +5,10 @@
         .module('app.users')
         .controller('UsersController', UsersController);
 
-    UsersController.$inject = ['dataservice', '$state', 'routerHelper', '$uibModalInstance'];
+    UsersController.$inject = ['dataservice', '$state', 'routerHelper', '$uibModalInstance', '$timeout', 'logger'];
 
     /* @ngInject */
-    function UsersController(dataservice, $state, routerHelper, $uibModalInstance) {
+    function UsersController(dataservice, $state, routerHelper, $uibModalInstance, $timeout, logger) {
         var vm = this;
         vm.title = 'Login';
         vm.closeModal = closeModal;
@@ -29,12 +29,17 @@
             'pass': vm.inputPassword
           };
 
-          var UserJSON = JSON.stringify(data);
-          // dataservice.getLocation(UserJSON).then(function (response){
-          //   console.log(response);
-          // });
-          dataservice.login(UserJSON).then(function (response){
+          var userData = JSON.stringify(data);
+
+          dataservice.login(userData).then(function (response){
               console.log(response);
+              if(response.data === 'errorcredentials'){
+                logger.error('e-mail/password incorrect');
+                vm.error = 'e-mail/password incorrect';
+                $timeout(function () {
+                    vm.error = '';
+                }, 4000);
+              }
           });
           console.log('loginSend');
           console.log(vm.inputEmail);

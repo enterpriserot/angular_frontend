@@ -13,7 +13,7 @@
       getTechnicians: getTechnicians,
       getLocation: getLocation,
       signup: signup,
-      login: access
+      login: localLogin
     };
 
     return service;
@@ -66,19 +66,22 @@
     }
 
     function signup(data){
-        return $http.post('/api/signup', data).then().catch(fail);
-        function success() {
+        return $http.post('/api/signup', data)
+                    .then(success)
+                    .catch(fail);
+                    
+        function success(response) {
             console.log('true signup');
-            return true;
+            return response;
         }
 
         function fail() {
           console.log('false signup');
             return false;
         }
-    }
+    }//End signup function
 
-    function access(data) {
+    function localLogin(data) {
             console.log('dataservice:');
             console.log(data);
             return $http.post('/api/login', data)
@@ -87,7 +90,7 @@
 
             function success(response) {
                 console.log('true main Login');
-                return response.data;
+                return response;
             }
 
             function fail() {

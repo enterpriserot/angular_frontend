@@ -26,7 +26,6 @@ require('./config/passport.js')(passport);
 //de inicio de sesión persistentes, se debe utilizar el middleware passport.session ().
 //Asegúrese de usar express.session () antes de passport.session () para asegurarse de
 //que la sesión de inicio de sesión se restaure en el orden correcto.
-
 app.use(session({secret: 'ilovescotchscotchyscotchscotch',
                 resave: true,
                 saveUninitialized: true})); // session secret

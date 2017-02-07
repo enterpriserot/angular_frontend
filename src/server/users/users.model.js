@@ -34,13 +34,17 @@ usersModel.countUser = function (email,callback){
 };
 
 usersModel.getUser = function (email, callback){
-
+console.log('GET USER');
     if(mysql.connection){
-        mysql.connection.query('SELECT * FROM users WHERE email LIKE ?', [email],
+        mysql.connection.query('SELECT * FROM users WHERE email LIKE "'+ email+'"',
         function (error, rows){
             if (error){
+              console.log('ERROR:');
+              console.log(error);
               throw error;
             }else{
+              console.log('ROWS:');
+              console.log(rows);
               callback(rows);
             }
         });

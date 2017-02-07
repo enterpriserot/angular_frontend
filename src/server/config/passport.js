@@ -8,47 +8,35 @@ module.exports = function (passport) {
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
-    //En una aplicación web típica, las credenciales utilizadas para autenticar un
-    //usuario sólo se transmitirán durante la solicitud de inicio de sesión. Si la
-    //autenticación tiene éxito, se establecerá y mantendrá una sesión a través de
-    //una cookie establecida en el navegador del usuario.
+    // required for persistent login sessions
+    // passport needs ability to serialize and unserialize users out of session
 
-    //Cada solicitud posterior no contendrá credenciales, sino la cookie única que
-    //identifica la sesión. Para dar soporte a las sesiones de inicio de sesión,
-    //Passport serializará y deserializará las instancias de usuario de la sesión.
-
+    // used to serialize the user for the session
     passport.serializeUser(function (user, done) {
-        console.log('uso serializer');//no borrar
         done(null, user.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function (id, done) {
-        console.log('uso deserialize');//no borrar
         sql.getUser(id, function (error, rows) {
             done(error, rows[0]);
         });
     });
 
-    //En este ejemplo, sólo el ID de usuario se serializa en la sesión, manteniendo
-    //pequeña la cantidad de datos almacenados dentro de la sesión. Cuando se reciben
-    //solicitudes posteriores, este ID se utiliza para encontrar al usuario, que se
-    //restaurará a req.user.
+    // =========================================================================
+   // LOCAL SIGNUP ============================================================
+   // =========================================================================
+   // we are using named strategies since we have one for login and one for signup
+   // by default, if there was no name, it would just be called 'local'
 
-    // La lógica de serialización y deserialización es suministrada por la aplicación,
-    // permitiendo a la aplicación elegir una base de datos apropiada y / o un asignador
-    //de objetos, sin imposición por la capa de autenticación.
-
-    passport.use(
-            'local-signup',
-            new LocalStrategy({
+    passport.use('local-signup', new LocalStrategy({
                 // by default, local strategy uses username and password, we will override with email
                 usernameField: 'email',
                 passwordField: 'password',
                 passReqToCallback: true // allows us to pass back the entire request to the callback
             },
                     function (req, email, password, done) {
-
+                        console.log('FUNCTION SIGNUP');
                         sql.countUser(email, function (rows) {
                             if (rows[0].count >= 1) {
                                 return done(null, false, 'e-mail is in use in our database');
@@ -58,7 +46,7 @@ module.exports = function (passport) {
                                 var newUser = {
                                     email: email,
                                     password: bcrypt.hashSync(password, null, null),
-                                    name: req.body.email/*,
+                                    name: req.body.name/*,
                                     usertype: req.body.usertype*/
                                 };
 
@@ -71,22 +59,29 @@ module.exports = function (passport) {
                         });//fin de count
                     }));//fin de local
 
-    passport.use(
-            'local-login',
-            new LocalStrategy({
+
+    // =========================================================================
+    // LOCAL LOGIN =============================================================
+    // =========================================================================
+    // we are using named strategies since we have one for login and one for signup
+    // by default, if there was no name, it would just be called 'local'
+
+    passport.use('local-login', new LocalStrategy({
                 // by default, local strategy uses username and password, we will override with email
-                usernameField: 'user',
+                usernameField: 'email',
                 passwordField: 'password',
                 passReqToCallback: true // allows us to pass back the entire request to the callback
             },
-                    function (req, user, password, done) {
-                        sql.getUser(user, function (error, rows) {
+                    function (req, email, password, done) {
+                      console.log('76 passport use');
+                        sql.getUser(email, function (error, rows) {
+                          console.log('SQL GET USER');
                             if (!rows.length) {
-
+                                console.log('IF !ROWS LENGTH');
                                 return done(null, false, 'nouser');
                             }
                             if (!bcrypt.compareSync(password, rows[0].password)) {
-
+                                console.log('IF !BCRYPT COMPARESYNC');
                                 return done(null, false, 'wrongpassword');
                             } else {
 
