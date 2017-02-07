@@ -19,38 +19,37 @@
         vm.currentPage = 1;
         vm.filtro = '';
         vm.update = update;
-        $scope.$watch('vm.filtro', vm.update);
-
-        vm.map = {
-          center: { latitude: 0, longitude: 0 },
-          zoom: 13,
-          windows: {
-            model: {},
-            show: false,
-            options:{
-              pixelOffset: {width:-1,height:-20}
-            }
-          },
-          markersEvents: {
-            click: function(marker, eventName, model, args) {
-              // console.log(marker);
-              // console.log(model);
-              vm.map.windows.model = model;
-              vm.map.windows.show = true;
-              for (var i = 0; i < vm.technicians.length; i++) {
-                if (vm.technicians[i].id === model.id) {
-                  vm.infoWindow = vm.technicians[i];
-                }
-              }
-
-            }
-          }
-        };
+        vm.map = { center: { latitude: 0, longitude: 0 }, zoom: 10 };
         // vm.getTechnicians = getTechnicians;
 
-
+        $scope.$watch('vm.filtro', vm.update);
         // var watcher = vm.watch('./technicians.html');
         // watcher.on('change', update);
+
+
+
+        vm.onClick = function(markers, eventName, model) {
+            console.log(markers);
+            console.log(eventName);
+            console.log(model);
+            console.log(vm.technicians);
+            for (var i = 0; i < vm.technicians.length; i++) {
+              console.log('for');
+              if (i === model.id) {
+                console.log('if');
+                vm.infoWindow ={
+                  templateUrl:'./technicianIcon.html',
+                  techInfo: vm.technicians[i],
+                  windowid: vm.technicians[i].id
+                };
+              }
+            }
+            console.log(vm.infoWindow);
+            model.show = !model.show;
+
+        };
+
+
 
         activate();
 
@@ -82,14 +81,8 @@
           for (var i = 0; i < technicians.length; i++) {
             var latitude = technicians[i]['latitude'];
             var longitude = technicians[i]['longitude'];
-            var id = technicians[i]['id'];
 
-            var marker = {
-              latitude: latitude,
-              longitude: longitude,
-              id: id,
-              icon: './images/man_icon.svg'
-            };
+            var marker = {latitude: latitude, longitude: longitude, id: i, icon: './images/man_icon.svg'};
 
             vm.markers.push(marker);
           }
@@ -101,8 +94,10 @@
             var latitude = data.coords.latitude;
             var longitude = data.coords.longitude;
 
-            vm.map.center = { latitude:latitude, longitude:longitude};
-
+            vm.map = {
+              center:{latitude:latitude, longitude:longitude},
+              zoom:12
+            };
             getTechnicians(data);
           });
       }
