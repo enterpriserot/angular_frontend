@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('app.users')
-        .controller('UsersController', UsersController);
+        .module('app.login')
+        .controller('LoginController', LoginController);
 
-    UsersController.$inject = ['dataservice', '$state', 'routerHelper', '$uibModalInstance', '$timeout', 'logger'];
+    LoginController.$inject = ['dataservice', '$state', 'routerHelper', '$uibModalInstance', '$timeout', 'logger', '$rootScope'];
 
     /* @ngInject */
-    function UsersController(dataservice, $state, routerHelper, $uibModalInstance, $timeout, logger) {
+    function LoginController(dataservice, $state, routerHelper, $uibModalInstance, $timeout, logger, $rootScope) {
         var vm = this;
         vm.title = 'Login';
         vm.closeModal = closeModal;
@@ -34,19 +34,21 @@
           dataservice.login(userData).then(function (response){
               console.log(response);
               if(response.data === 'errorcredentials'){
-                logger.error('e-mail/password incorrect');
-                vm.error = 'e-mail/password incorrect';
+                  logger.error('e-mail / password incorrect');
+                  vm.error = 'e-mail / password incorrect';
                 $timeout(function () {
                     vm.error = '';
                 }, 4000);
               }else if (response.data.email === vm.inputEmail) {
-                logger.success('User logged in correctly');
-                $timeout(function (){
+                  logger.success('User logged in correctly');
                   $timeout(function (){
-                    $uibModalInstance.dismiss('cancel');
-                  },1000);
-                    $state.go('main');
-                },4000);
+                      $uibModalInstance.dismiss('cancel');
+                      // $state.go('main');
+                      $rootScope.authUser = response.data.email;
+                      $state.go('admin');
+                  },2000);
+              }else{
+                  logger.error('Intenal server error, try it later');
               }
           });
           console.log('loginSend');

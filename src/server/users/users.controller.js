@@ -2,6 +2,7 @@ var passport = require('passport');
 
 module.exports.signupUser = signupUser;
 module.exports.loginUser = loginUser;
+module.exports.loginFb = loginFb;
 
  function signupUser(req, res, next){
 
@@ -21,18 +22,28 @@ function loginUser (req, res, next){
 
   // passport.authenticate('local-login', { badRequestMessage: 'An error occurs' },function (err, user, info){
   passport.authenticate('local-login', function (err, user, info){
-        console.log(err);
-        console.log(user);
-        console.log(info);
+
       if(err){
-        console.log('IF ERR');
           return res.send('err');
-      }
-      if (!user) {
-        console.log('IF !USER');
+      }else if (!user) {
           return res.send('errorcredentials');
       }
-      console.log('RETURN SEND USER');
+
       return res.send(user);
+  })(req, res, next);
+}
+
+function loginFb(req, res, next){
+
+  passport.authenticate('facebook-login', function (err, user, info){
+
+    if(err){
+        return res.send('err');
+    }else if (!user) {
+        return res.send('errorcredentials');
+    }
+    
+    return res.send(user);
+
   })(req, res, next);
 }

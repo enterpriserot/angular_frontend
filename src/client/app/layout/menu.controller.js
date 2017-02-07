@@ -5,18 +5,28 @@
     .module('app.layout')
     .controller('MenuController', MenuController);
 
-  MenuController.$inject = ['$state', 'routerHelper','$uibModal'];
+  MenuController.$inject = ['$rootScope', '$q', '$state', 'routerHelper','$uibModal', 'dataservice', 'logger'];
   /* @ngInject */
-  function MenuController($state, routerHelper,$uibModal) {
+  function MenuController($rootScope, $q, $state, routerHelper,$uibModal, dataservice, logger) {
     var vm = this;
     vm.animationsEnabled = true;
+
+    vm.modalLogin = modalLogin;
+    vm.logout = logout;
+
     var states = routerHelper.getStates();
     vm.isCurrent = isCurrent;
-    vm.modalLogin = modalLogin;
 
     activate();
 
-    function activate() { getNavRoutes(); }
+    function activate() {
+      getNavRoutes();
+
+      var promises = [getAuthUser()];
+      return $q.all(promises).then(function(){
+          logger.info('Activated layout view');
+      });
+    }
 
     function getNavRoutes() {
       vm.navRoutes = states.filter(function(r) {
@@ -38,8 +48,8 @@
 
       var modalInstance = $uibModal.open({
 
-        templateUrl: './app/users/login.html',
-        controller: 'UsersController',
+        templateUrl: './app/login/login.html',
+        controller: 'LoginController',
         controllerAs: 'vm',
         // resolve: {
         //   items: function () {
@@ -49,6 +59,19 @@
       });
     }
 
+    function getAuthUser(){
+      return dataservice.isLoggedin().then(function(data) {
+        $rootScope.authUser = data;
+        return $rootScope.authUser;
+      });
+    }
+
+    function logout(){
+      return dataservice.logout().then(function(data) {
+        $rootScope.authUser = undefined;
+        return $rootScope.authUser;
+      });
+    }
 
   }
 })();

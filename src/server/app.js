@@ -21,9 +21,7 @@ app.use(favicon(__dirname + '/favicon.ico'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
-app.use(cookieParser());//esto se debe poner sino da fallo conect.sid
-// app.use(express.json());
-// app.use(express.urlencoded());
+app.use(cookieParser());
 
 require('./config/passport.js')(passport);
 
@@ -36,9 +34,10 @@ require('./users/users.route.js')(app);
 //de inicio de sesión persistentes, se debe utilizar el middleware passport.session ().
 //Asegúrese de usar express.session () antes de passport.session () para asegurarse de
 //que la sesión de inicio de sesión se restaure en el orden correcto.
-app.use(session({secret: 'ilovescotchscotchyscotchscotch'/*,
+app.use(session({secret: 'maytheforcebewithyou',
                 resave: true,
-                saveUninitialized: true*/})); // session secret
+                saveUninitialized: true,
+                cookie : {secure: false, masAge: 120000}})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 /*----PASSPORT END----*/

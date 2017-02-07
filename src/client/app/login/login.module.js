@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.users', [
+        .module('app.login', [
             'app.core',
             'app.widgets'
         ]);

@@ -9,8 +9,8 @@
     'app.layout',
     'app.contact',
     'app.technicians',
-    'app.users',
-    'app.signup'    
+    'app.login',
+    'app.signup'
   ]);
 
 })();
