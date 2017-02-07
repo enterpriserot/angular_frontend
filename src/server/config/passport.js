@@ -72,16 +72,17 @@ module.exports = function (passport) {
                 passwordField: 'password',
                 passReqToCallback: true // allows us to pass back the entire request to the callback
             },
-                    function (req, email, password, done) {
-                      console.log('76 passport use');
-                        sql.getUser(email, function (error, rows) {
-                          console.log('SQL GET USER');
+                    function (req, user, password, done) {
+                      // console.log('76 passport use');
+                        sql.getUser(user, function (error, rows) {
+                          console.log('PASSPORT.JS SQL GET USER');
+                          console.log(rows);
                             if (!rows.length) {
-                                console.log('IF !ROWS LENGTH');
+                                console.log('PASSPORT.JS IF !ROWS LENGTH');
                                 return done(null, false, 'nouser');
                             }
                             if (!bcrypt.compareSync(password, rows[0].password)) {
-                                console.log('IF !BCRYPT COMPARESYNC');
+                                console.log('PASSPORT.JS IF !BCRYPT COMPARESYNC');
                                 return done(null, false, 'wrongpassword');
                             } else {
 

@@ -26,7 +26,7 @@
         function loginSend(){
           var data = {
             'email': vm.inputEmail,
-            'pass': vm.inputPassword
+            'password': vm.inputPassword
           };
 
           var userData = JSON.stringify(data);
@@ -39,6 +39,14 @@
                 $timeout(function () {
                     vm.error = '';
                 }, 4000);
+              }else if (response.data.email === vm.inputEmail) {
+                logger.success('User logged in correctly');
+                $timeout(function (){
+                  $timeout(function (){
+                    $uibModalInstance.dismiss('cancel');
+                  },1000);
+                    $state.go('main');
+                },4000);
               }
           });
           console.log('loginSend');

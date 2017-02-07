@@ -3,7 +3,7 @@
 
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var port = process.env.PORT || 8001;
@@ -11,37 +11,39 @@ var four0four = require('./utils/404')();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
-// var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
-
 var environment = process.env.NODE_ENV;
 
 var dotenv = require('dotenv');
 dotenv.load({ path: './src/server/.env' });
 
+app.use(favicon(__dirname + '/favicon.ico'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(logger('dev'));
+app.use(cookieParser());//esto se debe poner sino da fallo conect.sid
+// app.use(express.json());
+// app.use(express.urlencoded());
 
 require('./config/passport.js')(passport);
+
+require('./contact/contact.route.js')(app);
+require('./technicians/technicians.route.js')(app);
+require('./users/users.route.js')(app);
+
 //En una aplicación basada en Connect o Express, se requiere el middleware passport.
 //initialize () para inicializar Passport. Si su aplicación utiliza sesiones
 //de inicio de sesión persistentes, se debe utilizar el middleware passport.session ().
 //Asegúrese de usar express.session () antes de passport.session () para asegurarse de
 //que la sesión de inicio de sesión se restaure en el orden correcto.
-app.use(session({secret: 'ilovescotchscotchyscotchscotch',
+app.use(session({secret: 'ilovescotchscotchyscotchscotch'/*,
                 resave: true,
-                saveUninitialized: true})); // session secret
+                saveUninitialized: true*/})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 /*----PASSPORT END----*/
 
 
-app.use(favicon(__dirname + '/favicon.ico'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(logger('dev'));
-
-require('./contact/contact.route.js')(app);
-require('./technicians/technicians.route.js')(app);
-require('./users/users.route.js')(app);
 
 console.log('About to crank up node');
 console.log('PORT=' + port);
