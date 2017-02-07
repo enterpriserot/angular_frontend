@@ -33,7 +33,7 @@
 
         <!-- <input class="btn btn-primary" type="submit" name="submit" id="submitBtn" disabled="disabled" value="send" /> -->
 
-        <input type="submit" name="submit" id="submitBtn" value="Send" ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputMessage.$valid"/>
+        <input type="submit" name="submit" id="submitBtn" class="btn btn-primary" value="Send" ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputMessage.$valid"/>
 
         <div id="resultMessageOk" class="msg_ok">{{vm.resultMessageOk}}</div>
         <div id="resultMessageFail" class="msg_error">{{vm.resultMessageFail}}</div>

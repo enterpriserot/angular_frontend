@@ -1,4 +1,4 @@
-
+<!-- templateUrl="'vm.infoWindow.templateUrl'" templateParameters="'vm.infoWindow.techInfo'" -->
 <section id="main" class="wrapper">
   <div class="techniciansFilter">
     <h3>Search Technicians:</h3> <input type="text" class="filtre" ng-model="vm.filtro" >
@@ -6,7 +6,20 @@
   <div class="techniciansContent">
       <div class="col-md-6">
           <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
-            <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'">
+            <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'" click="vm.onClick">
+              <ui-gmap-windows idkey="'vm.infoWindow.techInfo.id'" >
+                <div class="techBoxInfo">
+                  <div class="desc">{{vm.infoWindow.techInfo.name}} {{tech.surname1}}</div>
+                  <div class="points"> Values: <p class="stars-container stars-{{vm.infoWindow.techInfo.points/vm.infoWindow.techInfo.val_qty}}"  > ★★★★★ </p></div>
+                  <div class="hora"> Horario: {{vm.infoWindow.techInfo.time_start}} - {{vm.infoWindow.techInfo.time_end}}</div>
+                  <div class="details" >
+                    <a href="#/technicians/{{vm.infoWindow.techInfo.id}}">+info</a>
+                    <a href="#">Contact</a>
+                  </div>
+                </div>
+
+              </ui-gmap-windows>
+            </ui-gmap-markers>
           </ui-gmap-google-map>
       </div>
 
@@ -16,7 +29,7 @@
           <div>
               <div class="desc">{{tech.name}} {{tech.surname1}}</div>
               <div class="points"> Values: <p class="stars-container stars-{{tech.points/tech.val_qty}}"  > ★★★★★ </p></div>
-              <div class="hora"> Horario: {{of.hora_inicio}} - {{of.hora_final}}</div>
+              <div class="hora"> Horario: {{tech.time_start}} - {{tech.time_end}}</div>
               <div class="details" >
                 <a href="#/technicians/{{of.id}}">+info</a>
                 <a href="#">Contact</a>

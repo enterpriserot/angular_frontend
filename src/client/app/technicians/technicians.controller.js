@@ -19,13 +19,36 @@
         vm.currentPage = 1;
         vm.filtro = '';
         vm.update = update;
+        vm.map = { center: { latitude: 0, longitude: 0 }, zoom: 10 };
         // vm.getTechnicians = getTechnicians;
 
         $scope.$watch('vm.filtro', vm.update);
         // var watcher = vm.watch('./technicians.html');
         // watcher.on('change', update);
 
-        vm.map = { center: { latitude: 0, longitude: 0 }, zoom: 10 };
+
+
+        vm.onClick = function(markers, eventName, model) {
+            console.log(markers);
+            console.log(eventName);
+            console.log(model);
+            console.log(vm.technicians);
+            for (var i = 0; i < vm.technicians.length; i++) {
+              console.log('for');
+              if (i === model.id) {
+                console.log('if');
+                vm.infoWindow ={
+                  templateUrl:'./technicianIcon.html',
+                  techInfo: vm.technicians[i],
+                  windowid: vm.technicians[i].id
+                };
+              }
+            }
+            console.log(vm.infoWindow);
+            model.show = !model.show;
+
+        };
+
 
 
         activate();
