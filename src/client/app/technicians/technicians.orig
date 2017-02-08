@@ -6,32 +6,36 @@
   <div class="techniciansContent">
       <div class="col-md-6">
           <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
-
-            <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'" events="vm.map.markersEvents"></ui-gmap-markers>
-            <ui-gmap-window show="vm.map.windows.show" coords= "vm.map.windows.model">
-              <div class="techBoxInfo">
-                <div class="desc">{{vm.infoWindow.name}} {{vm.infoWindow.surname}}</div>
-                <div class="points"> Values: <p class="stars-container stars-{{vm.infoWindow.points/vm.infoWindow.val_qty}}"  > ★★★★★ </p></div>
-                <div class="hora"> Horario: {{vm.infoWindow.time_start}} - {{vm.infoWindow.time_end}}</div>
-                <div class="details">
-                  <a href="./'{{vm.infoWindow.id}}'">+info</a>
-                  <a href="#">Contact</a>
+            <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'" click="vm.onClick">
+              <ui-gmap-windows idkey="'vm.infoWindow.techInfo.id'" >
+                <div class="techBoxInfo">
+                  <div class="desc">{{vm.infoWindow.techInfo.name}} {{tech.surname1}}</div>
+                  <div class="points"> Values: <p class="stars-container stars-{{vm.infoWindow.techInfo.points/vm.infoWindow.techInfo.val_qty}}"  > ★★★★★ </p></div>
+                  <div class="hora"> Horario: {{vm.infoWindow.techInfo.time_start}} - {{vm.infoWindow.techInfo.time_end}}</div>
+                  <div class="details" >
+                    <a href="#/technicians/{{vm.infoWindow.techInfo.id}}">+info</a>
+                    <a href="#">Contact</a>
+                  </div>
                 </div>
-              </div>
-            </ui-gmap-window>
 
+                <ui-gmap-window show="show" coords="'vm.coords'">
+                    <div>hola</div>
+                </ui-gmap-window>
 
+              </ui-gmap-windows>
+            </ui-gmap-markers>
           </ui-gmap-google-map>
       </div>
 
     <div class="techniciansInfo">
       <div class="techBoxInfo"  ng-repeat="tech in vm.technicians| filter:{name:vm.filtro}" id="{{tech.id}}">
+          <!-- <div ng-click="select(tech.id)"> -->
           <div>
               <div class="desc">{{tech.name}} {{tech.surname1}}</div>
               <div class="points"> Values: <p class="stars-container stars-{{tech.points/tech.val_qty}}"  > ★★★★★ </p></div>
               <div class="hora"> Horario: {{tech.time_start}} - {{tech.time_end}}</div>
               <div class="details" >
-                <a href="#" ng-click="vm.modalDetails(tech.id)">+info</a>
+                <a href="#/technicians/{{of.id}}">+info</a>
                 <a href="#">Contact</a>
               </div>
           </div>
