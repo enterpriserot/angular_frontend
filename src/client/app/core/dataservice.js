@@ -8,6 +8,7 @@
   dataservice.$inject = ['$window', '$http', '$q', 'exception', 'logger', '$state', '$rootScope'];
   /* @ngInject */
   function dataservice($window, $http, $q, exception, logger, $state, $rootScope) {
+
     var service = {
       sendEmail: sendEmail,
       getTechnicians: getTechnicians,
@@ -119,7 +120,7 @@
                   return false;
               }
         }//End localLoginFb function
-        
+
         //================================================
         // Check if the user is connected
         //================================================
@@ -176,6 +177,7 @@
            },
            function(responseError) { // optional
                console.log('ERRRRROR: '+responseError);
+               console.log(responseError);
                //$state.go('login');
            });
         }

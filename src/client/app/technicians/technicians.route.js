@@ -22,7 +22,7 @@
                     controllerAs: 'vm',
                     title: 'Technicians',
                     settings: {
-                      nav: 4,
+                      nav: 1,
                       content: '<i class="fa fa-lock"></i> Technicians'
                     }
                 }

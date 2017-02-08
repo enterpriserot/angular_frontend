@@ -1,6 +1,8 @@
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt-nodejs');
 var sql = require('../users/users.model');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 //exporta la libreria de funciones
 module.exports = function (passport) {
@@ -92,4 +94,17 @@ module.exports = function (passport) {
 
                     })
             );
+
+    passport.use('facebook-login', new FacebookStrategy({
+        clientID: process.env.FACEBOOK_ID,
+        clientSecret: process.env.FACEBOOK_SECRET,
+        callbackURL: '/auth/facebook/callback',
+        profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
+        passReqToCallback: true
+      }, function(req, accessToken, refreshToken, profile, cb) {
+        //console.log(profile);
+        req.user = profile.name;
+        console.log(req.user);
+        return cb( null, profile);
+      }));
 };

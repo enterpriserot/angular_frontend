@@ -22,8 +22,8 @@
           controllerAs: 'vm',
           title: 'main',
           settings: {
-            nav: 1,
-            content: '<i class="fa fa-main"></i> Main'
+            // nav: 1,
+            // content: '<i class="fa fa-main"></i> Main'
           }
         }
       }

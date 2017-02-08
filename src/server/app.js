@@ -6,7 +6,7 @@ var app = express();
 // var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var port = process.env.PORT || 8001;
+var port = process.env.PORT || 7200;
 var four0four = require('./utils/404')();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -16,6 +16,9 @@ var environment = process.env.NODE_ENV;
 
 var dotenv = require('dotenv');
 dotenv.load({ path: './src/server/.env' });
+
+var cors = require('cors');
+app.use(cors());
 
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,8 +38,8 @@ require('./users/users.route.js')(app);
 //Asegúrese de usar express.session () antes de passport.session () para asegurarse de
 //que la sesión de inicio de sesión se restaure en el orden correcto.
 app.use(session({secret: 'maytheforcebewithyou',
-                resave: true,
-                saveUninitialized: true,
+                resave: false,
+                saveUninitialized: false,
                 cookie : {secure: false, masAge: 120000}})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
