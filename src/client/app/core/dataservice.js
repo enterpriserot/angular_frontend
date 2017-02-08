@@ -32,7 +32,6 @@
     }
 
     function getTechnicians(position) {
-      console.log(position);
       var location = {latitude:position.coords.latitude, longitude:position.coords.longitude};
       return $http.post('/api/technicians', location).then(success).catch(fail);
 

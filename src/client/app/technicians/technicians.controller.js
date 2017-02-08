@@ -5,10 +5,10 @@
         .module('app.technicians')
         .controller('techniciansController', techniciansController);
 
-    techniciansController.$inject = ['$q','dataservice','logger','$scope'];
+    techniciansController.$inject = ['$q','dataservice','logger','$scope', '$uibModal'];
 
     /* @ngInject */
-    function techniciansController($q, dataservice, logger, $scope) {
+    function techniciansController($q, dataservice, logger, $scope, $uibModal) {
         var vm = this;
         vm.title = 'Technicians';
         vm.technicians= [];
@@ -19,6 +19,7 @@
         vm.currentPage = 1;
         vm.filtro = '';
         vm.update = update;
+        vm.modalDetails = modalDetails;
         $scope.$watch('vm.filtro', vm.update);
 
         vm.map = {
@@ -28,13 +29,12 @@
             model: {},
             show: false,
             options:{
-              pixelOffset: {width:-1,height:-20}
+              pixelOffset: {width:10,height:10},
+              position: {}
             }
           },
           markersEvents: {
             click: function(marker, eventName, model, args) {
-              // console.log(marker);
-              // console.log(model);
               vm.map.windows.model = model;
               vm.map.windows.show = true;
               for (var i = 0; i < vm.technicians.length; i++) {
@@ -64,12 +64,33 @@
 
         function getTechnicians(location){
           return dataservice.getTechnicians(location).then(function (data) {
-            console.log('hola');
             vm.technicians = data;
             // console.log(vm.technicians);
             vm.getMarkers = getMarkers(vm.technicians);
             return vm.technicians;
           });
+        }
+
+        function modalDetails(technicianId) {
+          vm.technicianDetails = getDetails(technicianId);
+
+          vm.modalInstance = $uibModal.open({
+              animation: 'true',
+              scope: $scope,
+              size: 'lg',
+              templateUrl: 'app/technicians/technicianModal.html',
+          });
+
+        }
+
+        function getDetails(technicianId) {
+          console.log(technicianId);
+          for (var i = 0; i < vm.technicians.length; i++) {
+            if (vm.technicians[i].id === technicianId) {
+              return vm.technicians[i];
+            }
+          }
+
         }
 
         function update(newValue,oldValue){
@@ -97,11 +118,10 @@
 
         function getLocation (){
           return dataservice.getLocation().then(function(data){
-            console.log(data);
             var latitude = data.coords.latitude;
             var longitude = data.coords.longitude;
 
-            vm.map.center = { latitude:latitude, longitude:longitude};
+            vm.map.center = { latitude:latitude, longitude:longitude };
 
             getTechnicians(data);
           });
