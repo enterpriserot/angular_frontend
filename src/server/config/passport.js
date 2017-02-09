@@ -21,6 +21,7 @@ module.exports = function (passport) {
     // });
 
     passport.serializeUser(function(user, done) {
+      console.log(user);
        done(null, {
           id: user['id'],
           userName: user['name'],
@@ -32,6 +33,7 @@ module.exports = function (passport) {
     passport.deserializeUser(function (user, done) {
         // sql.getUser(id, function (error, rows) {
         //     done(error, rows[0]);
+        console.log(user);
         done(null, user);
         // });
     });
