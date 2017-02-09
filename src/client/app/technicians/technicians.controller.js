@@ -14,13 +14,16 @@
         vm.technicians= [];
         vm.filteredTechnicians = [];
         vm.markers = [];
-        vm.numPerPage = 5;
         vm.maxSize = 5;
         vm.currentPage = 1;
+        vm.itemsPerPage = 4;
         vm.filtro = '';
-        vm.update = update;
         vm.modalDetails = modalDetails;
-        $scope.$watch('vm.filtro', vm.update);
+        $scope.viewOnMap = viewOnMap;
+
+        vm.pageChanged = function() {
+          update();
+        };
 
         vm.map = {
           center: { latitude: 0, longitude: 0 },
@@ -46,16 +49,10 @@
             }
           }
         };
-        // vm.getTechnicians = getTechnicians;
-
-
-        // var watcher = vm.watch('./technicians.html');
-        // watcher.on('change', update);
 
         activate();
 
         function activate() {
-          // vm.getLocation();
           var promises = [getLocation()];
           return $q.all(promises).then(function(){
             logger.info('Activated Technicians View');
@@ -65,10 +62,15 @@
         function getTechnicians(location){
           return dataservice.getTechnicians(location).then(function (data) {
             vm.technicians = data;
-            // console.log(vm.technicians);
+            update();
             vm.getMarkers = getMarkers(vm.technicians);
             return vm.technicians;
           });
+        }
+
+        function update(){
+            var begin = ((vm.currentPage - 1) * vm.itemsPerPage), end = begin + vm.itemsPerPage;
+            vm.filteredTechnicians = vm.technicians.slice(begin, end);
         }
 
         function modalDetails(technicianId) {
@@ -77,25 +79,28 @@
           vm.modalInstance = $uibModal.open({
               animation: 'true',
               scope: $scope,
-              size: 'lg',
+              size: 'md',
               templateUrl: 'app/technicians/technicianModal.html',
           });
 
         }
 
         function getDetails(technicianId) {
-          console.log(technicianId);
           for (var i = 0; i < vm.technicians.length; i++) {
             if (vm.technicians[i].id === technicianId) {
               return vm.technicians[i];
             }
           }
-
         }
 
-        function update(newValue,oldValue){
-            var begin = ((vm.currentPage - 1) * vm.numPerPage), end = begin + vm.numPerPage;
-            vm.filteredTechnicians = vm.technicians.slice(begin, end);
+        function viewOnMap(){
+          vm.map.center = {
+            latitude: vm.technicianDetails.latitude,
+            longitude: vm.technicianDetails.longitude
+          };
+          vm.map.zoom = 16;
+          vm.modalInstance.dismiss('cancel');
+          // return vm.map;
         }
 
         function getMarkers(technicians) {
@@ -129,14 +134,3 @@
 
     }
 })();
-
-// navigator.geolocation.getCurrentPosition(function(position) {
-//   $scope.$apply(function(){
-//     vm.map = {
-//       center:{latitude:position.coords.latitude, longitude:position.coords.longitude},
-//       zoom:12
-//     };
-//     console.log(vm.map);
-//   });
-//
-// });
