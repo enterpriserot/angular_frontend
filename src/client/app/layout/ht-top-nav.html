@@ -18,19 +18,19 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li id="LogProf">
+              <li id="LogProf" ng-hide="$root.authUser">
                 <!-- <a href="#" class="button special" data-toggle="modal" id="Login" data-target="#LoginModal">Login</a> -->
                 <a href="#" class="button special" ng-click="vm.modalLogin()">Login</a>
               </li>
               <!-- User auth info -->
         <li id="userAuthInfo" ng-show="$root.authUser">
             <!-- <a>Welcome <img src="{{vm.authUser.user.photoURL}}" /> {{ vm.authData.name}}</a> -->
-            <a>Welcome  {{ $root.authUser.name}}</a>
+            <a href="#">Welcome  {{ $root.authUser.name}}</a>
         </li>
 
         <!-- Logout button -->
         <li id="logoutButton" ng-click="vm.logout()" ng-show="$root.authUser">
-            <a><span class="fa fa-sign-out"></span>Logout</a>
+            <a href="#"><span class="fa fa-sign-out"></span>Logout</a>
         </li>
 
                 <li class="socialLogin">

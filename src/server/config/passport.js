@@ -14,8 +14,16 @@ module.exports = function (passport) {
     // passport needs ability to serialize and unserialize users out of session
 
     // used to serialize the user for the session
-    passport.serializeUser(function (user, done) {
-        done(null, user.id);
+    // passport.serializeUser(function (user, done) {
+    //     done(null, user.id);
+    // });
+
+    passport.serializeUser(function(user, done) {
+       done(null, {
+          id: user['id'],
+          userName: user['name'],
+          email: user['email']
+       });
     });
 
     // used to deserialize the user
@@ -75,7 +83,7 @@ module.exports = function (passport) {
                 passReqToCallback: true // allows us to pass back the entire request to the callback
             },
                     function (req, user, password, done) {
-                      // console.log('76 passport use');
+                      console.log('76 passport use');
                         sql.getUser(user, function (error, rows) {
                           console.log('PASSPORT.JS SQL GET USER');
                           console.log(rows);

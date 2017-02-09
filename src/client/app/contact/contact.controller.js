@@ -5,9 +5,9 @@
     .module('app.contact')
     .controller('ContactController', ContactController);
 
-  ContactController.$inject = ['dataservice', '$state', '$timeout'];
+  ContactController.$inject = ['dataservice', '$state', '$timeout', 'logger'];
   /* @ngInject */
-  function ContactController(dataservice, $state, $timeout) {
+  function ContactController(dataservice, $state, $timeout, logger) {
     var vm = this;
 
     vm.title = 'Contact';
@@ -34,6 +34,7 @@
             dataservice.sendEmail(data).then(function (response) {
 
                         if (response) {
+                            logger.success('Email sent correctly!');
                             vm.resultMessageOk = 'Email sent correctly!';
                             $timeout(function () {
                                 vm.resultMessageOk = '';

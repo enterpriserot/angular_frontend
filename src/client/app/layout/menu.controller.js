@@ -61,6 +61,8 @@
 
     function getAuthUser(){
       return dataservice.isLoggedin().then(function(data) {
+        console.log('getAuthUser:');
+        console.log(data);
         $rootScope.authUser = data;
         return $rootScope.authUser;
       });

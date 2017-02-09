@@ -38,8 +38,8 @@ require('./users/users.route.js')(app);
 //Asegúrese de usar express.session () antes de passport.session () para asegurarse de
 //que la sesión de inicio de sesión se restaure en el orden correcto.
 app.use(session({secret: 'maytheforcebewithyou',
-                resave: false,
-                saveUninitialized: false,
+                resave: true,
+                saveUninitialized: true,
                 cookie : {secure: false, masAge: 120000}})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());

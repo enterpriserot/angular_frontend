@@ -2,7 +2,9 @@ var passport = require('passport');
 
 module.exports.signupUser = signupUser;
 module.exports.loginUser = loginUser;
+module.exports.loggedin = loggedin;
 module.exports.loginFb = loginFb;
+module.exports.logoutUser = logoutUser;
 
  function signupUser(req, res, next){
 
@@ -22,15 +24,26 @@ function loginUser (req, res, next){
 
   // passport.authenticate('local-login', { badRequestMessage: 'An error occurs' },function (err, user, info){
   passport.authenticate('local-login', function (err, user, info){
-
+      console.log('PASSPORT AUTHENTICATE LOCAL LOGIN');
       if(err){
+          console.log('PASSPORT AUTHENTICATE LOCAL LOGIN IF');
           return res.send('err');
       }else if (!user) {
+          console.log('PASSPORT AUTHENTICATE LOCAL LOGIN ELSEIF');
           return res.send('errorcredentials');
       }
 
       return res.send(user);
   })(req, res, next);
+}
+
+function loggedin(req, res){
+  console.log('LOGGEDIN');
+  console.log(req.user);
+  console.log(req.isAuthenticated());
+
+  res.send(req.isAuthenticated() ? req.user : '0');
+
 }
 
 function loginFb(req, res, next){
@@ -42,8 +55,13 @@ function loginFb(req, res, next){
     }else if (!user) {
         return res.send('errorcredentials');
     }
-    
+
     return res.send(user);
 
   })(req, res, next);
+}
+
+function logoutUser(req, res){
+  req.logOut();
+  res.send(200);
 }

@@ -7,6 +7,8 @@ module.exports = function(app){
   // app.get('/api/login', usersController.loginUser);
   app.post('/api/login', usersController.loginUser);
   app.post('/api/signup', usersController.signupUser);
+  app.get('/api/loggedin', usersController.loggedin);
+  app.post('/api/logout', usersController.logoutUser);
   // app.get('api/loginfb', usersController.loginFb);
 //   app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 //   app.get('/auth/facebook/callback',

@@ -14,7 +14,7 @@
       getTechnicians: getTechnicians,
       getLocation: getLocation,
       signup: signup,
-      login: localLogin,
+      // login: localLogin,
       checkLoggedin: checkLoggedin,
       isLoggedin: isLoggedin,
       logout: logout
@@ -84,23 +84,27 @@
         }
     }//End signup function
 
-    function localLogin(data) {
-            console.log('dataservice:');
-            console.log(data);
-            return $http.post('/api/login', data)
-                    .then(success)
-                    .catch(fail);
+    // function localLogin(data) {
+    //         console.log('dataservice:');
+    //         console.log(data);
+    //         return $http.post('/api/login', data)
+    //                 .then(success)
+    //                 .catch(fail);
+    //
+    //         function success(response) {
+    //             console.log('true main Login');
+    //             return response;
+    //         }
+    //
+    //         function fail() {
+    //           console.log('false main Login');
+    //             return false;
+    //         }
+    //   }//End login function
 
-            function success(response) {
-                console.log('true main Login');
-                return response;
-            }
+      function login(data){
 
-            function fail() {
-              console.log('false main Login');
-                return false;
-            }
-      }//End login function
+      }
 
       function localLoginFb(data) {
               console.log('dataservice:');
@@ -130,15 +134,21 @@
             .catch(fail);
 
           function success(responseUser) {
+            console.log('success:');
+            console.log(responseUser);
              if (responseUser.data === '0'){
                  $rootScope.authUser = false;
                  $state.go('login');
             }else{
+                console.log('else:');
+                console.log(responseUser.data);
                 $rootScope.authUser = responseUser.data;
             }
           }
 
           function fail(e) {
+            console.log('fail:');
+            console.log(e);
             return exception.catcher('XHR Failed for /api/loggedin')(e);
           }
         }
@@ -169,9 +179,10 @@
                 method: 'POST'
             })
             .then(function(responseUser) {
-                console.log('OKKK:'+responseUser);
+                console.log('OKKK:');
+                console.log(responseUser);
                  $rootScope.authUser =false;
-                $state.go('/');
+                $state.go('main');
 
            },
            function(responseError) { // optional
