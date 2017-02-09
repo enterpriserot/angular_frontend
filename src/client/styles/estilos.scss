@@ -1,6 +1,7 @@
 @import url(//fonts.googleapis.com/css?family=Questrial);
 @import url(//fonts.googleapis.com/css?family=Dancing+Script:700);
 @import 'variables';
+@import 'mixins';
 
 /*Font logo principal*/
 @font-face{
@@ -672,11 +673,12 @@ div.container-form-contact .form-contact {
 section div.techniciansFilter {
 	background: #BDBDBD;
 	color: #DA521B;
-	width: 31%;
-	margin-left: 35%;
+	width: 35%;
+	margin-left: 33.33%;
 	margin-bottom: 2em;
 	border: 2px solid #FFCCBC;
-  border-radius: 8px;
+	border-radius: 8px;
+	text-align: center;
 }
 
 section div.techniciansFilter h3 {
@@ -684,12 +686,12 @@ section div.techniciansFilter h3 {
 }
 
 section div.techniciansContent {
-	width: 85%;
-	margin-left: 15%;
+	width: 90%;
+	margin-left: 10%;
 }
 
 section div.techniciansContent div.techniciansInfo {
-	width: 35%;
+	width: 50%;
 	display: inline-block;
 }
 
@@ -744,6 +746,44 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
 .stars-90:after { width: 90%; }
 .stars-100:after { width: 100; }
 /*End of star rating using CSS*/
+
+/****************CSS MODAL TECHNICIANS*************/
+
+#modalDetails {
+  font-size:  $font-size-primary;
+  border: 2px solid $border-color;
+  @include border_rounder(4px);
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+#modalDetails .modalName {
+    font-weight: bold;
+    font-size: 20px;
+    color: $font-primary;
+}
+
+#modalDetails p {
+  margin-bottom: 5px;
+  display: block;
+}
+
+#modalDetails p span {
+  // margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#modalDetails .modalCity {
+  display: inline-block;
+}
+
+#modalDetails .modalButtons {
+	float: right;
+	/* display: inline; */
+	// top: -30px;
+	// position: relative;
+}
 
 
 /******************CSS modal login*****************/
@@ -807,4 +847,35 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
     vertical-align: middle;
     margin-right: 5px;
     width: 2em;
+    }
+
+    /***************MEDIA 992PX to 1200px************/
+
+    @media(max-width:1199px){
+
+    }
+
+
+
+    /***************MEDIA 768PX to 992px************/
+
+    @media(max-width:991px){
+
+      section div.techniciansContent {
+      	width: 80%;
+      }
+
+      section div.techniciansContent div.techniciansInfo {
+      	width: 100%;
+      	margin-top: 15px;
+      }
+
+      div.techniciansContent div.techniciansInfo .techBoxInfo {
+      	width: 48%;
+      	display: inline-block;
+      	box-sizing: border-box;
+      	margin: 5px;
+      	/* padding: 0px; */
+      }
+
     }

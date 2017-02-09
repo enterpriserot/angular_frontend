@@ -563,21 +563,22 @@ div.container-form-contact .form-contact {
 section div.techniciansFilter {
   background: #BDBDBD;
   color: #DA521B;
-  width: 31%;
-  margin-left: 35%;
+  width: 35%;
+  margin-left: 33.33%;
   margin-bottom: 2em;
   border: 2px solid #FFCCBC;
-  border-radius: 8px; }
+  border-radius: 8px;
+  text-align: center; }
 
 section div.techniciansFilter h3 {
   display: inline-block; }
 
 section div.techniciansContent {
-  width: 85%;
-  margin-left: 15%; }
+  width: 90%;
+  margin-left: 10%; }
 
 section div.techniciansContent div.techniciansInfo {
-  width: 35%;
+  width: 50%;
   display: inline-block; }
 
 div.techniciansContent div.techniciansInfo .techBoxInfo {
@@ -591,19 +592,6 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
   text-align: center;
   font-size: 15px;
   font-weight: bold; }
-
-div.techniciansContent div.techBoxInfo {
-  width: 100%;
-  background: #757575;
-  border: 2px solid #FF5722;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  margin-bottom: 2px;
-  text-align: center;
-  font-size: 15px;
-  font-weight: bold;
-}
 
 /*Start of star rating using CSS*/
 .stars-container {
@@ -662,6 +650,39 @@ div.techniciansContent div.techBoxInfo {
   width: 100; }
 
 /*End of star rating using CSS*/
+/****************CSS MODAL TECHNICIANS*************/
+#modalDetails {
+  font-size: 14px;
+  border: 2px solid #ff9800;
+  -moz-border-radius: 4px 4px;
+  -webkit-border-radius: 4px 4px;
+  -khtml-border-radius: 4px 4px;
+  -o-border-radius: 4px 4px;
+  border-radius: 4px 4px;
+  border: 4px 4px;
+  box-sizing: border-box;
+  padding: 4px; }
+
+#modalDetails .modalName {
+  font-weight: bold;
+  font-size: 20px;
+  color: #ffffff; }
+
+#modalDetails p {
+  margin-bottom: 5px;
+  display: block; }
+
+#modalDetails p span {
+  font-size: 16px;
+  font-weight: bold; }
+
+#modalDetails .modalCity {
+  display: inline-block; }
+
+#modalDetails .modalButtons {
+  float: right;
+  /* display: inline; */ }
+
 /******************CSS modal login*****************/
 @font-face {
   font-family: "font";
@@ -715,5 +736,22 @@ div.techniciansContent div.techBoxInfo {
   vertical-align: middle;
   margin-right: 5px;
   width: 2em; }
+
+/***************MEDIA 992PX to 1200px************/
+/***************MEDIA 768PX to 992px************/
+@media (max-width: 991px) {
+  section div.techniciansContent {
+    width: 80%; }
+
+  section div.techniciansContent div.techniciansInfo {
+    width: 100%;
+    margin-top: 15px; }
+
+  div.techniciansContent div.techniciansInfo .techBoxInfo {
+    width: 48%;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 5px;
+    /* padding: 0px; */ } }
 
 /*# sourceMappingURL=styles.css.map */

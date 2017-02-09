@@ -1,0 +1,8 @@
+@mixin border_rounder($rounding){
+    -moz-border-radius: $rounding $rounding;
+    -webkit-border-radius: $rounding $rounding;
+    -khtml-border-radius: $rounding $rounding;
+    -o-border-radius: $rounding $rounding;
+    border-radius: $rounding $rounding;
+    border: $rounding $rounding;
+ }
