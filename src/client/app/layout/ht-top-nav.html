@@ -33,8 +33,10 @@
             <a href="#"><span class="fa fa-sign-out"></span>Logout</a>
         </li>
 
-                <li class="socialLogin">
-                    <a href="/auth/facebook"><svg
+                <li class="socialLogin" ng-hide="$root.authUser">
+                    <a target="_self" href="api/facebook">
+
+    <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -84,7 +86,7 @@
   </g>
 </svg></a>
                 </li>
-                <li class="socialLogin">
+                <li class="socialLogin" ng-hide="$root.authUser">
                   <a href="/"><svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -148,7 +150,7 @@
   </g>
 </svg></a>
                 </li>
-                <li class="socialLogin">
+                <li class="socialLogin" ng-hide="$root.authUser">
                   <a href="/"><svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"

@@ -15,6 +15,7 @@
       getLocation: getLocation,
       signup: signup,
       // login: localLogin,
+      // loginFacebook: loginFacebook,
       checkLoggedin: checkLoggedin,
       isLoggedin: isLoggedin,
       logout: logout
@@ -106,23 +107,39 @@
 
       }
 
-      function localLoginFb(data) {
-              console.log('dataservice:');
-              console.log(data);
-              return $http.get('/api/loginfb', data)
-                      .then(success)
-                      .catch(fail);
+      // function loginFacebook() {
+      //   console.log('FACEBOOK');
+      //       return $http.get('/auth/facebook')
+      //               .then(success)
+      //               .catch(fail);
+      //
+      //       function success(response) {
+      //           console.log(response);
+      //           return response;
+      //       }
+      //
+      //       function fail() {
+      //           return false;
+      //       }
+      //   }
 
-              function success(response) {
-                  console.log('true Facebook Login');
-                  return response;
-              }
-
-              function fail() {
-                console.log('false Facebook Login');
-                  return false;
-              }
-        }//End localLoginFb function
+      // function localLoginFb(data) {
+      //         console.log('dataservice:');
+      //         console.log(data);
+      //         return $http.get('/api/loginfb', data)
+      //                 .then(success)
+      //                 .catch(fail);
+      //
+      //         function success(response) {
+      //             console.log('true Facebook Login');
+      //             return response;
+      //         }
+      //
+      //         function fail() {
+      //           console.log('false Facebook Login');
+      //             return false;
+      //         }
+      //   }//End localLoginFb function
 
         //================================================
         // Check if the user is connected

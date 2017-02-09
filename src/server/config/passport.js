@@ -3,6 +3,8 @@ var bcrypt = require('bcrypt-nodejs');
 var sql = require('../users/users.model');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
+var OAuthStrategy = require('passport-oauth').OAuthStrategy; //encara que no es gaste, fa falta
+var OAuth2Strategy = require('passport-oauth').OAuth2Strategy; //encara que no es gaste, fa falta
 
 //exporta la libreria de funciones
 module.exports = function (passport) {
@@ -27,10 +29,11 @@ module.exports = function (passport) {
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function (id, done) {
-        sql.getUser(id, function (error, rows) {
-            done(error, rows[0]);
-        });
+    passport.deserializeUser(function (user, done) {
+        // sql.getUser(id, function (error, rows) {
+        //     done(error, rows[0]);
+        done(null, user);
+        // });
     });
 
     // =========================================================================
@@ -103,16 +106,37 @@ module.exports = function (passport) {
                     })
             );
 
-    passport.use('facebook-login', new FacebookStrategy({
-        clientID: process.env.FACEBOOK_ID,
-        clientSecret: process.env.FACEBOOK_SECRET,
-        callbackURL: '/auth/facebook/callback',
-        profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
-        passReqToCallback: true
-      }, function(req, accessToken, refreshToken, profile, cb) {
-        //console.log(profile);
-        req.user = profile.name;
-        console.log(req.user);
-        return cb( null, profile);
-      }));
+    // passport.use(new FacebookStrategy({
+    //     clientID: process.env.FACEBOOK_ID,
+    //     clientSecret: process.env.FACEBOOK_SECRET,
+    //     // callbackURL: '/auth/facebook/callback',
+    //     callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
+    //     profileFields: ['id', 'displayName', 'name', 'email', 'link', 'locale', 'timezone', 'photos']/*,
+    //     passReqToCallback: true*/
+    //   }, function(accessToken, refreshToken, profile, cb) {
+    //     // }, function(req, accessToken, refreshToken, profile, cb) {
+    //
+    //     // console.log(accessToken);
+    //     // console.log(refreshToken);
+    //     console.log(profile);
+    //     // console.log(cb);
+    //     // req.user = profile.name;
+    //     // console.log(req.user);
+    //     return cb( null, profile);
+    //   }));
+
+    passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
+    callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
+
+  profileFields: ['id', 'displayName', 'name', 'gender','photos']
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });*/
+    return cb(null, profile);
+  }
+));
 };

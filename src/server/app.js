@@ -3,10 +3,10 @@
 
 var express = require('express');
 var app = express();
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var port = process.env.PORT || 7200;
+var port = process.env.PORT || 8001;
 var four0four = require('./utils/404')();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -19,6 +19,7 @@ dotenv.load({ path: './src/server/.env' });
 
 var cors = require('cors');
 app.use(cors());
+// app.use(cors({origin: 'http://localhost:8001'}));
 
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,8 +27,17 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(cookieParser());
 
+// app.use(function (req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     // res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//     // res.setHeader('Access-Control-Allow-Credentials', true);
+//     next();
+// });
+
 require('./config/passport.js')(passport);
 
+// require('./config/routes.js').init(app);
 require('./contact/contact.route.js')(app);
 require('./technicians/technicians.route.js')(app);
 require('./users/users.route.js')(app);
@@ -37,15 +47,14 @@ require('./users/users.route.js')(app);
 //de inicio de sesión persistentes, se debe utilizar el middleware passport.session ().
 //Asegúrese de usar express.session () antes de passport.session () para asegurarse de
 //que la sesión de inicio de sesión se restaure en el orden correcto.
-app.use(session({secret: 'maytheforcebewithyou',
+app.use(session({
+                secret: 'maytheforcebewithyou',
                 resave: true,
                 saveUninitialized: true,
-                cookie : {secure: false, masAge: 120000}})); // session secret
+                cookie : {secure: false}})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 /*----PASSPORT END----*/
-
-
 
 console.log('About to crank up node');
 console.log('PORT=' + port);

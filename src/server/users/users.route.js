@@ -1,4 +1,5 @@
 var usersController = require('./users.controller');
+var passport = require('passport');
 // var bodyParser = require('body-parser');
 //
 // var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -9,6 +10,16 @@ module.exports = function(app){
   app.post('/api/signup', usersController.signupUser);
   app.get('/api/loggedin', usersController.loggedin);
   app.post('/api/logout', usersController.logoutUser);
+  // app.get('/api/facebook', usersController.facebook);
+  app.get('/api/facebook',  passport.authenticate('facebook'));
+  // app.get('/api/facebook/callback', usersController.facebookCallback);
+  app.get('/api/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log('CALLBACK');
+    console.log('Facebook login '+JSON.stringify(req.user));
+    res.redirect('/');
+  });
   // app.get('api/loginfb', usersController.loginFb);
 //   app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 //   app.get('/auth/facebook/callback',
