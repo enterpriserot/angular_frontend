@@ -74,6 +74,12 @@
       return dataservice.isLoggedin().then(function(data) {
         console.log('getAuthUser:');
         console.log(data);
+        console.log(data.email);
+        console.log(data.userName.givenName);
+        if(data.userName.givenName){
+            $rootScope.authUser.name=data.userName.givenName;
+        }
+
         $rootScope.authUser = data;
         return $rootScope.authUser;
       });

@@ -27,6 +27,14 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(cookieParser());
 
+app.use(session({
+                secret: 'maytheforcebewithyou',
+                resave: true,
+                saveUninitialized: true,
+                cookie : {secure: false}})); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+
 // app.use(function (req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', '*');
 //     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -47,13 +55,7 @@ require('./users/users.route.js')(app);
 //de inicio de sesión persistentes, se debe utilizar el middleware passport.session ().
 //Asegúrese de usar express.session () antes de passport.session () para asegurarse de
 //que la sesión de inicio de sesión se restaure en el orden correcto.
-app.use(session({
-                secret: 'maytheforcebewithyou',
-                resave: true,
-                saveUninitialized: true,
-                cookie : {secure: false}})); // session secret
-app.use(passport.initialize());
-app.use(passport.session());
+
 /*----PASSPORT END----*/
 
 console.log('About to crank up node');

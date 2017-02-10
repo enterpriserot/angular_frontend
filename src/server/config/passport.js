@@ -21,6 +21,7 @@ module.exports = function (passport) {
     // });
 
     passport.serializeUser(function(user, done) {
+      console.log(user);
        done(null, {
           id: user['id'],
           userName: user['name'],
@@ -32,6 +33,7 @@ module.exports = function (passport) {
     passport.deserializeUser(function (user, done) {
         // sql.getUser(id, function (error, rows) {
         //     done(error, rows[0]);
+        console.log(user);
         done(null, user);
         // });
     });
@@ -130,13 +132,41 @@ module.exports = function (passport) {
     clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
 
-  profileFields: ['id', 'displayName', 'name', 'gender','photos']
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });*/
-    return cb(null, profile);
-  }
-));
+      profileFields: ['id', 'displayName', 'name', 'gender','photos']
+      },
+      function(accessToken, refreshToken, profile, cb) {
+        /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+          return cb(err, user);
+        });*/
+        console.log('refreshToken:');
+        console.log(refreshToken);
+        console.log('profile:');
+        console.log(profile);
+        console.log('accessToken:');
+        console.log(accessToken);
+        return cb(null, profile);
+      }
+    ));
+    
+    passport.use('facebookcallback',new FacebookStrategy({
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
+    callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
+
+      profileFields: ['id', 'displayName', 'name', 'gender','photos']
+      },
+      function(accessToken, refreshToken, profile, cb) {
+        /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+          return cb(err, user);
+        });*/
+        console.log('refreshToken:');
+        console.log(refreshToken);
+        console.log('profile:');
+        console.log(profile);
+        console.log('accessToken:');
+        console.log(accessToken);
+        return cb(null, profile);
+      }
+    ));
+
 };

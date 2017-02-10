@@ -519,7 +519,7 @@ img::-moz-selection {
 
 /*------------------CONTACT------------------*/
 .container-form-contact {
-  width: 36%;
+  width: 300px;
   margin: 0 auto;
   /* text-align: center; */
   background: #757575;
@@ -808,6 +808,46 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
 
   #pagerTechnicians {
     left: 28%; } }
-/*************MEDIA print******************/
+/*--------------SIGNUP--------------*/
+.signup-outter {
+  width: 340px;
+  margin: 0 auto;
+  background: #757575;
+  border: 2px solid #ff9800;
+  border-radius: 10px;
+  color: #ffffff; }
+
+.signup-inner label.inputLabel {
+  color: white; }
+
+.signup-inner label.inputLabel:after {
+  color: #e32;
+  content: ' *';
+  display: inline; }
+
+.signup-inner h2 {
+  text-align: center; }
+
+input.textBox {
+  margin-left: 30px; }
+
+#submit_user {
+  margin-left: 20px;
+  margin-bottom: 10px; }
+
+label.inputLabel,
+input.textBox {
+  margin-left: 20px;
+  vertical-align: baseline;
+  width: 300px; }
+
+#formsignup,
+input.textBox {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box; }
+
+#formsignup {
+  width: 550px; }
 
 /*# sourceMappingURL=styles.css.map */
