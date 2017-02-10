@@ -14,18 +14,31 @@
     function getStates() {
         return [
             {
-                state: 'profile',
+                state: 'login',
                 config: {
-                    url: '/profile',
-                    templateUrl: 'app/users/profile.html',
+                    url: '/loginpage',
+                    templateUrl: 'app/users/login.page.html',
                     controller: 'UsersController',
                     controllerAs: 'vm',
-                    title: 'profile',
+                    title: 'login',
                     params: {
                         // param: value
                     }
                 }
             }
+            // {
+            //     state: 'profile',
+            //     config: {
+            //         url: '/profile',
+            //         templateUrl: 'app/users/profile.html',
+            //         controller: 'UsersController',
+            //         controllerAs: 'vm',
+            //         title: 'profile',
+            //         params: {
+            //             // param: value
+            //         }
+            //     }
+            // }
         ];
     }
 })();

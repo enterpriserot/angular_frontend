@@ -3,8 +3,9 @@ var passport = require('passport');
 module.exports.signupUser = signupUser;
 module.exports.loginUser = loginUser;
 module.exports.loggedin = loggedin;
-// module.exports.facebook = facebook;
+module.exports.facebook = facebook;
 module.exports.logoutUser = logoutUser;
+module.exports.facebookCallback = facebookCallback;
 
  function signupUser(req, res, next){
 
@@ -46,6 +47,35 @@ function loggedin(req, res){
 
 }
 
+function facebook(req, res, next){
+  console.log('FACEBOOOOOOOOK');
+    passport.authenticate('facebook', function (err, user, info){
+        if(err){
+          return res.send('err');
+        }else if(!user){
+            return res.send('errorcredentials');
+        }
+        console.log(user);
+        return res.send(user);
+    })(req, res, next);
+
+    res.send(req.user);
+}
+
+function facebookCallback(req, res, next){
+
+ passport.authenticate('facebookcallback', function (err, user, info){
+   console.log('facebookCallbackkkkkkkkkkkkkkkkkkkkkk');
+     if (err) {
+         return res.send('err');
+     }else if (!user) {
+         return res.send('errorcredentials');
+     }
+     return res.send(req.user);
+
+ })(req, res, next);
+}//End facebookCallback
+
 // function facebook(req, res, next){
 //
 //   passport.authenticate('facebook', function (err, user, info){
@@ -64,5 +94,5 @@ function loggedin(req, res){
 
 function logoutUser(req, res){
   req.logOut();
-  res.send(200);
+  res.sendStatus(200);
 }

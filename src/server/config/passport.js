@@ -132,13 +132,41 @@ module.exports = function (passport) {
     clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
 
-  profileFields: ['id', 'displayName', 'name', 'gender','photos']
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });*/
-    return cb(null, profile);
-  }
-));
+      profileFields: ['id', 'displayName', 'name', 'gender','photos']
+      },
+      function(accessToken, refreshToken, profile, cb) {
+        /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+          return cb(err, user);
+        });*/
+        console.log('refreshToken:');
+        console.log(refreshToken);
+        console.log('profile:');
+        console.log(profile);
+        console.log('accessToken:');
+        console.log(accessToken);
+        return cb(null, profile);
+      }
+    ));
+    
+    passport.use('facebookcallback',new FacebookStrategy({
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
+    callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
+
+      profileFields: ['id', 'displayName', 'name', 'gender','photos']
+      },
+      function(accessToken, refreshToken, profile, cb) {
+        /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+          return cb(err, user);
+        });*/
+        console.log('refreshToken:');
+        console.log(refreshToken);
+        console.log('profile:');
+        console.log(profile);
+        console.log('accessToken:');
+        console.log(accessToken);
+        return cb(null, profile);
+      }
+    ));
+
 };
