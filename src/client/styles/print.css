@@ -1,0 +1,30 @@
+@media print {
+
+    /*#topNav{
+      display: block;
+      background: red;
+    }*/
+
+    .no-print, .no-print *{
+      display: none !important;
+    }
+
+    section div.techniciansContent {
+      width: 100%;
+    }
+
+    .angular-google-map-container {
+    	width: 500px;
+      height: 400px;
+    }
+
+    section div.techniciansContent div.techniciansInfo {
+    	display: inline-block;
+    	/* min-height: 450px; */
+    	width: 100%;
+    	box-sizing: border-box;
+    	padding: 0 20px;
+    	float: left;
+    }
+
+}

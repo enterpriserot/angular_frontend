@@ -282,7 +282,6 @@ header .header-content .inner p {
   background-color: #da521b; }
 
 @media (min-width: 768px) {
-
   #topNav {
     background-color: #da521b;
     height: 10%; }
@@ -317,11 +316,7 @@ header .header-content .inner p {
     margin-right: auto;
     margin-left: auto;
     max-width: 80%;
-    font-size: 18px; }
-
-  section {
-    min-height: 600px;
-    padding: 100px 0; } }
+    font-size: 18px; } }
 /* Añadido ROT*/
 form p {
   color: #da521b; }
@@ -361,7 +356,7 @@ textarea {
   max-width: 400px; }
 
 @media (min-width: 992px) {
-.feature {
+  .feature {
     margin: 20px auto 0; } }
 .feature p {
   margin-bottom: 0; }
@@ -523,17 +518,8 @@ img::-moz-selection {
   display: inline; }
 
 /*------------------CONTACT------------------*/
-@@media (max-width: 768px) {
-  .container-form-contact {
-      width: 289px !important;
-      margin: 0 auto;
-      background: blue !important;
-  }
-}
-
 .container-form-contact {
   width: 36%;
-  /*width: 289px;*/
   margin: 0 auto;
   /* text-align: center; */
   background: #757575;
@@ -566,9 +552,18 @@ div.container-form-contact .form-contact {
   padding: 10% 0; }
 
 /*------------------TECHNICIANS------------------*/
-.angular-google-map-container {
-  height: 400px;
+section #main {
+  padding: 0;
   width: 100%; }
+
+.angular-google-map-container {
+  height: 418px;
+  width: 100%; }
+
+.techniciansMap {
+  width: 50%;
+  display: inline-block;
+  float: left; }
 
 section div.techniciansFilter {
   background: #BDBDBD;
@@ -578,21 +573,26 @@ section div.techniciansFilter {
   margin-bottom: 2em;
   border: 2px solid #FFCCBC;
   border-radius: 8px;
-  text-align: center; }
+  text-align: center;
+  display: block; }
 
 section div.techniciansFilter h3 {
   display: inline-block; }
 
 section div.techniciansContent {
-  width: 90%;
-  margin-left: 10%; }
+  width: 100%;
+  padding: 0 5%; }
 
 section div.techniciansContent div.techniciansInfo {
-  width: 50%;
-  display: inline-block; }
+  display: inline-block;
+  /* min-height: 450px; */
+  width: 48%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  float: left; }
 
 div.techniciansContent div.techniciansInfo .techBoxInfo {
-  width: 65%;
+  width: 100%;
   background: #757575;
   border: 2px solid #FF5722;
   -webkit-border-radius: 10px;
@@ -603,13 +603,22 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
   font-size: 15px;
   font-weight: bold; }
 
+#pagerTechnicians {
+  display: block;
+  left: 45%;
+  position: relative;
+  /* top: 165px; */ }
+
+#pagerTechnicians .pagination {
+  display: block; }
+
 /*Start of star rating using CSS*/
 .stars-container {
-  font-size: 25px;
+  font-size: 20px;
   position: relative;
   display: inline-block;
   color: transparent;
-  margin-bottom: 10px; }
+  margin-bottom: 0; }
 
 .stars-container:before {
   position: absolute;
@@ -750,18 +759,55 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
 /***************MEDIA 992PX to 1200px************/
 /***************MEDIA 768PX to 992px************/
 @media (max-width: 991px) {
-  section div.techniciansContent {
-    width: 80%; }
+  .techniciansMap {
+    width: 100%;
+    display: inline-block;
+    float: left; }
 
   section div.techniciansContent div.techniciansInfo {
     width: 100%;
-    margin-top: 15px; }
+    margin-top: 15px;
+    min-height: unset; }
 
   div.techniciansContent div.techniciansInfo .techBoxInfo {
     width: 48%;
     display: inline-block;
     box-sizing: border-box;
     margin: 5px;
-    /* padding: 0px; */ } }
+    /* padding: 0px; */ }
+
+  #pagerTechnicians {
+    display: block;
+    left: 40%;
+    position: relative;
+    top: 0; } }
+/***************MEDIA 480PX to 767px************/
+@media (max-width: 767px) {
+  section div.techniciansContent {
+    width: 80%; }
+
+  div.techniciansContent div.techniciansInfo .techBoxInfo {
+    width: 98%;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    margin: 5px;
+    /* padding: 0px; */ }
+
+  section div.techniciansFilter {
+    background: #BDBDBD;
+    color: #DA521B;
+    width: 225px;
+    margin-left: 33.33%;
+    margin-bottom: 2em;
+    border: 2px solid #FFCCBC;
+    border-radius: 8px;
+    text-align: center; } }
+@media (max-width: 479px) {
+  section div.techniciansFilter {
+    margin-left: 26.33%; }
+
+  #pagerTechnicians {
+    left: 28%; } }
+/*************MEDIA print******************/
 
 /*# sourceMappingURL=styles.css.map */

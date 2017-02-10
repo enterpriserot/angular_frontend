@@ -1,10 +1,10 @@
 <!-- templateUrl="'vm.infoWindow.templateUrl'" templateParameters="'vm.infoWindow.techInfo'" -->
 <section id="main" class="wrapper">
-  <div class="techniciansFilter col-md-4">
+  <div class="techniciansFilter no-print">
     <h3>Search Technicians:</h3> <input type="text" class="filtre" ng-model="vm.filtro" >
   </div>
-  <div class="techniciansContent">
-      <div class="col-md-6">
+  <div class="techniciansContent container">
+      <div class="techniciansMap">
           <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
 
             <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'" events="vm.map.markersEvents"></ui-gmap-markers>
@@ -24,23 +24,27 @@
           </ui-gmap-google-map>
       </div>
 
-    <div class="techniciansInfo col-md-6">
-      <div class="techBoxInfo"  ng-repeat="tech in vm.filteredTechnicians| filter:{name:vm.filtro}" id="{{tech.id}}">
-          <div>
-              <div class="desc">{{tech.name}} {{tech.surname1}}</div>
-              <div class="points"> Values: <p class="stars-container stars-{{tech.points/tech.val_qty}}"  > ★★★★★ </p></div>
-              <div class="hora"> Horario: {{tech.time_start}} - {{tech.time_end}}</div>
-              <div class="details" >
-                <a href="#" ng-click="vm.modalDetails(tech.id)">+info</a>
-                <a href="#">Contact</a>
-              </div>
-          </div>
+      <div class="techniciansInfo">
+        <div class="techBoxInfo"  ng-repeat="tech in vm.filteredTechnicians| filter:{name:vm.filtro}" id="{{tech.id}}">
+            <div>
+                <div class="desc">{{tech.name}} {{tech.surname1}}</div>
+                <div class="points"> Values: <p class="stars-container stars-{{tech.points/tech.val_qty}}"  > ★★★★★ </p></div>
+                <div class="hora"> Horario: {{tech.time_start}} - {{tech.time_end}}</div>
+                <div class="details" >
+                  <a href="#" ng-click="vm.modalDetails(tech.id)">+info</a>
+                  <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
       </div>
-
-    </div>
-    <div id="pager">
-        <uib-pagination ng-if="'vm.technicians.length >= 4'" class="pagination-sm" boundary-link-numbers="true" total-items="vm.technicians.length" ng-model="vm.currentPage" items-per-page="vm.itemsPerPage" ng-change="vm.pageChanged()"></uib-pagination>
+  </div>
+  <div class="container">
+    <div id="pagerTechnicians">
+        <uib-pagination class="pagination-sm" boundary-link-numbers="true" total-items="vm.technicians.length" ng-model="vm.currentPage" items-per-page="vm.itemsPerPage" ng-change="vm.pageChanged()"></uib-pagination>
     </div>
   </div>
 
+
+
+<!-- ng-hide="vm.technicians.length <= 4"  -->
 </section>
