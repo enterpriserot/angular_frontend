@@ -121,21 +121,11 @@ section {
 aside {
   padding: 50px 0; }
 
-
-  footer {
-    padding: 15px;
-    z-index: 1;
-    /* Afegit*/
-    background-color: #282828; }
-
-/*.navbar-fixed-bottom {*/
-  /*position: fixed;
-    bottom: 0;
-    width: 100%;*/
-  /*padding: 15px;*/
-  /*z-index: 1;*/
+footer {
+  padding: 15px;
+  z-index: 1;
   /* Afegit*/
-  /*background-color: #282828  !important; }*/
+  background-color: #282828; }
 
 .no-padding {
   padding: 0; }
@@ -860,20 +850,78 @@ input.textBox {
 #formsignup {
   width: 550px; }
 
-/*---------------ANIMACIONS------------------*/
-.imagemenu,
-.socialLogin{
-  -webkit-transition: -webkit-transform .8s ease-in-out;
-          transition: transform .8s ease-in-out;
-}
-.imagemenu:hover,
-.socialLogin:hover{
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-}
+.socialPageLogin {
+  list-style-type: none;
+  text-align: center;
+  padding-left: 0; }
 
-.avatar{
-  width: 30px;
-}
+.socialPageLogin li.socialLogin {
+  display: inline-block;
+  width: 10%; }
+
+.socialPageLogin li.socialLogin img {
+  width: 55%; }
+
+/*---------------ANIMACIONS AL MENU--------------*/
+.imagemenu,
+.socialLogin {
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+  transition: transform .8s ease-in-out; }
+
+.imagemenu:hover,
+.socialLogin:hover {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg); }
+
+.avatar {
+  width: 30px; }
+
+/*#endregion */
+/*#region Angular ng-include, ng-view, ng-repeat shuffle animations*/
+.shuffle-animation.ng-enter,
+.shuffle-animation.ng-leave {
+  position: relative; }
+
+.shuffle-animation.ng-enter {
+  -webkit-transition: ease-out all 0.3s 0.4s;
+  transition: ease-out all 0.3s 0.4s;
+  left: 2em;
+  opacity: 0; }
+
+.shuffle-animation.ng-enter.ng-enter-active {
+  left: 0;
+  opacity: 1; }
+
+.shuffle-animation.ng-leave {
+  -webkit-transition: 0.3s ease-out all;
+  transition: 0.3s ease-out all;
+  left: 0;
+  opacity: 1; }
+
+.shuffle-animation.ng-leave.ng-leave-active {
+  left: 2em;
+  opacity: 0; }
+
+.techBoxInfo.ng-enter,
+.techBoxInfo.ng-leave {
+  -webkit-transition: 975ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
+  -moz-transition: 975ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
+  -ms-transition: 975ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
+  -o-transition: 975ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
+  transition: 975ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
+  position: relative;
+  display: block; }
+
+.techBoxInfo.ng-enter.ng-enter-active,
+.techBoxInfo.ng-leave {
+  opacity: 1;
+  left: 0;
+  height: 30px; }
+
+.techBoxInfo.ng-leave.ng-leave-active,
+.techBoxInfo.ng-enter {
+  opacity: 0;
+  left: -50px;
+  height: 0px; }
 
 /*# sourceMappingURL=styles.css.map */

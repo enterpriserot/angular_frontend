@@ -25,7 +25,7 @@
       </div>
 
       <div class="techniciansInfo">
-        <div class="techBoxInfo"  ng-repeat="tech in vm.filteredTechnicians| filter:{name:vm.filtro}" id="{{tech.id}}">
+        <div class="techBoxInfo" ng-repeat="tech in vm.filteredTechnicians| filter:{name:vm.filtro}" id="{{tech.id}}">
             <div>
                 <div class="desc">{{tech.name}} {{tech.surname1}}</div>
                 <div class="points"> Values: <p class="stars-container stars-{{tech.points/tech.val_qty}}"  > ★★★★★ </p></div>
