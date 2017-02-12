@@ -25,7 +25,7 @@
               <!-- User auth info -->
         <li id="userAuthInfo" ng-show="$root.authUser">
             <!-- <a>Welcome <img src="{{vm.authUser.user.photoURL}}" /> {{ vm.authData.name}}</a> -->
-            <a href="/admin"><img ng-src="{{$root.authUser.photos[0].value}}"/>Welcome  {{ $root.authUser.name}}</a>
+            <a href="/admin"><img class="avatar" ng-src="{{$root.authUser.avatar}}"/>Welcome  {{ $root.authUser.name}}</a>
             <!-- <a href="/admin">Welcome  {{ $root.authUser.name}}</a> -->
         </li>
 
@@ -42,7 +42,7 @@
                   <a target="_self" href="api/twitter"><img src="images/twitter.svg" alt="Access with twitter"></a>
                 </li>
                 <li class="socialLogin" ng-hide="$root.authUser">
-                  <a href="/"><img src="images/google.svg" alt="Access with Google"></a>
+                  <a target="_self" href="api/google"><img src="images/google.svg" alt="Access with Google"></a>
                 </li>
             </ul>
         </div>

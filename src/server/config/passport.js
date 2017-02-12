@@ -4,6 +4,7 @@ var sql = require('../users/users.model');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var OAuthStrategy = require('passport-oauth').OAuthStrategy; //encara que no es gaste, fa falta
 // var OAuth2Strategy = require('passport-oauth').OAuth2Strategy; //encara que no es gaste, fa falta
 
@@ -43,7 +44,7 @@ module.exports = function (passport) {
                 passReqToCallback: true // allows us to pass back the entire request to the callback
             },
                     function (req, email, password, done) {
-                        console.log('FUNCTION SIGNUP');
+                        // console.log('FUNCTION SIGNUP');
                         sql.countUser(email, function (rows) {
                             if (rows[0].count >= 1) {
                                 return done(null, false, 'e-mail is in use in our database');
@@ -53,8 +54,8 @@ module.exports = function (passport) {
                                 var newUser = {
                                     email: email,
                                     password: bcrypt.hashSync(password, null, null),
-                                    name: req.body.name/*,
-                                    usertype: req.body.usertype*/
+                                    name: req.body.name,
+                                    avatar: 'images/avatar.png'
                                 };
                                 //Inserts the new user into users table
                                 sql.insertUser(newUser, function (rows) {
@@ -111,7 +112,7 @@ module.exports = function (passport) {
         sql.countUser(profile.id, function (rows){
 
               if(rows[0].count === 0){ //If the user is not found
-                console.log('USUARIO NO EXISTE');
+                // console.log('USUARIO NO EXISTE');
                 var user = {
                     email: profile.id,
                     name: profile.name.givenName,
@@ -123,10 +124,10 @@ module.exports = function (passport) {
                 //Insert the user to users table in database
                 sql.insertUser(user, function(rows){
                     if(rows){
-                      console.log('USER:');
-                      console.log(user);
-                      console.log('ROWS:');
-                      console.log(rows);
+                      // console.log('USER:');
+                      // console.log(user);
+                      // console.log('ROWS:');
+                      // console.log(rows);
                         return done(null, user);
                     }
                 });
@@ -138,8 +139,8 @@ module.exports = function (passport) {
                     if(!rows.length){
                         return done(null, false, 'nouser');
                     }else{
-                      console.log('ELSE:');
-                      console.log(rows[0]);
+                      // console.log('ELSE:');
+                      // console.log(rows[0]);
                         return done(null, rows[0]);
                     }
                 });
@@ -154,18 +155,18 @@ module.exports = function (passport) {
           passReqToCallback: true
         }, function(req, token, tokenSecret, profile, done) {
 
-          console.log('TWITTER PROFILE:');
-          console.log(profile);
-          console.log('FOTO:');
-          console.log(profile._json.profile_image_url);
-          console.log('TWITTER DISPLAY NAME:');
-          console.log(profile.displayName);
+          // console.log('TWITTER PROFILE:');
+          // console.log(profile);
+          // console.log('FOTO:');
+          // console.log(profile._json.profile_image_url);
+          // console.log('TWITTER DISPLAY NAME:');
+          // console.log(profile.displayName);
 
           //Search for the user in database
           sql.countUser(profile.id, function (rows){
 
                 if(rows[0].count === 0){ //If the user is not found
-                  console.log('USUARIO NO EXISTE');
+                  // console.log('USUARIO NO EXISTE');
                   var user = {
                       email: profile.id,
                       name: profile.username,
@@ -177,23 +178,20 @@ module.exports = function (passport) {
                   //Insert the user to users table in database
                   sql.insertUser(user, function(rows){
                       if(rows){
-                        console.log('USER:');
-                        console.log(user);
-                        console.log('ROWS:');
-                        console.log(rows);
+
                           return done(null, user);
                       }
                   });
 
                 }else { //If user is found
-                  console.log('USER EXISTS');
+                  // console.log('USER EXISTS');
                   //Gets the user from users table
                   sql.getUser(profile.id, function(error, rows){
                       if(!rows.length){
                           return done(null, false, 'nouser');
                       }else{
-                        console.log('ELSE:');
-                        console.log(rows[0]);
+                        // console.log('ELSE:');
+                        // console.log(rows[0]);
                           return done(null, rows[0]);
                       }
                   });
@@ -201,5 +199,56 @@ module.exports = function (passport) {
           });
         }));//TwitterStrategy end
 
+        passport.use(new GoogleStrategy({
+            clientID: process.env.GOOGLE_KEY,
+            clientSecret: process.env.GOOGLE_SECRET,
+            callbackURL: 'http://localhost:3000/api/auth/google/callback',
+            passReqToCallback: true
+          }, function(req, token, refreshToken, profile, done) {
+
+            // console.log('EMAIL:');
+            // console.log(profile.emails[0].value);
+            // console.log('GOOGLE PROFILE:');
+            // console.log(profile);
+
+            //Search for the user in database
+            sql.countUser(profile.id, function (rows){
+
+                  if(rows[0].count === 0){ //If the user is not found
+                    // console.log('USUARIO NO EXISTE');
+                    var user = {
+                        email: profile.id,
+                        name: profile.name.givenName,
+                        surnames: profile.name.familyName,
+                        avatar: profile.photos[0].value,
+                        type: user
+                    };
+
+                    //Insert the user to users table in database
+                    sql.insertUser(user, function(rows){
+                        if(rows){
+                          // console.log('USER:');
+                          // console.log(user);
+                          // console.log('ROWS:');
+                          // console.log(rows);
+                            return done(null, user);
+                        }
+                    });
+
+                  }else { //If user is found
+                    // console.log('USER EXISTS');
+                    //Gets the user from users table
+                    sql.getUser(profile.id, function(error, rows){
+                        if(!rows.length){
+                            return done(null, false, 'nouser');
+                        }else{
+                          // console.log('ELSE:');
+                          // console.log(rows[0]);
+                            return done(null, rows[0]);
+                        }
+                    });
+                  }
+            });
+          }));//GoogleStrategy end
 
 };
