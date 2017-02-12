@@ -25,20 +25,15 @@
                         // param: value
                     }
                 }
+            },
+            {
+                state: 'sociallogin',
+                config: {
+                    url: '/sociallogin',
+                    controller: 'SocialController'/*,
+                    controllerAs: 'vm'*/
+                }
             }
-            // {
-            //     state: 'profile',
-            //     config: {
-            //         url: '/profile',
-            //         templateUrl: 'app/users/profile.html',
-            //         controller: 'UsersController',
-            //         controllerAs: 'vm',
-            //         title: 'profile',
-            //         params: {
-            //             // param: value
-            //         }
-            //     }
-            // }
         ];
     }
 })();

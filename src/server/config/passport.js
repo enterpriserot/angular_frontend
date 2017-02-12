@@ -122,7 +122,11 @@ module.exports = function (passport) {
                 //Insert the user to users table in database
                 sql.insertUser(user, function(rows){
                     if(rows){
-                        return done(null, rows);
+                      console.log('USER:');
+                      console.log(user);
+                      console.log('ROWS:');
+                      console.log(rows);
+                        return done(null, user);
                     }
                 });
 
@@ -130,9 +134,11 @@ module.exports = function (passport) {
                 console.log('USER EXISTS');
                 //Gets the user from users table
                 sql.getUser(profile.id, function(error, rows){
-                    if(!rows.negth){
+                    if(!rows.length){
                         return done(null, false, 'nouser');
                     }else{
+                      console.log('ELSE:');
+                      console.log(rows[0]);
                         return done(null, rows[0]);
                     }
                 });

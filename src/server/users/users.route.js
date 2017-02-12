@@ -16,8 +16,8 @@ module.exports = function(app){
   // app.get('/api/auth/facebook/callback', usersController.facebook);
   app.get('/api/auth/facebook/callback',
       passport.authenticate('facebook',
-      { successRedirect: '/admin', failureRedirect: '/' }));
-
+      { successRedirect: '/sociallogin', failureRedirect: '/' }));
+  app.get('/api/auth/success', usersController.success);
   // app.get('/auth/facebook/callback',
   // passport.authenticate('facebook', { failureRedirect: '/login' }),
   // function(req, res) {

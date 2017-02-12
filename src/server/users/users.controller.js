@@ -6,6 +6,7 @@ module.exports.loggedin = loggedin;
 // module.exports.facebook = facebook;
 module.exports.logoutUser = logoutUser;
 // module.exports.facebookCallback = facebookCallback;
+module.exports.success = success;
 
  function signupUser(req, res, next){
 
@@ -39,8 +40,8 @@ function loginUser (req, res, next){
             return next(err);
           }
 
-      return res.send(user);
-    });
+          return res.send(user);
+      });
   })(req, res, next);
 }
 
@@ -51,6 +52,11 @@ function loggedin(req, res){
 
   res.send(req.isAuthenticated() ? req.user : '0');
 
+}
+
+function success(req, res){
+    console.log('SERVER SUCCESS!!!!');
+    res.json(req.user);
 }
 
 // function facebook(req, res, next){

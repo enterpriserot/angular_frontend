@@ -15,7 +15,6 @@
       getLocation: getLocation,
       signup: signup,
       // login: localLogin,
-      // loginFacebook: loginFacebook,
       checkLoggedin: checkLoggedin,
       isLoggedin: isLoggedin,
       logout: logout
@@ -106,22 +105,6 @@
       function login(data){
 
       }
-
-      // function loginFacebook() {
-      //   console.log('FACEBOOK');
-      //       return $http.get('/auth/facebook')
-      //               .then(success)
-      //               .catch(fail);
-      //
-      //       function success(response) {
-      //           console.log(response);
-      //           return response;
-      //       }
-      //
-      //       function fail() {
-      //           return false;
-      //       }
-      //   }
 
       // function localLoginFb(data) {
       //         console.log('dataservice:');

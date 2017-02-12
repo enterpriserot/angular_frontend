@@ -38,11 +38,9 @@
                     logger.success('User logged in correctly');
                     console.log(response.data.name);
                     $rootScope.authUser = response.data;
-                    $location.url('/admin   ');
-                    // $state.go('admin');
+                  
                     $timeout(function (){
-                        $state.go('main');
-                        // $state.go('admin');
+                        $state.go('admin');
                     },2000);
                 }else{
                     logger.error('Intenal server error, try it later');
