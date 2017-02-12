@@ -1020,6 +1020,21 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
         width: 550px;
     }
 
+    .socialPageLogin {
+      list-style-type: none;
+      text-align: center;
+      padding-left: 0;
+    }
+
+    .socialPageLogin li.socialLogin{
+      display: inline-block;
+      width: 10%;
+    }
+
+    .socialPageLogin li.socialLogin img{
+      width: 55%;
+    }
+
     /*---------------ANIMACIONS AL MENU--------------*/
     .imagemenu,
     .socialLogin{
@@ -1035,7 +1050,8 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
     .avatar{
       width: 30px;
     }
-    
+
+    /*#endregion */
     /*#region Angular ng-include, ng-view, ng-repeat shuffle animations*/
     .shuffle-animation.ng-enter,
     .shuffle-animation.ng-leave {
@@ -1089,3 +1105,29 @@ div.techniciansContent div.techniciansInfo .techBoxInfo {
       opacity: 1;
     }
     /*#endregion*/
+
+    .techBoxInfo.ng-enter,
+    .techBoxInfo.ng-leave
+    {
+        -webkit-transition: 975ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -moz-transition: 975ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -ms-transition: 975ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        -o-transition: 975ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        transition: 975ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        position: relative;
+        display: block;
+    }
+
+    .techBoxInfo.ng-enter.ng-enter-active,
+    .techBoxInfo.ng-leave {
+        opacity: 1;
+        left: 0;
+        height: 30px;
+    }
+
+    .techBoxInfo.ng-leave.ng-leave-active,
+    .techBoxInfo.ng-enter {
+        opacity: 0;
+        left: -50px;
+        height: 0px;
+    }
