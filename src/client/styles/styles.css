@@ -860,4 +860,17 @@ input.textBox {
 #formsignup {
   width: 550px; }
 
+/*---------------ANIMACIONS------------------*/
+.imagemenu,
+.socialLogin{
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+          transition: transform .8s ease-in-out;
+}
+.imagemenu:hover,
+.socialLogin:hover{
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+
+
 /*# sourceMappingURL=styles.css.map */

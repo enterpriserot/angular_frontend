@@ -10,13 +10,18 @@ module.exports = function(app){
   app.post('/api/signup', usersController.signupUser);
   app.get('/api/loggedin', usersController.loggedin);
   app.post('/api/logout', usersController.logoutUser);
-  // app.get('/api/facebook', usersController.facebook);
+  /*----FACEBOOK----*/
   app.get('/api/facebook',
       passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
-  // app.get('/api/auth/facebook/callback', usersController.facebook);
   app.get('/api/auth/facebook/callback',
       passport.authenticate('facebook',
       { successRedirect: '/sociallogin', failureRedirect: '/' }));
+  app.get('/api/twitter', passport.authenticate('twitter'));
+  /*----TWITTER----*/
+  app.get('/api/auth/twitter/callback',
+      passport.authenticate('twitter',
+      { successRedirect: '/sociallogin', failureRedirect: '/' }));
+
   app.get('/api/auth/success', usersController.success);
   // app.get('/auth/facebook/callback',
   // passport.authenticate('facebook', { failureRedirect: '/login' }),

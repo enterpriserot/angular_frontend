@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- <a id="logo" class="navbar-brand page-scroll" href="#/">r</a> -->
-            <a href="/"><img src="./images/logo.svg" alt="" style="width: 60px;"></a>
+            <a href="/"><img class="imagemenu" src="images/logo.svg" alt="" style="width: 60px;"></a>
 
         </div>
         <div class="navbar-collapse collapse" id="bs-navbar">
@@ -25,7 +25,8 @@
               <!-- User auth info -->
         <li id="userAuthInfo" ng-show="$root.authUser">
             <!-- <a>Welcome <img src="{{vm.authUser.user.photoURL}}" /> {{ vm.authData.name}}</a> -->
-            <a href="/admin">Welcome  {{ $root.authUser.name}}</a>
+            <a href="/admin"><img ng-src="{{$root.authUser.photos[0].value}}"/>Welcome  {{ $root.authUser.name}}</a>
+            <!-- <a href="/admin">Welcome  {{ $root.authUser.name}}</a> -->
         </li>
 
         <!-- Logout button -->
@@ -38,7 +39,7 @@
                     <!--<a href="/loginfb">--><img src="images/facebook.svg" alt="Access with Facebook"></a>
                 </li>
                 <li class="socialLogin" ng-hide="$root.authUser">
-                  <a href="/"><img src="images/twitter.svg" alt="Access with twitter"></a>
+                  <a target="_self" href="api/twitter"><img src="images/twitter.svg" alt="Access with twitter"></a>
                 </li>
                 <li class="socialLogin" ng-hide="$root.authUser">
                   <a href="/"><img src="images/google.svg" alt="Access with Google"></a>

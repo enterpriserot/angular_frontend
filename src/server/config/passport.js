@@ -3,8 +3,9 @@ var bcrypt = require('bcrypt-nodejs');
 var sql = require('../users/users.model');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var OAuthStrategy = require('passport-oauth').OAuthStrategy; //encara que no es gaste, fa falta
-var OAuth2Strategy = require('passport-oauth').OAuth2Strategy; //encara que no es gaste, fa falta
+var TwitterStrategy = require('passport-twitter').Strategy;
+// var OAuthStrategy = require('passport-oauth').OAuthStrategy; //encara que no es gaste, fa falta
+// var OAuth2Strategy = require('passport-oauth').OAuth2Strategy; //encara que no es gaste, fa falta
 
 //exporta la libreria de funciones
 module.exports = function (passport) {
@@ -71,13 +72,13 @@ module.exports = function (passport) {
     // =========================================================================
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
-
+    //Passport strategy to connect locally
     passport.use('local-login', new LocalStrategy({
                 // by default, local strategy uses username and password, we will override with email
                 usernameField: 'email',
                 passwordField: 'password',
                 passReqToCallback: true // allows us to pass back the entire request to the callback
-            },
+                },
                     function (req, user, password, done) {
                         //Gets the user from the database
                         sql.getUser(user, function (error, rows) {
@@ -95,9 +96,9 @@ module.exports = function (passport) {
                             }
                         });
 
-                    })
-            );
+                    }));//LocalStrategy end
 
+    //Passport strategy to connect with Facebook
     passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_ID,
         clientSecret: process.env.FACEBOOK_SECRET,
@@ -144,69 +145,61 @@ module.exports = function (passport) {
                 });
               }
         });
+      }));//FacebookStrategy end
 
-        // req.user = profile.name;
-        // console.log(req.user);
-        // return done( null, profile);
-      }));
+      passport.use(new TwitterStrategy({
+          consumerKey: process.env.TWITTER_KEY,
+          consumerSecret: process.env.TWITTER_SECRET,
+          callbackURL: 'http://localhost:3000/api/auth/twitter/callback',
+          passReqToCallback: true
+        }, function(req, token, tokenSecret, profile, done) {
 
-    // passport.use(new FacebookStrategy({
-    //     clientID: process.env.FACEBOOK_ID,
-    //     clientSecret: process.env.FACEBOOK_SECRET,
-    //     callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
-    //     profileFields: ['name', 'id', 'displayName', 'gender','photos'],
-    //     passReqToCallback: true
-    //   },
-    //   function(req, accessToken, refreshToken, profile, done) {
-    //     console.log('PASSPOSR USE');
-    //     /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    //       return cb(err, user);
-    //     });*/
-    //     return done(null, profile);
-    //   }
-    // ));
+          console.log('TWITTER PROFILE:');
+          console.log(profile);
+          console.log('FOTO:');
+          console.log(profile._json.profile_image_url);
+          console.log('TWITTER DISPLAY NAME:');
+          console.log(profile.displayName);
 
-  //   passport.use(new FacebookStrategy({
-  //   clientID: process.env.FACEBOOK_ID,
-  //   clientSecret: process.env.FACEBOOK_SECRET,
-  //   callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
-  //   profileFields: ['name', 'email', 'link', 'locale', 'photos', 'timezone'],
-  //   passReqToCallback: true
-  //   // profileFields: ['id', 'displayName', 'name', 'gender','photos']
-  // }, function(req, accessToken, refreshToken, profile, done) {
-  //       /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-  //         return cb(err, user);
-  //       });*/
-  //       console.log('FACEBOOK STRATEGY 1');
-  //       sql.countUser(profile.id, function (rows) {
-  //
-  //       });
-  //
-  //       return done(null, profile);
-  //     }
-  //   ));
+          //Search for the user in database
+          sql.countUser(profile.id, function (rows){
 
-    // passport.use('facebookcallback',new FacebookStrategy({
-    // clientID: process.env.FACEBOOK_ID,
-    // clientSecret: process.env.FACEBOOK_SECRET,
-    // callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
-    //
-    //   profileFields: ['id', 'displayName', 'name', 'gender','photos']
-    //   },
-    //   function(accessToken, refreshToken, profile, done) {
-    //     console.log('FACEBOOK CALLBACK SERVER');
-    //     /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    //       return cb(err, user);
-    //     });*/
-    //     console.log('refreshToken:');
-    //     console.log(refreshToken);
-    //     console.log('profile:');
-    //     console.log(profile);
-    //     console.log('accessToken:');
-    //     console.log(accessToken);
-    //     return done(null, profile);
-    //     // return cb.redirech('/admin');
-    //   }
-    // ));
+                if(rows[0].count === 0){ //If the user is not found
+                  console.log('USUARIO NO EXISTE');
+                  var user = {
+                      email: profile.id,
+                      name: profile.username,
+                      surnames: 'default',
+                      avatar: profile._json.profile_image_url,
+                      type: user
+                  };
+
+                  //Insert the user to users table in database
+                  sql.insertUser(user, function(rows){
+                      if(rows){
+                        console.log('USER:');
+                        console.log(user);
+                        console.log('ROWS:');
+                        console.log(rows);
+                          return done(null, user);
+                      }
+                  });
+
+                }else { //If user is found
+                  console.log('USER EXISTS');
+                  //Gets the user from users table
+                  sql.getUser(profile.id, function(error, rows){
+                      if(!rows.length){
+                          return done(null, false, 'nouser');
+                      }else{
+                        console.log('ELSE:');
+                        console.log(rows[0]);
+                          return done(null, rows[0]);
+                      }
+                  });
+                }
+          });
+        }));//TwitterStrategy end
+
 
 };
