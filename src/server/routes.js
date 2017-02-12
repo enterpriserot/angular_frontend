@@ -16,10 +16,10 @@ module.exports = router;
 //////////////
 
 // route to test if the user is logged in or not
-router.get('/loggedin', function(req, res) {
-  console.log('Logged in '+JSON.stringify(req.user));
-  res.send(req.isAuthenticated() ? req.user : '0');
-});
+// router.get('/loggedin', function(req, res) {
+//   console.log('Logged in '+JSON.stringify(req.user));
+//   res.send(req.isAuthenticated() ? req.user : '0');
+// });
 //
 // // route to log in
 // router.post('/login', passport.authenticate('local'), function(req, res) {

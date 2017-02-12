@@ -1,8 +1,6 @@
 'use strict';
 
 var mysql = require('../config/config.db');
-// var passwordHelper = require('../helpers/password');
-// var _ = require('lodash');
 
 var usersModel= {};
 

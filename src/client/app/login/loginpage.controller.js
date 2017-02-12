@@ -3,26 +3,22 @@
 
     angular
         .module('app.login')
-        .controller('LoginController', LoginController);
+        .controller('LoginPageController', LoginPageController);
 
-    LoginController.$inject = ['dataservice','$http', '$state', 'routerHelper', '$uibModalInstance',
-    '$timeout', 'logger', '$rootScope', '$location'/*, 'cookiesService'*/];
+    LoginPageController.$inject = ['dataservice','$http', '$state', 'routerHelper', '$timeout',
+    'logger', '$rootScope', '$location'/*, 'cookiesService'*/];
 
     /* @ngInject */
-    function LoginController(dataservice, $http, $state, routerHelper, $uibModalInstance, $timeout, logger,
+    function LoginPageController(dataservice, $http, $state, routerHelper, $timeout, logger,
       $rootScope, $location/*, cookiesService*/) {
         var vm = this;
         vm.title = 'Login';
-        vm.closeModal = closeModal;
         vm.inputEmail = '';
         vm.inputPassword = '';
         vm.loginSend = loginSend;
         vm.goToSignup = goToSignup;
 
 
-        function closeModal(){
-          $uibModalInstance.dismiss('cancel');
-        }
 
         function loginSend(){
 
@@ -42,40 +38,25 @@
                     logger.success('User logged in correctly');
                     console.log(response.data.name);
                     $rootScope.authUser = response.data;
-                    // $location.url('/admin');
-                    // $state.go('main');
+                    $location.url('/admin   ');
+                    // $state.go('admin');
                     $timeout(function (){
-                        $uibModalInstance.dismiss('cancel');
                         $state.go('main');
                         // $state.go('admin');
                     },2000);
                 }else{
                     logger.error('Intenal server error, try it later');
                 }
-                  // logger.success('User logged in correctly');
-                  // console.log('OKKK:'+responseUser);
-                  // console.log(responseUser);
-
-
              },
              function(responseError) { // optional
                  vm.error = 'Authentication failed.';
-                 console.log('ERRRRROR: '+responseError);
                  $state.go('login');
              });
 
-          console.log('loginSend');
-          console.log(vm.inputEmail);
-          console.log(vm.inputPassword);
         }//End loginSend
-
-        // $scope.close = function () {
-        // $uibModalInstance.dismiss('cancel');
-        // };
 
         function goToSignup(){
           console.log('goToSignup');
-          $uibModalInstance.dismiss('cancel');
           $state.go('signup');
         }
 
@@ -84,7 +65,7 @@
         activate();
 
         function activate() {
-            // console.log('Inside activate');
+            console.log('Inside activate');
         }
     }
 })();

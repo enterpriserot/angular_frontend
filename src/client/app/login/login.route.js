@@ -14,11 +14,11 @@
     function getStates() {
         return [
             {
-                state: 'login',
+                state: 'loginpage',
                 config: {
                     url: '/loginpage',
-                    templateUrl: 'app/users/login.page.html',
-                    controller: 'UsersController',
+                    templateUrl: 'app/login/login.page.html',
+                    controller: 'LoginPageController',
                     controllerAs: 'vm',
                     title: 'login',
                     params: {

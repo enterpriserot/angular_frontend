@@ -21,21 +21,12 @@ module.exports = function (passport) {
     // });
 
     passport.serializeUser(function(user, done) {
-      console.log(user);
-       done(null, {
-          id: user['id'],
-          userName: user['name'],
-          email: user['email']
-       });
+       done(null, user);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function (user, done) {
-        // sql.getUser(id, function (error, rows) {
-        //     done(error, rows[0]);
-        console.log(user);
         done(null, user);
-        // });
     });
 
     // =========================================================================
@@ -64,15 +55,15 @@ module.exports = function (passport) {
                                     name: req.body.name/*,
                                     usertype: req.body.usertype*/
                                 };
-
+                                //Inserts the new user into users table
                                 sql.insertUser(newUser, function (rows) {
                                     if (rows) {
                                         return done(null, email);
                                     }
-                                });//fin de consulta
-                            }//fin del else
-                        });//fin de count
-                    }));//fin de local
+                                });//inser end
+                            }//else
+                        });//count end
+                    }));//local signup end
 
 
     // =========================================================================
@@ -88,16 +79,15 @@ module.exports = function (passport) {
                 passReqToCallback: true // allows us to pass back the entire request to the callback
             },
                     function (req, user, password, done) {
-                      console.log('76 passport use');
+                        //Gets the user from the database
                         sql.getUser(user, function (error, rows) {
-                          console.log('PASSPORT.JS SQL GET USER');
-                          console.log(rows);
+
                             if (!rows.length) {
-                                console.log('PASSPORT.JS IF !ROWS LENGTH');
+
                                 return done(null, false, 'nouser');
-                            }
+                            }//Compare the password with the password encrypted in database
                             if (!bcrypt.compareSync(password, rows[0].password)) {
-                                console.log('PASSPORT.JS IF !BCRYPT COMPARESYNC');
+
                                 return done(null, false, 'wrongpassword');
                             } else {
 
@@ -108,65 +98,109 @@ module.exports = function (passport) {
                     })
             );
 
+    passport.use(new FacebookStrategy({
+        clientID: process.env.FACEBOOK_ID,
+        clientSecret: process.env.FACEBOOK_SECRET,
+        callbackURL: 'http://localhost:3000/api/auth/facebook/callback',
+        profileFields: ['id', 'displayName', 'name', 'email', 'link', 'locale', 'photos'],
+        passReqToCallback: true
+      }, function(req, accessToken, refreshToken, profile, done) {
+
+        //Search for the user in database
+        sql.countUser(profile.id, function (rows){
+
+              if(rows[0].count === 0){ //If the user is not found
+                console.log('USUARIO NO EXISTE');
+                var user = {
+                    email: profile.id,
+                    name: profile.name.givenName,
+                    surnames: profile.name.familyName,
+                    avatar: profile.photos[0].value,
+                    type: user
+                };
+
+                //Insert the user to users table in database
+                sql.insertUser(user, function(rows){
+                    if(rows){
+                        return done(null, rows);
+                    }
+                });
+
+              }else { //If user is found
+                console.log('USER EXISTS');
+                //Gets the user from users table
+                sql.getUser(profile.id, function(error, rows){
+                    if(!rows.negth){
+                        return done(null, false, 'nouser');
+                    }else{
+                        return done(null, rows[0]);
+                    }
+                });
+              }
+        });
+
+        // req.user = profile.name;
+        // console.log(req.user);
+        // return done( null, profile);
+      }));
+
     // passport.use(new FacebookStrategy({
     //     clientID: process.env.FACEBOOK_ID,
     //     clientSecret: process.env.FACEBOOK_SECRET,
-    //     // callbackURL: '/auth/facebook/callback',
     //     callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
-    //     profileFields: ['id', 'displayName', 'name', 'email', 'link', 'locale', 'timezone', 'photos']/*,
-    //     passReqToCallback: true*/
-    //   }, function(accessToken, refreshToken, profile, cb) {
-    //     // }, function(req, accessToken, refreshToken, profile, cb) {
+    //     profileFields: ['name', 'id', 'displayName', 'gender','photos'],
+    //     passReqToCallback: true
+    //   },
+    //   function(req, accessToken, refreshToken, profile, done) {
+    //     console.log('PASSPOSR USE');
+    //     /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    //       return cb(err, user);
+    //     });*/
+    //     return done(null, profile);
+    //   }
+    // ));
+
+  //   passport.use(new FacebookStrategy({
+  //   clientID: process.env.FACEBOOK_ID,
+  //   clientSecret: process.env.FACEBOOK_SECRET,
+  //   callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
+  //   profileFields: ['name', 'email', 'link', 'locale', 'photos', 'timezone'],
+  //   passReqToCallback: true
+  //   // profileFields: ['id', 'displayName', 'name', 'gender','photos']
+  // }, function(req, accessToken, refreshToken, profile, done) {
+  //       /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+  //         return cb(err, user);
+  //       });*/
+  //       console.log('FACEBOOK STRATEGY 1');
+  //       sql.countUser(profile.id, function (rows) {
+  //
+  //       });
+  //
+  //       return done(null, profile);
+  //     }
+  //   ));
+
+    // passport.use('facebookcallback',new FacebookStrategy({
+    // clientID: process.env.FACEBOOK_ID,
+    // clientSecret: process.env.FACEBOOK_SECRET,
+    // callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
     //
-    //     // console.log(accessToken);
-    //     // console.log(refreshToken);
+    //   profileFields: ['id', 'displayName', 'name', 'gender','photos']
+    //   },
+    //   function(accessToken, refreshToken, profile, done) {
+    //     console.log('FACEBOOK CALLBACK SERVER');
+    //     /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    //       return cb(err, user);
+    //     });*/
+    //     console.log('refreshToken:');
+    //     console.log(refreshToken);
+    //     console.log('profile:');
     //     console.log(profile);
-    //     // console.log(cb);
-    //     // req.user = profile.name;
-    //     // console.log(req.user);
-    //     return cb( null, profile);
-    //   }));
-
-    passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_ID,
-    clientSecret: process.env.FACEBOOK_SECRET,
-    callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
-
-      profileFields: ['id', 'displayName', 'name', 'gender','photos']
-      },
-      function(accessToken, refreshToken, profile, cb) {
-        /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-          return cb(err, user);
-        });*/
-        console.log('refreshToken:');
-        console.log(refreshToken);
-        console.log('profile:');
-        console.log(profile);
-        console.log('accessToken:');
-        console.log(accessToken);
-        return cb(null, profile);
-      }
-    ));
-    
-    passport.use('facebookcallback',new FacebookStrategy({
-    clientID: process.env.FACEBOOK_ID,
-    clientSecret: process.env.FACEBOOK_SECRET,
-    callbackURL: 'http://127.0.0.1:3000/api/auth/facebook/callback',
-
-      profileFields: ['id', 'displayName', 'name', 'gender','photos']
-      },
-      function(accessToken, refreshToken, profile, cb) {
-        /*User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-          return cb(err, user);
-        });*/
-        console.log('refreshToken:');
-        console.log(refreshToken);
-        console.log('profile:');
-        console.log(profile);
-        console.log('accessToken:');
-        console.log(accessToken);
-        return cb(null, profile);
-      }
-    ));
+    //     console.log('accessToken:');
+    //     console.log(accessToken);
+    //     return done(null, profile);
+    //     // return cb.redirech('/admin');
+    //   }
+    // ));
 
 };

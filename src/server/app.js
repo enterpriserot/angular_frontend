@@ -13,11 +13,10 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var session = require('express-session');
 var environment = process.env.NODE_ENV;
-
+var cors = require('cors');
 var dotenv = require('dotenv');
 dotenv.load({ path: './src/server/.env' });
 
-var cors = require('cors');
 app.use(cors());
 // app.use(cors({origin: 'http://localhost:8001'}));
 
@@ -27,6 +26,8 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(cookieParser());
 
+require('./config/passport.js')(passport);
+
 app.use(session({
                 secret: 'maytheforcebewithyou',
                 resave: true,
@@ -35,28 +36,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(function (req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-//     // res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-//     // res.setHeader('Access-Control-Allow-Credentials', true);
-//     next();
-// });
+require('./config/routes.js').init(app, passport);
 
-require('./config/passport.js')(passport);
-
-// require('./config/routes.js').init(app);
-require('./contact/contact.route.js')(app);
-require('./technicians/technicians.route.js')(app);
-require('./users/users.route.js')(app);
-
-//En una aplicación basada en Connect o Express, se requiere el middleware passport.
-//initialize () para inicializar Passport. Si su aplicación utiliza sesiones
-//de inicio de sesión persistentes, se debe utilizar el middleware passport.session ().
-//Asegúrese de usar express.session () antes de passport.session () para asegurarse de
-//que la sesión de inicio de sesión se restaure en el orden correcto.
-
-/*----PASSPORT END----*/
+//Old routes
+// require('./contact/contact.route.js')(app);
+// require('./technicians/technicians.route.js')(app);
+// require('./users/users.route.js')(app);
 
 console.log('About to crank up node');
 console.log('PORT=' + port);

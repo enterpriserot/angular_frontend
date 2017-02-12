@@ -155,7 +155,8 @@
             console.log(responseUser);
              if (responseUser.data === '0'){
                  $rootScope.authUser = false;
-                 $state.go('login');
+                 $state.go('loginpage');
+                //  $state.go('login');
             }else{
                 console.log('else:');
                 console.log(responseUser.data);
