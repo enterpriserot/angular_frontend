@@ -39,6 +39,7 @@ usersModel.getUser = function (email, callback){
         mysql.connection.query('SELECT * FROM users WHERE email LIKE ?', [email],
         function (error, rows){
             if (error){
+              console.log('error');
 
               throw error;
             }else{
