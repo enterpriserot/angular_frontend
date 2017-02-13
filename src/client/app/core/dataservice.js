@@ -14,7 +14,6 @@
       getTechnicians: getTechnicians,
       getLocation: getLocation,
       signup: signup,
-      // login: localLogin,
       checkLoggedin: checkLoggedin,
       isLoggedin: isLoggedin,
       logout: logout
@@ -84,45 +83,6 @@
         }
     }//End signup function
 
-    // function localLogin(data) {
-    //         console.log('dataservice:');
-    //         console.log(data);
-    //         return $http.post('/api/login', data)
-    //                 .then(success)
-    //                 .catch(fail);
-    //
-    //         function success(response) {
-    //             console.log('true main Login');
-    //             return response;
-    //         }
-    //
-    //         function fail() {
-    //           console.log('false main Login');
-    //             return false;
-    //         }
-    //   }//End login function
-
-      function login(data){
-
-      }
-
-      // function localLoginFb(data) {
-      //         console.log('dataservice:');
-      //         console.log(data);
-      //         return $http.get('/api/loginfb', data)
-      //                 .then(success)
-      //                 .catch(fail);
-      //
-      //         function success(response) {
-      //             console.log('true Facebook Login');
-      //             return response;
-      //         }
-      //
-      //         function fail() {
-      //           console.log('false Facebook Login');
-      //             return false;
-      //         }
-      //   }//End localLoginFb function
 
         //================================================
         // Check if the user is connected

@@ -10,8 +10,7 @@
     'app.main',
     'app.signup',
     'app.technicians',
-    'app.widgets',
-    'app.loginfb'
+    'app.widgets'
   ]);
 
 })();

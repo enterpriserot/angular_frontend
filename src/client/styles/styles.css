@@ -208,7 +208,7 @@ footer {
   /*Color links menu header quan fem hover*/
   .navbar-default .nav > li > a:hover,
   .navbar-default .nav > li > a:focus:hover {
-    color: #da521b; }
+    color: #212121; }
 
   .navbar-default.affix {
     border-color: rgba(34, 34, 34, 0.05);

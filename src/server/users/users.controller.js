@@ -3,9 +3,7 @@ var passport = require('passport');
 module.exports.signupUser = signupUser;
 module.exports.loginUser = loginUser;
 module.exports.loggedin = loggedin;
-// module.exports.facebook = facebook;
 module.exports.logoutUser = logoutUser;
-// module.exports.facebookCallback = facebookCallback;
 module.exports.success = success;
 
  function signupUser(req, res, next){
@@ -24,7 +22,6 @@ module.exports.success = success;
 
 function loginUser (req, res, next){
 
-  // passport.authenticate('local-login', { badRequestMessage: 'An error occurs' },function (err, user, info){
   passport.authenticate('local-login', function (err, user, info){
 
       if(err){
@@ -51,36 +48,12 @@ function loggedin(req, res){
   console.log(req.isAuthenticated());
 
   res.send(req.isAuthenticated() ? req.user : '0');
-
 }
 
 function success(req, res){
     console.log('SERVER SUCCESS!!!!');
     res.json(req.user);
 }
-
-// function facebook(req, res, next){
-//   console.log('FACEBOOOOOOOOK USERS CONTROLLER');
-//     passport.authenticate('facebook');
-//     //res.send(req.user);
-// }
-
-
-// function facebook(req, res, next){
-//
-//   passport.authenticate('facebook', function (err, user, info){
-//     console.log('LINEA 52 NODE FACEBOOK');
-//     if(err){
-//         return res.send('err');
-//     }else if (!user) {
-//         return res.send('errorcredentials');
-//     }
-//
-//     res.redirect('/');
-//     // return res.send(user);
-//
-//   })(req, res, next);
-// }
 
 function logoutUser(req, res){
   req.logOut();

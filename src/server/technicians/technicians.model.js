@@ -23,17 +23,5 @@ techniciansModel.getTechnicians = function (location, callback){
     }
 };
 
-// techniciansModel.getTechnician = function(id,callback){
-//     if (connection) {
-//         var sql = 'SELECT * FROM users WHERE id = ' + connection.escape(id);
-//         connection.query(sql, function(error, row) {
-//             if(error){
-//                 throw error;
-//             }else{
-//                 callback(null, row);
-//             }
-//         });
-//     }
-// };
 // console.log(techniciansModel);
 module.exports = techniciansModel;

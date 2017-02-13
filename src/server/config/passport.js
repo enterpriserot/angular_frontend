@@ -5,8 +5,6 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-// var OAuthStrategy = require('passport-oauth').OAuthStrategy; //encara que no es gaste, fa falta
-// var OAuth2Strategy = require('passport-oauth').OAuth2Strategy; //encara que no es gaste, fa falta
 
 //exporta la libreria de funciones
 module.exports = function (passport) {
@@ -18,10 +16,6 @@ module.exports = function (passport) {
     // passport needs ability to serialize and unserialize users out of session
 
     // used to serialize the user for the session
-    // passport.serializeUser(function (user, done) {
-    //     done(null, user.id);
-    // });
-
     passport.serializeUser(function(user, done) {
        done(null, user);
     });
@@ -81,12 +75,12 @@ module.exports = function (passport) {
                 passReqToCallback: true // allows us to pass back the entire request to the callback
                 },
                     function (req, user, password, done) {
-                      console.log("antes de sql");
+                      // console.log('before sql');
                         //Gets the user from the database
                         sql.getUser(user, function (error, rows) {
 
                             if (!rows.length) {
-                              console.log("sin user");
+                              // console.log('without user');
                                 return done(null, false, 'nouser');
                             }//Compare the password with the password encrypted in database
                             if (!bcrypt.compareSync(password, rows[0].password)) {
@@ -97,14 +91,13 @@ module.exports = function (passport) {
                                 return done(null, rows[0]);
                             }
                         });
-
                     }));//LocalStrategy end
 
     //Passport strategy to connect with Facebook
     passport.use(new FacebookStrategy({
         clientID: process.env.FACEBOOK_ID,
         clientSecret: process.env.FACEBOOK_SECRET,
-        callbackURL: 'http://localhost:3000/api/auth/facebook/callback',
+        callbackURL: process.env.FACEBOOK_CALLBACK,
         profileFields: ['id', 'displayName', 'name', 'email', 'link', 'locale', 'photos'],
         passReqToCallback: true
       }, function(req, accessToken, refreshToken, profile, done) {
@@ -152,7 +145,7 @@ module.exports = function (passport) {
       passport.use(new TwitterStrategy({
           consumerKey: process.env.TWITTER_KEY,
           consumerSecret: process.env.TWITTER_SECRET,
-          callbackURL: 'http://localhost:3000/api/auth/twitter/callback',
+          callbackURL: process.env.TWITTER_CALLBACK,
           passReqToCallback: true
         }, function(req, token, tokenSecret, profile, done) {
 
@@ -203,7 +196,7 @@ module.exports = function (passport) {
         passport.use(new GoogleStrategy({
             clientID: process.env.GOOGLE_KEY,
             clientSecret: process.env.GOOGLE_SECRET,
-            callbackURL: 'http://localhost:3000/api/auth/google/callback',
+            callbackURL: process.env.GOOGLE_CALLBACK,
             passReqToCallback: true
           }, function(req, token, refreshToken, profile, done) {
 
@@ -251,5 +244,4 @@ module.exports = function (passport) {
                   }
             });
           }));//GoogleStrategy end
-
 };
