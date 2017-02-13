@@ -27,3 +27,4 @@ build/
 config.db.js
 build/
 bower_components/
+deploy.sh

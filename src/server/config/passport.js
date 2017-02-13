@@ -81,11 +81,12 @@ module.exports = function (passport) {
                 passReqToCallback: true // allows us to pass back the entire request to the callback
                 },
                     function (req, user, password, done) {
+                      console.log("antes de sql");
                         //Gets the user from the database
                         sql.getUser(user, function (error, rows) {
 
                             if (!rows.length) {
-
+                              console.log("sin user");
                                 return done(null, false, 'nouser');
                             }//Compare the password with the password encrypted in database
                             if (!bcrypt.compareSync(password, rows[0].password)) {
