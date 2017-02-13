@@ -74,6 +74,7 @@
         }
 
         function modalDetails(technicianId) {
+          console.log(technicianId);
           vm.technicianDetails = getDetails(technicianId);
 
           vm.modalInstance = $uibModal.open({
