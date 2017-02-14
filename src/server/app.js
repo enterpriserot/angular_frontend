@@ -17,7 +17,6 @@ var dotenv = require('dotenv');
 dotenv.load({ path: './src/server/.env' });
 
 app.use(cors());
-// app.use(cors({origin: 'http://localhost:8001'}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
