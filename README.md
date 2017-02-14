@@ -2,7 +2,7 @@
 # Project created for study Angular and Node JS by David Ureña & Antonio Revert
 # for a class project...
 
-# How to wet it to work:
+# How to get it to work:
 
 1. Fill with the api keys src/server/env and rename it to .env in the same place
 2. To get the database to work have a copy of sample data on src/server/db/
