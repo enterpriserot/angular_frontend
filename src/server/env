@@ -1,0 +1,13 @@
+SENDGRID_API_KEY=
+
+FACEBOOK_ID=
+FACEBOOK_SECRET=
+FACEBOOK_CALLBACK=http://localhost:3000/api/auth/facebook/callback
+
+TWITTER_KEY=
+TWITTER_SECRET=
+TWITTER_CALLBACK=http://localhost:3000/api/auth/twitter/callback
+
+GOOGLE_KEY=
+GOOGLE_SECRET=
+GOOGLE_CALLBACK=http://localhost:3000/api/auth/google/callback

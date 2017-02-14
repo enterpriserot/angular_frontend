@@ -2,6 +2,12 @@
 # Project created for study Angular and Node JS by David Ureña & Antonio Revert
 # for a class project...
 
+# How to wet it to work:
+
+1. Fill with the api keys src/server/env and rename it to .env in the same place
+2. To get the database to work have a copy of sample data on src/server/db/
+2.1 Fill the SQL server data and rename src/server/config/configdbjs to config.db.js
+
 **Generated from HotTowel Angular**
 
 >*Opinionated Angular style guide for teams by [@john_papa](//twitter.com/john_papa)*
