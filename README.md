@@ -8,6 +8,10 @@
 2. To get the database to work have a copy of sample data on src/server/db/
 2.1 Fill the SQL server data and rename src/server/config/configdbjs to config.db.js in the same place
 
+# When we create a build:
+
+
+
 **Generated from HotTowel Angular**
 
 >*Opinionated Angular style guide for teams by [@john_papa](//twitter.com/john_papa)*
