@@ -13,6 +13,7 @@
 1. Need to create a video folder at the web root folder and copy the videos located on: src/client/video
 2. Copy the styles.css from "src/client/styles" to styles folder at the web root folder
 3. Copy all the fonts from "src/client/fonts" to fonts folder at the web root folder
+3. Copy src/client/app/login/login.html to app/login folder at the web root folder
 
 
 **Generated from HotTowel Angular**
