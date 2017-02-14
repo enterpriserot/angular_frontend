@@ -1,6 +1,6 @@
 # Repair on time
-# Project created for study Angular and Node JS by David Ureña & Antonio Revert
-# for a class project...
+# Project created for study Angular and Node JS by David Ureña & Antonio Revert for a class project...
+
 
 # How to get it to work:
 
