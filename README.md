@@ -8,8 +8,11 @@
 2. To get the database to work have a copy of sample data on src/server/db/
 2.1 Fill the SQL server data and rename src/server/config/configdbjs to config.db.js in the same place
 
-# When we create a build:
+# When we create a build(gulp build):
 
+1. Need to create a video folder at the web root folder and copy the videos located on: src/client/video
+2. Copy the styles.css from "src/client/styles" to styles folder at the web root folder
+3. Copy all the fonts from "src/client/fonts" to fonts folder at the web root folder
 
 
 **Generated from HotTowel Angular**
