@@ -1,6 +1,8 @@
 /*jshint node:true*/
 'use strict';
 
+var fs = require('fs');
+var https = require('https');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -49,6 +51,12 @@ switch (environment) {
     });
     // Any deep link calls should return index.html
     app.use('/*', express.static('./build/index.html'));
+    console.log('WARNING: OPEN BROWSER WITH HTTPS');
+    https.createServer({
+      key: fs.readFileSync('server.key'),
+      cert: fs.readFileSync('server.crt')
+    }, app).listen(443);
+
     break;
   default:
     console.log('** DEV **');
