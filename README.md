@@ -6,7 +6,7 @@
 
 1. Fill with the api keys src/server/env and rename it to .env in the same place
 2. To get the database to work have a copy of sample data on src/server/db/
-2.1 Fill the SQL server data and rename src/server/config/configdbjs to config.db.js
+2.1 Fill the SQL server data and rename src/server/config/configdbjs to config.db.js in the same place
 
 **Generated from HotTowel Angular**
 
