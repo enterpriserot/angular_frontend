@@ -1,5 +1,5 @@
 # Repair on time
-# Project created for study Angular and Node JS
+# Project created for study Angular and Node JS by David Ureña & Antonio Revert
 
 **Generated from HotTowel Angular**
 
