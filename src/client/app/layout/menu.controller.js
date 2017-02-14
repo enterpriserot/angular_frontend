@@ -12,7 +12,6 @@
     vm.animationsEnabled = true;
 
     vm.modalLogin = modalLogin;
-    // vm.facebook = facebook;
     vm.logout = logout;
 
     var states = routerHelper.getStates();
@@ -28,16 +27,6 @@
           logger.info('Activated layout view');
       });
     }
-
-    // function facebook(){
-    //   console.log('loginFacebook');
-    //   return dataservice.loginFacebook().then(function(data) {
-    //     console.log('getAuthUser:');
-    //     console.log(data);
-    //     $rootScope.authUser = data;
-    //     return $rootScope.authUser;
-    //   });
-    // }
 
     function getNavRoutes() {
       vm.navRoutes = states.filter(function(r) {
@@ -76,9 +65,6 @@
         // console.log(data);
         // console.log(data.email);
         //console.log(data.userName.givenName);
-        // if(data.userName.givenName){
-        //     $rootScope.authUser.name=data.userName.givenName;
-        // }
 
         $rootScope.authUser = data;
         return $rootScope.authUser;
