@@ -55,7 +55,7 @@ switch (environment) {
     https.createServer({
       key: fs.readFileSync('server.key'),
       cert: fs.readFileSync('server.crt')
-    }, app).listen(443);
+    }, app).listen(port);
 
     break;
   default:
