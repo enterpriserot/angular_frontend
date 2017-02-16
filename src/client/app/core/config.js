@@ -21,9 +21,20 @@
 
   core.config(configure);
 
-  configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
+  configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider', '$translateProvider'];
   /* @ngInject */
-  function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
+  function configure($logProvider, routerHelperProvider, exceptionHandlerProvider, $translateProvider) {
+
+    $translateProvider
+            .addInterpolation('$translateMessageFormatInterpolation')
+            .preferredLanguage('en')
+            .fallbackLanguage('en')
+            .useStaticFilesLoader({
+                prefix: '/app/i18n/',
+                suffix: '.json'
+            })
+            .useSanitizeValueStrategy('sanitize');
+
     if ($logProvider.debugEnabled) {
       $logProvider.debugEnabled(true);
     }

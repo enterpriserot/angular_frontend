@@ -5,6 +5,6 @@
     .module('app.core', [
       'ui.bootstrap', 'ngAnimate', 'ngSanitize',
       'blocks.exception', 'blocks.logger', 'blocks.router',
-      'ui.router', 'ngplus'/*,'ngCookies','cookiesService'*/
+      'ui.router', 'ngplus', 'pascalprecht.translate'
     ]);
 })();
