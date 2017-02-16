@@ -101,6 +101,22 @@ gulp.task('less-watcher', function() {
 });
 
 /**
+ * Compress images
+ * @return {Stream}
+ */
+gulp.task('videos', ['clean-videos'], function() {
+  log('Copying videos');
+
+  return gulp
+    .src(config.videos)
+    .pipe(gulp.dest(config.build + 'videos'));
+});
+
+gulp.task('less-watcher', function() {
+  gulp.watch([config.less], ['styles']);
+});
+
+/**
  * Create $templateCache from the html templates
  * @return {Stream}
  */
@@ -191,7 +207,7 @@ gulp.task('build-specs', ['templatecache'], function(done) {
  * This is separate so we can run tests on
  * optimize before handling image or fonts
  */
-gulp.task('build', ['optimize', 'images', 'fonts'], function() {
+gulp.task('build', ['optimize', 'images', 'fonts', 'videos'], function() {
   log('Building everything');
 
   var msg = {
