@@ -20,7 +20,7 @@
           templateUrl: 'app/contact/contact.view.html',
           controller: 'ContactController',
           controllerAs: 'vm',
-          title: 'Contact',
+          title: 'contact',
           settings: {
             nav: 3,
             content: '<i class="fa fa-lock"></i> Contact'

@@ -20,7 +20,7 @@
                     templateUrl: 'app/technicians/technicians.html',
                     controller: 'techniciansController',
                     controllerAs: 'vm',
-                    title: 'Technicians',
+                    title: 'technicians',
                     settings: {
                       nav: 1,
                       content: '<i class="fa fa-lock"></i> Technicians'

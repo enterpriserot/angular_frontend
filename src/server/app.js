@@ -76,5 +76,4 @@ switch (environment) {
       '\nprocess.cwd = ' + process.cwd());
     });
     break;
-
 }

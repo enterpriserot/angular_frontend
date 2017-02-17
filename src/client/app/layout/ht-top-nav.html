@@ -14,13 +14,23 @@
         <div class="navbar-collapse collapse" id="bs-navbar">
             <ul class="nav navbar-nav">
                 <li class="nlightblue fade-selection-animation" ng-class="vm.isCurrent(r)" ng-repeat="r in vm.navRoutes">
-                  <a ui-sref="{{r.name}}" ng-bind-html="r.settings.content"></a>
+                  <!-- <a ui-sref="{{r.name}}" ng-bind-html="r.settings.content"></a> -->
+                  <a ui-sref="{{r.name}}" translate="{{r.title}}"></a>
                 </li>
             </ul>
+            <div class="dropdown nav navbar-nav pull-left">
+                <button id="dLabel" type="button" data-toggle="dropdown" translate="LANGUAGE">
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li> <a ng-click="vm.setLang('en')" translate="english"></a></li>
+                  <li> <a ng-click="vm.setLang('es')" translate="spanish"></a></li>
+                </ul>
+            </div>
             <ul class="nav navbar-nav navbar-right">
               <li id="LogProf" ng-hide="$root.authUser">
                 <!-- <a href="#" class="button special" data-toggle="modal" id="Login" data-target="#LoginModal">Login</a> -->
-                <a href="#" class="button special" ng-click="vm.modalLogin()">Login</a>
+                <a href="/loginpage" class="button special" >{{'sign in' | translate}}</a>
               </li>
               <!-- User auth info -->
         <li id="userAuthInfo" ng-show="$root.authUser">
