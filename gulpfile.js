@@ -104,17 +104,13 @@ gulp.task('less-watcher', function() {
  * Compress images
  * @return {Stream}
  */
-// gulp.task('videos', ['clean-videos'], function() {
-//   log('Copying videos');
-//
-//   return gulp
-//     .src(config.videos)
-//     .pipe(gulp.dest(config.build + 'videos'));
-// });
-//
-// gulp.task('less-watcher', function() {
-//   gulp.watch([config.less], ['styles']);
-// });
+gulp.task('videos', ['clean-videos'], function() {
+  log('Copying videos');
+
+  return gulp
+    .src(config.videos)
+    .pipe(gulp.dest(config.build + 'videos'));
+});
 
 /**
  * Create $templateCache from the html templates
@@ -290,6 +286,14 @@ gulp.task('clean-fonts', function(done) {
  */
 gulp.task('clean-images', function(done) {
   clean(config.build + 'images/**/*.*', done);
+});
+
+/**
+ * Remove all images from the build folder
+ * @param  {Function} done - callback when complete
+ */
+gulp.task('clean-videos', function(done) {
+  clean(config.build + 'videos/**/*.*', done);
 });
 
 /**
