@@ -104,17 +104,17 @@ gulp.task('less-watcher', function() {
  * Compress images
  * @return {Stream}
  */
-gulp.task('videos', ['clean-videos'], function() {
-  log('Copying videos');
-
-  return gulp
-    .src(config.videos)
-    .pipe(gulp.dest(config.build + 'videos'));
-});
-
-gulp.task('less-watcher', function() {
-  gulp.watch([config.less], ['styles']);
-});
+// gulp.task('videos', ['clean-videos'], function() {
+//   log('Copying videos');
+//
+//   return gulp
+//     .src(config.videos)
+//     .pipe(gulp.dest(config.build + 'videos'));
+// });
+//
+// gulp.task('less-watcher', function() {
+//   gulp.watch([config.less], ['styles']);
+// });
 
 /**
  * Create $templateCache from the html templates
