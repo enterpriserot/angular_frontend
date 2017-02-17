@@ -5,14 +5,16 @@
     .module('app.layout')
     .controller('MenuController', MenuController);
 
-  MenuController.$inject = ['$rootScope', '$q', '$state', 'routerHelper','$uibModal', 'dataservice', 'logger'];
+  MenuController.$inject = ['$translatePartialLoader','$translate','$rootScope', '$q', '$state', 'routerHelper','$uibModal', 'dataservice', 'logger'];
   /* @ngInject */
-  function MenuController($rootScope, $q, $state, routerHelper,$uibModal, dataservice, logger) {
+  function MenuController($translatePartialLoader, $translate, $rootScope, $q, $state, routerHelper,$uibModal, dataservice, logger) {
     var vm = this;
     vm.animationsEnabled = true;
+    $translatePartialLoader.addPart('layout');
 
     vm.modalLogin = modalLogin;
     vm.logout = logout;
+    vm.setLang = setLang;
 
     var states = routerHelper.getStates();
     vm.isCurrent = isCurrent;
@@ -77,6 +79,11 @@
         $rootScope.authUser = undefined;
         return $rootScope.authUser;
       });
+    }
+
+    function setLang (langKey) {
+      console.log(langKey);
+      $translate.use(langKey);
     }
 
   }

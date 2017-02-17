@@ -21,25 +21,34 @@
 
   core.config(configure);
 
-  configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider', '$translateProvider'];
+  configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider', '$translateProvider','$translatePartialLoaderProvider'];
   /* @ngInject */
-  function configure($logProvider, routerHelperProvider, exceptionHandlerProvider, $translateProvider) {
+  function configure($logProvider, routerHelperProvider, exceptionHandlerProvider, $translateProvider, $translatePartialLoaderProvider) {
 
-    $translateProvider
-            .addInterpolation('$translateMessageFormatInterpolation')
-            .preferredLanguage('en')
-            .fallbackLanguage('en')
-            .useStaticFilesLoader({
-                prefix: '/app/i18n/',
-                suffix: '.json'
-            })
-            .useSanitizeValueStrategy('sanitize');
+    $translateProvider.registerAvailableLanguageKeys(['es','en'],{
+        'es-ES': 'es',
+        'en-US': 'en',
+        'en-UK': 'en'
+      });
 
-    if ($logProvider.debugEnabled) {
-      $logProvider.debugEnabled(true);
-    }
-    exceptionHandlerProvider.configure(config.appErrorPrefix);
-    routerHelperProvider.configure({ docTitle: config.appTitle + ': ' });
+      $translatePartialLoaderProvider.addPart('core');
+      $translateProvider.useLoader('$translatePartialLoader', {
+        urlTemplate: '/app/{part}/i18n/{lang}.json',
+        loadFailureHandler: 'MyErrorHandler'
+      });
+      $translateProvider.useCookieStorage();
+
+      $translateProvider
+        .determinePreferredLanguage()
+        .fallbackLanguage('en')
+        .useSanitizeValueStrategy('sanitize');
+
+      if ($logProvider.debugEnabled) {
+        $logProvider.debugEnabled(true);
+      }
+      exceptionHandlerProvider.configure(config.appErrorPrefix);
+      routerHelperProvider.configure({ docTitle: config.appTitle + ': ' });
+
   }
 
 })();
