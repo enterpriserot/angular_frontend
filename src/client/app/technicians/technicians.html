@@ -1,7 +1,7 @@
 
 <section id="main" class="wrapper">
   <div class="techniciansFilter no-print">
-    <h3>Search Technicians:</h3> <input type="text" class="filtre" ng-model="vm.filtro" >
+    <h3>{{ 'SEARCH_TECHNICIANS' | translate }}</h3> <input type="text" class="filtre" ng-model="vm.filtro" >
   </div>
   <div class="techniciansContent container">
       <div class="techniciansMap">
@@ -11,11 +11,11 @@
             <ui-gmap-window show="vm.map.windows.show" coords= "vm.map.windows.model">
               <div class="techBoxInfo">
                 <div class="desc">{{vm.infoWindow.name}} {{vm.infoWindow.surname}}</div>
-                <div class="points"> Values: <p class="stars-container stars-{{vm.infoWindow.points/vm.infoWindow.val_qty}}"  > ★★★★★ </p></div>
-                <div class="hora"> Horario: {{vm.infoWindow.time_start}} - {{vm.infoWindow.time_end}}</div>
+                <div class="points">{{ 'RATING' | translate }} <p class="stars-container stars-{{vm.infoWindow.points/vm.infoWindow.val_qty}}"  > ★★★★★ </p></div>
+                <div class="hora">{{ 'SCHEDULE' | translate }} {{vm.infoWindow.time_start}} - {{vm.infoWindow.time_end}}</div>
                 <div class="details">
                 <a href="#" ng-click="$parent.vm.modalDetails(vm.infoWindow.id)">+info</a>
-                  <a href="#">Contact</a>
+                  <a href="#">{{ 'CONTACT' | translate }}</a>
                 </div>
               </div>
             </ui-gmap-window>
@@ -28,11 +28,11 @@
         <div class="techBoxInfo" ng-repeat="tech in vm.filteredTechnicians| filter:{name:vm.filtro}" id="{{tech.id}}">
             <div>
                 <div class="desc">{{tech.name}} {{tech.surname1}}</div>
-                <div class="points"> Values: <p class="stars-container stars-{{tech.points/tech.val_qty}}"  > ★★★★★ </p></div>
-                <div class="hora"> Horario: {{tech.time_start}} - {{tech.time_end}}</div>
+                <div class="points">{{ 'RATING' | translate }} <p class="stars-container stars-{{tech.points/tech.val_qty}}"  > ★★★★★ </p></div>
+                <div class="hora">{{ 'SCHEDULE' | translate }} {{tech.time_start}} - {{tech.time_end}}</div>
                 <div class="details" >
                   <a href="#" ng-click="vm.modalDetails(tech.id)">+info</a>
-                  <a href="#">Contact</a>
+                  <a href="#">{{ 'CONTACT' | translate }}</a>
                 </div>
             </div>
         </div>

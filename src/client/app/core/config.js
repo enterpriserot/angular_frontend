@@ -41,8 +41,8 @@
       $translateProvider
         .determinePreferredLanguage()
         .fallbackLanguage('en')
-        .useSanitizeValueStrategy('sanitize');
-
+        .useSanitizeValueStrategy('sce');
+        // .useSanitizeValueStrategy('sanitize');
       if ($logProvider.debugEnabled) {
         $logProvider.debugEnabled(true);
       }

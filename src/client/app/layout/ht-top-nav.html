@@ -30,18 +30,18 @@
             <ul class="nav navbar-nav navbar-right">
               <li id="LogProf" ng-hide="$root.authUser">
                 <!-- <a href="#" class="button special" data-toggle="modal" id="Login" data-target="#LoginModal">Login</a> -->
-                <a href="/loginpage" class="button special" >{{'sign in' | translate}}</a>
+                <a href="/loginpage" class="button special" >{{'SIGN IN' | translate}}</a>
               </li>
               <!-- User auth info -->
         <li id="userAuthInfo" ng-show="$root.authUser">
             <!-- <a>Welcome <img src="{{vm.authUser.user.photoURL}}" /> {{ vm.authData.name}}</a> -->
-            <a href="/admin"><img class="avatar" ng-src="{{$root.authUser.avatar}}"/>Welcome  {{ $root.authUser.name}}</a>
+            <a href="/admin"><img class="avatar" ng-src="{{$root.authUser.avatar}}"/>{{'WELLCOME' | translate}}  {{ $root.authUser.name}}</a>
             <!-- <a href="/admin">Welcome  {{ $root.authUser.name}}</a> -->
         </li>
 
         <!-- Logout button -->
         <li id="logoutButton" ng-click="vm.logout()" ng-show="$root.authUser">
-            <a href="#"><span class="fa fa-sign-out"></span>Logout</a>
+            <a href="#"><span class="fa fa-sign-out"></span>{{'LOGOUT' | translate}}</a>
         </li>
 
                 <li class="socialLogin" ng-hide="$root.authUser">

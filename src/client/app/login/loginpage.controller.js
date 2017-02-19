@@ -5,11 +5,11 @@
         .module('app.login')
         .controller('LoginPageController', LoginPageController);
 
-    LoginPageController.$inject = ['dataservice','$http', '$state', 'routerHelper', '$timeout',
+    LoginPageController.$inject = ['$translatePartialLoader', 'dataservice','$http', '$state', 'routerHelper', '$timeout',
     'logger', '$rootScope', '$location'/*, 'cookiesService'*/];
 
     /* @ngInject */
-    function LoginPageController(dataservice, $http, $state, routerHelper, $timeout, logger,
+    function LoginPageController($translatePartialLoader, dataservice, $http, $state, routerHelper, $timeout, logger,
       $rootScope, $location/*, cookiesService*/) {
         var vm = this;
         vm.title = 'Login';
@@ -18,7 +18,7 @@
         vm.loginSend = loginSend;
         vm.goToSignup = goToSignup;
 
-
+        $translatePartialLoader.addPart('login');
 
         function loginSend(){
 
@@ -38,7 +38,7 @@
                     logger.success('User logged in correctly');
                     console.log(response.data.name);
                     $rootScope.authUser = response.data;
-                  
+
                     $timeout(function (){
                         $state.go('admin');
                     },2000);

@@ -5,11 +5,12 @@
     .module('app.contact')
     .controller('ContactController', ContactController);
 
-  ContactController.$inject = ['dataservice', '$state', '$timeout', 'logger'];
+  ContactController.$inject = ['$translatePartialLoader', 'dataservice', '$state', '$timeout', 'logger'];
   /* @ngInject */
-  function ContactController(dataservice, $state, $timeout, logger) {
+  function ContactController($translatePartialLoader, dataservice, $state, $timeout, logger) {
     var vm = this;
 
+    $translatePartialLoader.addPart('contact');
     vm.title = 'Contact';
     vm.inputName = '';
     vm.inputEmail = '';

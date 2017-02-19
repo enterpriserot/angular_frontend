@@ -5,10 +5,10 @@
         <div class="inner">
             <h1 class="cursive">Repair on Time</h1>
             <section class="search">
-              <input type="text" id="searchBox" name="search-box" class="search-box" autocomplete="on" placeholder="Search...">
-              <input type="button" id="searchButton" name="search-button" class="btn btn-primary btn-xl" value="Search">
+              <input type="text" id="searchBox" name="search-box" class="search-box" autocomplete="on" placeholder="{{ 'SEARCH' | translate }}">
+              <input type="button" id="searchButton" name="search-button" class="btn btn-primary btn-xl" value="{{ 'SEARCH_BTN' | translate }}">
             </section>
-            <video autoplay="" loop="" class="fillWidth fadeIn wow collapse in" data-wow-delay="0.5s" poster="<?php echo IMG_PATH ?>static.jpg" id="video-background">
+            <video autoplay="" loop="" class="fillWidth fadeIn wow collapse in" data-wow-delay="0.5s" poster="images/static.jpg" id="video-background">
                 <source src="videos/back.mp4" type="video/mp4">
                 <source src="videos/back.ogv" type='video/ogg; codecs="theora, vorbis"' />
                 <source src="videos/back.webm" type="video/webm">

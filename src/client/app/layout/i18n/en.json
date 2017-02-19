@@ -3,10 +3,16 @@
       "english": "EN",
       "spanish": "ES",
       "language": "LANGUAGE",
-      "sign in": "Sign in",
+      "SIGN IN": "Sign in",
       "Home": "Home",
-      "contact": "Contact",
+      "CONTACT": "Contact",
       "profile": "Profile",
       "admin": "Admin",
-      "technicians": "Technicians"
+      "TECHNICIANS": "Technicians",
+      "WELLCOME": "Wellcome",
+      "LOGOUT": "Logout",
+      "INFORMATION": "Information",
+      "ABOUT": "About",
+      "FOLLOW": "Follow",
+      "STAY_POSTED": "Stay Posted"
 }

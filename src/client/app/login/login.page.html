@@ -4,7 +4,7 @@
           <h3>LOG IN </h3>
   <hr>
   <p>
-    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ng-model="vm.inputEmail" class="loginemail" id="inputUser" name="email" placeholder=" EMAIL ADDRESS" required><br/>
+    <input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" ng-model="vm.inputEmail" class="loginemail" id="inputUser" name="email" placeholder=" {{ 'EMAIL' | translate }}" required><br/>
     <span>{{vm.error}}</span>
   </p>
   <p>
@@ -14,8 +14,8 @@
   <hr>
 
   <p class="modal_baix">
-    <input type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" name="loginbutton" id="submitLog" value="SEND">
-    <a class="log_link" href="#" ng-click="vm.goToSignup()">Register</a>
+    <input type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" name="loginbutton" id="submitLog" value="{{ 'SEND' | translate }}">
+    <a class="log_link" href="#" ng-click="vm.goToSignup()">{{ 'REGISTER' | translate }}</a>
     <!-- <a class="log_link" href="#">Forgot your password?</a> -->
   </p>
 </form>

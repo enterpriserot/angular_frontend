@@ -3,20 +3,20 @@
   <div class="modalName">{{vm.technicianDetails.name}} {{vm.technicianDetails.surname1}}</div>
   <div class="modalPoints">
     <p class="stars-container stars-{{vm.infoWindow.points/vm.infoWindow.val_qty}}"  > ★★★★★ </p>
-    <p><span>Points:</span> {{vm.technicianDetails.points}}</p>
+    <p><span>{{ 'RATING' | translate }}</span> {{vm.technicianDetails.points}}</p>
   </div>
   <div class="modalTime">
-    <p><span>Horario:</span> {{vm.technicianDetails.time_start}} - {{vm.technicianDetails.time_end}}</p>
+    <p><span>{{ 'SCHEDULE' | translate }}</span> {{vm.technicianDetails.time_start}} - {{vm.technicianDetails.time_end}}</p>
   </div>
   <div class="modalStreet">
-    <p><span>Calle:</span>{{vm.technicianDetails.street}}, Num:{{vm.technicianDetails.street_number}}</p>
+    <p><span>{{ 'STREET' | translate }} </span>{{vm.technicianDetails.street}}, Num:{{vm.technicianDetails.street_number}}</p>
   </div>
   <div class="modalCity">
-    <p><span>Ciudad:</span> {{vm.technicianDetails.city}}, {{vm.technicianDetails.post_code}}</p>
+    <p><span>{{ 'CITY' | translate }} </span> {{vm.technicianDetails.city}}, {{vm.technicianDetails.post_code}}</p>
   </div>
   <div class="modalButtons">
-    <button id="butonOnMap" class="buttonModal btn btn-primary" type="button" name="button" ng-click="viewOnMap()">Ver en Mapa</button>
-    <button id="buttonContact" class="buttonModal btn btn-primary" type="button" name="ModalButton">Contactar</button>
+    <button id="butonOnMap" class="buttonModal btn btn-primary" type="button" name="button" ng-click="viewOnMap()">{{ 'SEE_MAP' | translate }}</button>
+    <button id="buttonContact" class="buttonModal btn btn-primary" type="button" name="ModalButton">{{ 'CONTACT' | translate }}</button>
   </div>
 
 </div>

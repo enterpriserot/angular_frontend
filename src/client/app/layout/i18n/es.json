@@ -3,10 +3,16 @@
       "english": "EN",
       "spanish": "ES",
       "language": "Lenguaje",
-      "sign in": "Sign in",
+      "SIGN IN": "Sign in",
       "Home": "Inicio",
-      "contant": "Contactar",
+      "CONTACT": "Contacto",
       "profile": "Perfil",
       "admin": "Administrador",
-      "technicians": "Tecnicos"
+      "TECHNICIANS": "Técnicos",
+      "WELLCOME": "Bienvenido",
+      "LOGOUT": "Salir",
+      "INFORMATION": "Información",
+      "ABOUT": "Acerca de",
+      "FOLLOW": "Seguir",
+      "STAY_POSTED": "Manterese Informado"
 }

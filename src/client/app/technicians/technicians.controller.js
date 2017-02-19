@@ -5,10 +5,10 @@
         .module('app.technicians')
         .controller('techniciansController', techniciansController);
 
-    techniciansController.$inject = ['$q','dataservice','logger','$scope', '$uibModal'];
+    techniciansController.$inject = ['$translatePartialLoader', '$q','dataservice','logger','$scope', '$uibModal'];
 
     /* @ngInject */
-    function techniciansController($q, dataservice, logger, $scope, $uibModal) {
+    function techniciansController($translatePartialLoader, $q, dataservice, logger, $scope, $uibModal) {
         var vm = this;
         vm.title = 'Technicians';
         vm.technicians= [];
@@ -20,6 +20,8 @@
         vm.filtro = '';
         vm.modalDetails = modalDetails;
         $scope.viewOnMap = viewOnMap;
+
+        $translatePartialLoader.addPart('technicians');
 
         vm.pageChanged = function() {
           update();

@@ -5,10 +5,10 @@
         .module('app.signup')
         .controller('SignupController', SignupController);
 
-    SignupController.$inject = ['dataservice', '$state', 'routerHelper', '$timeout'];
+    SignupController.$inject = ['$translatePartialLoader', 'dataservice', '$state', 'routerHelper', '$timeout'];
 
     /* @ngInject */
-    function SignupController(dataservice, $state, routerHelper, $timeout) {
+    function SignupController($translatePartialLoader, dataservice, $state, routerHelper, $timeout) {
         var vm = this;
 
         vm.signupName = '';
@@ -17,6 +17,8 @@
         vm.signupPass2 = '';
         vm.sendSignup = sendSignup;
         vm.user = {};
+
+        $translatePartialLoader.addPart('signup');
 
         function sendSignup(){
           console.log('sendSignup');

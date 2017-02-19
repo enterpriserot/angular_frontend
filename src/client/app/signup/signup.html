@@ -3,12 +3,12 @@
 
 
 <div class="signup-inner">
-<p><h2>Sign up:</h2></p>
+<p><h2>{{ 'SIGNUP' | translate}}:</h2></p>
 <form name="formsignup" id="formsignup" class="formusers" ng-submit="vm.sendSignup()">
     <br>
       <p>
-         <label class="inputLabel" for="name">Name:</label>
-         <input type="text" class="textBox" name="name" id="name" ng-model="vm.signupName" required placeholder="Name"/>
+         <label class="inputLabel" for="name">{{ 'NAME' | translate }}:</label>
+         <input type="text" class="textBox" name="name" id="name" ng-model="vm.signupName" required placeholder="{{ 'NAME' | translate }}"/>
          <span id="error_name" class="styerror"></span>
       </p>
       <p>
@@ -22,11 +22,11 @@
         <span id="error_password" class="styerror">{{vm.message}}</span>
       </p>
       <p>
-        <label class="inputLabel" for="password2">Repeat password:</label>
-        <input type="password" class="textBox" name="password2" id="password2" ng-model="vm.signupPass2" placeholder="Repeat password" required/>
+        <label class="inputLabel" for="password2">{{ 'REP_PASS' | translate }}:</label>
+        <input type="password" class="textBox" name="password2" id="password2" ng-model="vm.signupPass2" placeholder="{{ 'REP_PASS' | translate }}" required/>
         <span id="error_password2" class="styerror">{{vm.message}}</span>
       </p>
-    <input type="submit" class="btn btn-primary" ng-disabled="formsignup.$invalid" name="submit_user" id="submit_user" value="Submit">
+    <input type="submit" class="btn btn-primary" ng-disabled="formsignup.$invalid" name="submit_user" id="submit_user" value="{{ 'SUBMIT' | translate }}">
 </form>
 </div>
 {{vm.resultmessage}}

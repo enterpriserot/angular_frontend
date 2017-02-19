@@ -1,39 +1,39 @@
 <div class="container-form-contact">
     <form id="contact_form" name="contact_form" class="form-contact" ng-submit="vm.SubmitContact()">
-        <h2 class="form-contact-heading">Contact Us</h2>
+        <h2 class="form-contact-heading">{{ "CONTACT_US" | translate }}</h2>
 
         <div class="control-group">
-            <input required ng-model="vm.inputName" type="text" id="inputName" name="inputName" placeholder="Name *" class="input-block-level" dir="auto" maxlength="100">
-            <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">This field is required</span>
+            <input required ng-model="vm.inputName" type="text" id="inputName" name="inputName" placeholder="{{ 'NAME' | translate }}" class="input-block-level" dir="auto" maxlength="100">
+            <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">{{ 'REQ_FIELD' | translate }}</span>
         </div>
         <div class="control-group">
-            <input required ng-model="vm.inputEmail" type="text" id="inputEmail" name="inputEmail" placeholder="Email *" class="input-block-level" maxlength="100" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i">
-            <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">This field is required</span>
-            <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">Invalid Email</span>
+            <input required ng-model="vm.inputEmail" type="text" id="inputEmail" name="inputEmail" placeholder="{{ 'EMAIL' | translate }}" class="input-block-level" maxlength="100" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i">
+            <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">{{ 'REQ_FIELD' | translate }}</span>
+            <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">{{ 'INVALID_EMAIL' | translate }}</span>
         </div>
         <div class="control-group">
-            <label for="sel1">Subject</label>
+            <label for="sel1">{{ 'SUBJECT' | translate }}</label>
             <select ng-model="vm.inputSubject" class="form-control" id="inputSubject" name="inputSubject" title="Choose subject">
-                <option value="order">Something relative with an order</option>
-                <option value="programming_dept">Contact with our programming department</option>
-                <option value="work">Work with us</option>
-                <option value="projects">Propose new projects</option>
-                <option value="suggestions">Suggestions</option>
-                <option value="claim">Want to claim something</option>
-                <option value="suscribe">Suscribe to our mail-list</option>
-                <option value="diferent">Something different</option>
+                <option value="order">{{ 'SEL_ORDER' | translate }}</option>
+                <option value="programming_dept">{{ 'SEL_PROG_DEPT' | translate }}</option>
+                <option value="work">{{ 'SEL_WORK' | translate }}</option>
+                <option value="projects">{{ 'SEL_NEW_PROJ' | translate }}</option>
+                <option value="suggestions">{{ 'SEL_SUGGEST' | translate }}</option>
+                <option value="claim">{{ 'SEL_CLAIM' | translate }}</option>
+                <option value="suscribe">{{ 'SEL_SUBSCRIBE' | translate }}</option>
+                <option value="diferent">{{ 'SEL_DIFFERENT' | translate }}</option>
             </select>
         </div>
         <div class="control-group">
-              <textarea required ng-model="vm.inputMessage" class="input-block-level" rows="4" name="inputMessage" placeholder="Message *" style="max-width: 100%;" dir="auto"></textarea>
-              <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">This field is required</span>
+              <textarea required ng-model="vm.inputMessage" class="input-block-level" rows="4" name="inputMessage" placeholder="{{ 'MESSAGE' | translate }}" style="max-width: 100%;" dir="auto"></textarea>
+              <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">{{ 'REQ_FIELD' | translate }}</span>
         </div>
 
         <!-- <input type="hidden" name="token" value="contact_form" /> -->
 
         <!-- <input class="btn btn-primary" type="submit" name="submit" id="submitBtn" disabled="disabled" value="send" /> -->
 
-        <input type="submit" class="btn btn-primary" name="submit" id="submitBtn" value="Send" ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputMessage.$valid"/>
+        <input type="submit" class="btn btn-primary" name="submit" id="submitBtn" value="{{ 'SEND_BTN' | translate }}" ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputMessage.$valid"/>
 
         <div id="resultMessageOk" class="msg_ok">{{vm.resultMessageOk}}</div>
         <div id="resultMessageFail" class="msg_error">{{vm.resultMessageFail}}</div>
