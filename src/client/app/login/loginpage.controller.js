@@ -5,8 +5,8 @@
         .module('app.login')
         .controller('LoginPageController', LoginPageController);
 
-    LoginPageController.$inject = ['$translatePartialLoader', 'dataservice','$http', '$state', 'routerHelper', '$timeout',
-    'logger', '$rootScope', '$location'/*, 'cookiesService'*/];
+    LoginPageController.$inject = ['$translatePartialLoader', 'dataservice','$http', '$state',
+     'routerHelper', '$timeout', 'logger', '$rootScope', '$location'/*, 'cookiesService'*/];
 
     /* @ngInject */
     function LoginPageController($translatePartialLoader, dataservice, $http, $state, routerHelper, $timeout, logger,

@@ -1,0 +1,18 @@
+{
+    "CONTACT_US": "Contáctanos",
+    "NAME": "Nombre *",
+    "EMAIL": "Email",
+    "INVALID_EMAIL": "Email erroneo",
+    "SUBJECT": "Asunto:",
+    "MESSAGE": "Mensaje *",
+    "REQ_FIELD": "Este campo es requerido",
+    "SEL_ORDER": "Algo relacionado con un pedido",
+    "SEL_PROG_DEPT": "Contactar con departamento de programación",
+    "SEL_WORK": "Trabajar con nosotros",
+    "SEL_NEW_PROJ": "Proponer nuevos proyectos",
+    "SEL_SUGGEST": "Sugerencias",
+    "SEL_CLAIM": "Hacer una reclamación",
+    "SEL_SUBSCRIBE": "Suscribir a la lista de correo",
+    "SEL_DIFFERENT": "Algo diferente",
+    "SEND_BTN": "Enviar"
+}

@@ -33,6 +33,7 @@ module.exports = function() {
     htmltemplates: clientApp + '**/*.html',
     images: client + 'images/**/*.*',
     videos: client + 'videos/**/*.*',
+    i18n: client + 'i18n/**/*',
     index: client + 'index.html',
     // app js, with no specs
     js: [

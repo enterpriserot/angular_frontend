@@ -13,7 +13,10 @@ techniciansModel.getTechnicians = function (location, callback){
     var minLng = lng-distance;
     var maxLng = lng+distance;
 
-    mysql.connection.query('SELECT * FROM technicians WHERE ((latitude >= "'+minLat+'" AND latitude <= "'+maxLat+'") AND (longitude >= "'+minLng+'" AND longitude <= "'+maxLng+'")) ORDER BY id', function(error, rows) {
+    mysql.connection.query(
+      'SELECT * FROM technicians WHERE ((latitude >= "'+minLat+'" AND latitude <= "'+maxLat+'")'+
+      ' AND (longitude >= "'+minLng+'" AND longitude <= "'+maxLng+'")) ORDER BY id',
+      function(error, rows) {
         if(error){
             throw error;
         }else{

@@ -5,9 +5,11 @@
     .module('app.layout')
     .controller('MenuController', MenuController);
 
-  MenuController.$inject = ['$translatePartialLoader','$translate','$rootScope', '$q', '$state', 'routerHelper','$uibModal', 'dataservice', 'logger'];
+  MenuController.$inject = ['$translatePartialLoader','$translate','$rootScope', '$q',
+  '$state', 'routerHelper','$uibModal', 'dataservice', 'logger'];
   /* @ngInject */
-  function MenuController($translatePartialLoader, $translate, $rootScope, $q, $state, routerHelper,$uibModal, dataservice, logger) {
+  function MenuController($translatePartialLoader, $translate, $rootScope, $q, $state,
+    routerHelper,$uibModal, dataservice, logger) {
     var vm = this;
     vm.animationsEnabled = true;
     $translatePartialLoader.addPart('layout');
