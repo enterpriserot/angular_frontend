@@ -2,7 +2,7 @@
 describe('admin routes', function() {
   describe('state', function() {
     var view = 'app/admin/admin.html';
-
+//INYECTAR EL DATASERVICE Y SIMULAR TRUE O FALSE
     beforeEach(function() {
       module('app.admin', bard.fakeToastr);
       bard.inject('$httpBackend', '$location', '$rootScope', '$state', '$templateCache');
@@ -10,6 +10,12 @@ describe('admin routes', function() {
 
     beforeEach(function() {
       $templateCache.put(view, '');
+      // var ds = {
+      //   checkLoggedin: function() {
+      //     return $q.when({});
+      //   }
+      // };
+
     });
 
     it('should map state admin to url /admin ', function() {
@@ -20,10 +26,11 @@ describe('admin routes', function() {
       expect($state.get('admin').templateUrl).to.equal(view);
     });
 
-    it('of admin should work with $state.go', function() {
+    it('of admin should work with $state.go', function(ds) {
       $state.go('admin');
+      ds.checkLoggedin;
       $rootScope.$apply();
-      expect($state.is('admin'));
+      expect($state.is('login'));
     });
   });
 });

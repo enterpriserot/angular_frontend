@@ -16,11 +16,6 @@
 
     vm.title = 'Main';
 
-    vm.myVideo = {
-    mp4: './video/back.mp4',
-    ogg: './video/back.ogv',
-    webm: './video/back.webm'
-    };
 
 
     activate();

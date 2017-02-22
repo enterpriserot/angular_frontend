@@ -4,16 +4,30 @@
 
 # How to get it to work:
 
-1. Fill with the api keys src/server/env and rename it to .env in the same place
-2. To get the database to work have a copy of sample data on src/server/db/
-2.1 Fill the SQL server data and rename src/server/config/configdbjs to config.db.js in the same place
+1. Fill with the api keys src/server/env and rename it to .env in the same place.
+2. To get the database to work have a copy of sample data on src/server/db/ and fill the SQL server data and rename src/server/config/configdbjs to config.db.js in the same place.
 
-# When we create a build(gulp build):
+# How to setup auto deploy with github on a VPS:
 
-1. Need to create a video folder at the web root folder and copy the videos located on: src/client/video
-2. Copy the styles.css from "src/client/styles" to styles folder at the web root folder
-3. Copy all the fonts from "src/client/fonts" to fonts folder at the web root folder
-4. Copy src/client/app/login/login.html to app/login folder at the web root folder
+1. Create a folder named hooks inside the project folder.
+2. Install gith module with npm: npm install gith
+3. Create a file called hooks.js with the next content:
+
+var gith = require('gith').create(6000);  // run on port 6000
+var exec = require('child_process').exec;
+
+gith({
+  repo: 'the github-user/repo-name'  // the github-user/repo-name
+}).on('all', function(payload){
+
+    console.log("push received");
+    exec('/home/username/projectname/hooks/post-update.sh ' + payload.branch, function(err, stdout, stderr){
+      if (err) return err;
+      console.log(stdout);
+      console.log("git deployed to branch " + payload.branch);
+    });
+});
+4. As you can see in the post-update.sh placed at the root of the project
 
 
 **Generated from HotTowel Angular**
