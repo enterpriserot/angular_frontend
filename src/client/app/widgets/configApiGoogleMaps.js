@@ -1,6 +1,6 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    var widgets = angular.module('app.widgets');
-    
+  var widgets = angular.module('app.widgets');
+
 })();

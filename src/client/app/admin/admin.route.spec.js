@@ -4,10 +4,11 @@ describe('admin routes', function() {
 
   describe('state', function() {
     var view = 'app/admin/admin.html';
-//INYECTAR EL DATASERVICE Y SIMULAR TRUE O FALSE
+    //INYECTAR EL DATASERVICE Y SIMULAR TRUE O FALSE
     beforeEach(function() {
       module('app.admin', bard.fakeToastr);
-      bard.inject('$httpBackend', '$location', '$rootScope', '$q', '$state', '$templateCache', 'dataservice');
+      bard.inject('$httpBackend', '$location', '$rootScope', '$q', '$state',
+      '$templateCache', 'dataservice');
     });
 
     beforeEach(function() {

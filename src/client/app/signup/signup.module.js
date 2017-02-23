@@ -1,9 +1,9 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('app.signup', [
-          'app.core',
-          'app.widgets'
-        ]);
+  angular
+  .module('app.signup', [
+    'app.core',
+    'app.widgets'
+  ]);
 })();

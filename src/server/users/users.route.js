@@ -1,7 +1,7 @@
 var usersController = require('./users.controller');
 var passport = require('passport');
 
-module.exports = function(app){
+module.exports = function(app) {
   app.post('/api/login', usersController.loginUser);
   app.post('/api/signup', usersController.signupUser);
   app.get('/api/loggedin', usersController.loggedin);

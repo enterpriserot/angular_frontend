@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('app.layout')
-    .controller('MenuController', MenuController);
+  .module('app.layout')
+  .controller('MenuController', MenuController);
 
   MenuController.$inject = ['$translatePartialLoader','$translate','$rootScope', '$q',
   '$state', 'routerHelper','$uibModal', 'dataservice', 'logger'];
@@ -27,8 +27,8 @@
       getNavRoutes();
 
       var promises = [getAuthUser()];
-      return $q.all(promises).then(function(){
-          logger.info('Activated layout view');
+      return $q.all(promises).then(function() {
+        logger.info('Activated layout view');
       });
     }
 
@@ -48,7 +48,7 @@
       return $state.current.title.substr(0, menuName.length) === menuName ? 'current' : '';
     }
 
-    function modalLogin(){
+    function modalLogin() {
 
       var modalInstance = $uibModal.open({
 
@@ -63,7 +63,7 @@
       });
     }
 
-    function getAuthUser(){
+    function getAuthUser() {
       return dataservice.isLoggedin().then(function(data) {
         // console.log('getAuthUser:');
         // console.log(data);
@@ -75,7 +75,7 @@
       });
     }
 
-    function logout(){
+    function logout() {
       console.log('logout');
       return dataservice.logout().then(function(data) {
         $rootScope.authUser = undefined;

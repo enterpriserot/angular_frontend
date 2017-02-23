@@ -16,7 +16,7 @@ describe('contact routes', function() {
       expect($state.href('contact', {})).to.equal('/contact');
     });
 
-    it('should map /contact route to contact View template', function(){
+    it('should map /contact route to contact View template', function() {
       expect($state.get('contact').templateUrl).to.equal(view);
     });
 

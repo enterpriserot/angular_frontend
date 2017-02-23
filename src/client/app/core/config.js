@@ -33,23 +33,23 @@
         'en-UK': 'en'
       });
 
-      $translatePartialLoaderProvider.addPart('core');
-      $translateProvider.useLoader('$translatePartialLoader', {
-        urlTemplate: '/i18n/{part}/{lang}.json',
-        loadFailureHandler: 'MyErrorHandler'
-      });
-      $translateProvider.useCookieStorage();
+    $translatePartialLoaderProvider.addPart('core');
+    $translateProvider.useLoader('$translatePartialLoader', {
+      urlTemplate: '/i18n/{part}/{lang}.json',
+      loadFailureHandler: 'MyErrorHandler'
+    });
+    $translateProvider.useCookieStorage();
 
-      $translateProvider
-        .determinePreferredLanguage()
-        .fallbackLanguage('en')
-        .useSanitizeValueStrategy('sce');
-        // .useSanitizeValueStrategy('sanitize');
-      if ($logProvider.debugEnabled) {
-        $logProvider.debugEnabled(true);
-      }
-      exceptionHandlerProvider.configure(config.appErrorPrefix);
-      routerHelperProvider.configure({ docTitle: config.appTitle + ': ' });
+    $translateProvider
+    .determinePreferredLanguage()
+    .fallbackLanguage('en')
+    .useSanitizeValueStrategy('sce');
+    // .useSanitizeValueStrategy('sanitize');
+    if ($logProvider.debugEnabled) {
+      $logProvider.debugEnabled(true);
+    }
+    exceptionHandlerProvider.configure(config.appErrorPrefix);
+    routerHelperProvider.configure({ docTitle: config.appTitle + ': ' });
 
   }
 
