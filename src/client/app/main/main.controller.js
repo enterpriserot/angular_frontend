@@ -19,7 +19,7 @@
     activate();
 
     function activate() {
-
+      logger.info('Activated Main View');
     }
 
   }

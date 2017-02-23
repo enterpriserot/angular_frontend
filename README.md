@@ -13,21 +13,33 @@
 2. Install gith module with npm: npm install gith
 3. Create a file called hooks.js with the next content:
 
-var gith = require('gith').create(6000);  // run on port 6000
+var gith = require('gith').create(9000);  // run on port 9000
 var exec = require('child_process').exec;
 
 gith({
-  repo: 'the github-user/repo-name'  // the github-user/repo-name
+  repo: 'github-user/repo-name'  // the github-user/repo-name
 }).on('all', function(payload){
 
     console.log("push received");
-    exec('/home/username/projectname/hooks/post-update.sh ' + payload.branch, function(err, stdout, stderr){
+    exec('/home/username/projectname/post-update.sh ' + payload.branch, function(err, stdout, stderr){
       if (err) return err;
       console.log(stdout);
       console.log("git deployed to branch " + payload.branch);
     });
 });
-4. As you can see in the post-update.sh placed at the root of the project
+* You can find the official gith repository/documentation here: https://github.com/danheberden/gith and http://codesquire.com/post/ContinuousDeployment
+
+4. As you can see in the post-update.sh placed at the root of the project you must edit it and change the PROJECTFOLDER in the line 2 of the script.
+5. To get node script to run install forever globally npm install forever -g
+6. The project runs on a port below 1024 and to use those ports we need to run this with sudo, to prevent it to ask the root password we need to add a line on sudoers file:
+   USER ALL=(ALL:ALL) NOPASSWD:/usr/local/bin/forever
+7. Now is necessary to have a web certificate, to create one we can use the let's encrypt platform or openssl:
+    https://letsencrypt.org/
+    sudo apt-get install letsencrypt
+
+    create your own certificate in project root folder
+    sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout server.key -out server.crt
+
 
 
 **Generated from HotTowel Angular**

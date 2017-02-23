@@ -58,5 +58,10 @@
         }
       });
     }
+    activate();
+
+    function activate() {
+      logger.info('Activated Contact View');
+    }
   }
 })();

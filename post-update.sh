@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJECTFOLDER=/home/user/projectfolder
+PROJECTFOLDER=/home/user/angular_frontend
 unset 'GIT_DIR'
 cd $PROJECTFOLDER
 forever stop src/server/app.js
