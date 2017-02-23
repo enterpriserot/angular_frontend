@@ -8,7 +8,7 @@ describe('admin routes', function() {
     beforeEach(function() {
       module('app.admin', bard.fakeToastr);
       bard.inject('$httpBackend', '$location', '$rootScope', '$q', '$state',
-      '$templateCache', 'dataservice');
+      '$templateCache');
     });
 
     beforeEach(function() {
@@ -29,12 +29,10 @@ describe('admin routes', function() {
       expect($state.get('admin').templateUrl).to.equal(view);
     });
 
-    // it('of admin should work with $state.go', function() {
-    //   $state.go('admin');
-    //   // sinon.stub(dataservice, 'checkLoggedin').return($q.when(user));
-    //   // ds.checkLoggedin;
-    //   $rootScope.$apply();
-    //   expect($state.is('admin'));
-    // });
+    it('of admin should work with $state.go', function() {
+      $state.go('admin');
+      // sinon.stub(dataservice, 'checkLoggedin').return($q.when(user));
+      expect($state.is('admin'));
+    });
   });
 });

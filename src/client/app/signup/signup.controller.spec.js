@@ -1,29 +1,27 @@
 /* jshint -W117, -W030 */
-describe('techniciansController', function() {
+describe('SignupController', function() {
   var controller;
 
   beforeEach(function() {
-    bard.appModule('app.technicians');
+    bard.appModule('app.signup');
     bard.inject('$controller', '$log', '$rootScope');
   });
 
   beforeEach(function() {
-    scope = $rootScope.$new();
-    controller = $controller('techniciansController', {$scope: scope});
-
+    controller = $controller('SignupController');
     $rootScope.$apply();
   });
 
   bard.verifyNoOutstandingHttpRequests();
 
-  describe('Technicians Controller', function() {
+  describe('Signup Controller', function() {
     it('should be created successfully', function() {
       expect(controller).to.be.defined;
     });
 
     describe('after activate', function() {
       it('should have title of Contact', function() {
-        expect(controller.title).to.equal('Technicians');
+        expect(controller.title).to.equal('Signup');
       });
 
       it('should have logged "Activated"', function() {

@@ -61,7 +61,7 @@
     activate();
 
     function activate() {
-      console.log('Inside activate');
+      logger.info('Activated Login View');
     }
   }
 })();

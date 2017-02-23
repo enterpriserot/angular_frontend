@@ -6,12 +6,14 @@
   .controller('SignupController', SignupController);
 
   SignupController.$inject = ['$translatePartialLoader', 'dataservice', '$state',
-  'routerHelper', '$timeout'];
+  'routerHelper', '$timeout', 'logger'];
 
   /* @ngInject */
-  function SignupController($translatePartialLoader, dataservice, $state, routerHelper, $timeout) {
+  function SignupController($translatePartialLoader, dataservice, $state, routerHelper, $timeout,
+  logger) {
     var vm = this;
 
+    vm.title = 'Signup';
     vm.signupName = '';
     vm.signupEmail = '';
     vm.signupPass = '';
@@ -64,7 +66,7 @@
     activate();
 
     function activate() {
-      console.log('signup activate');
+      logger.info('Activated Contact View');
     }
   }
 })();

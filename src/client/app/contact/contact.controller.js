@@ -43,8 +43,7 @@
                 $state.go('main');
               }, 3000);
             } else {
-              vm.resultMessageFail =
-              'Problem sending your email, please try again later!';
+              vm.resultMessageFail = 'Problem sending your email, please try again later!';
               $timeout(function () {
                 vm.resultMessageFail = '';
               }, 3000);
