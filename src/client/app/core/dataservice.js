@@ -12,7 +12,6 @@
     var service = {
       sendEmail: sendEmail,
       getTechnicians: getTechnicians,
-      getLocation: getLocation,
       signup: signup,
       checkLoggedin: checkLoggedin,
       isLoggedin: isLoggedin,
@@ -37,7 +36,7 @@
     }
 
     function getTechnicians(position) {
-      var location = {latitude:position.coords.latitude, longitude:position.coords.longitude};
+      var location = {latitude:position.lat(), longitude:position.lng()};
       return $http.post('/api/technicians', location).then(success).catch(fail);
 
       function success(response) {
@@ -47,24 +46,6 @@
         function fail(e) {
           return exception.catcher('XHR Failed for getTechnicians')(e);
         }
-    }
-
-    function getLocation() {
-      var deferred =  $q.defer();
-      if (!$window.navigator.geolocation) {
-        deferred.rejected('Geolocation not suported');
-      } else {
-        $window.navigator.geolocation.getCurrentPosition(
-          function (position) {
-            deferred.resolve(position);
-          },
-
-          function (err) {
-            deferred.rejected(err);
-          }
-        );
-      }
-      return deferred.promise;
     }
 
     function signup(data){

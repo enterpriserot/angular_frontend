@@ -5,10 +5,10 @@
         .module('app.technicians')
         .controller('techniciansController', techniciansController);
 
-    techniciansController.$inject = ['$translatePartialLoader', '$q','dataservice','logger','$scope', '$uibModal'];
+    techniciansController.$inject = ['$translatePartialLoader', '$q','dataservice','logger','$scope', '$uibModal', 'NgMap'];
 
     /* @ngInject */
-    function techniciansController($translatePartialLoader, $q, dataservice, logger, $scope, $uibModal) {
+    function techniciansController($translatePartialLoader, $q, dataservice, logger, $scope, $uibModal, NgMap) {
         var vm = this;
         vm.title = 'Technicians';
         vm.technicians= [];
@@ -18,7 +18,10 @@
         vm.currentPage = 1;
         vm.itemsPerPage = 4;
         vm.filtro = '';
+        vm.lat = 0;
+        vm.lng = 0;
         vm.modalDetails = modalDetails;
+        vm.showDetailMarker = showDetailMarker;
         $scope.viewOnMap = viewOnMap;
 
         $translatePartialLoader.addPart('technicians');
@@ -27,37 +30,26 @@
           update();
         };
 
-        vm.map = {
-          center: { latitude: 0, longitude: 0 },
-          zoom: 13,
-          windows: {
-            model: {},
-            show: false,
-            options:{
-              pixelOffset: {width:10,height:10},
-              position: {}
-            }
-          },
-          markersEvents: {
-            click: function(marker, eventName, model, args) {
-              vm.map.windows.model = model;
-              vm.map.windows.show = true;
-              for (var i = 0; i < vm.technicians.length; i++) {
-                if (vm.technicians[i].id === model.id) {
-                  vm.infoWindow = vm.technicians[i];
-                }
-              }
-
-            }
-          }
-        };
-
         activate();
 
         function activate() {
-          var promises = [getLocation()];
+          var promises = [ getMarkersMap() /*getLocation()*/];
           return $q.all(promises).then(function(){
             logger.info('Activated Technicians View');
+          });
+        }
+
+        function getMarkersMap() {
+          return NgMap.getMap().then(function(map) {
+            vm.map = map;
+            vm.map.setZoom(12);
+            // vm.lat = vm.map.getCenter().lat();
+            // console.log(vm.lat);
+            // vm.lng = vm.map.getCenter().lng();
+            // console.log(vm.lng);
+            vm.coords = vm.map.getCenter();
+            getTechnicians(vm.coords);
+
           });
         }
 
@@ -65,7 +57,8 @@
           return dataservice.getTechnicians(location).then(function (data) {
             vm.technicians = data;
             update();
-            vm.getMarkers = getMarkers(vm.technicians);
+            vm.markers = vm.technicians;
+
             return vm.technicians;
           });
         }
@@ -73,6 +66,12 @@
         function update(){
             var begin = ((vm.currentPage - 1) * vm.itemsPerPage), end = begin + vm.itemsPerPage;
             vm.filteredTechnicians = vm.technicians.slice(begin, end);
+        }
+
+        function showDetailMarker(e, marker) {
+          vm.marker = marker;
+          console.log(vm.marker);
+          vm.map.showInfoWindow('foo-iw', marker.id);
         }
 
         function modalDetails(technicianId) {
@@ -85,7 +84,6 @@
               size: 'md',
               templateUrl: 'app/technicians/technicianModal.html',
           });
-
         }
 
         function getDetails(technicianId) {
@@ -96,44 +94,15 @@
           }
         }
 
+
         function viewOnMap(){
-          vm.map.center = {
-            latitude: vm.technicianDetails.latitude,
-            longitude: vm.technicianDetails.longitude
-          };
-          vm.map.zoom = 16;
+          // var latLng = new google.maps.LatLng(vm.technicianDetails.latitude,vm.technicianDetails.longitude);
+          vm.map.setCenter({lat: vm.technicianDetails.latitude, lng: vm.technicianDetails.longitude});
+
+          vm.map.setZoom(15);
           vm.modalInstance.dismiss('cancel');
           // return vm.map;
         }
-
-        function getMarkers(technicians) {
-
-          for (var i = 0; i < technicians.length; i++) {
-            var latitude = technicians[i]['latitude'];
-            var longitude = technicians[i]['longitude'];
-            var id = technicians[i]['id'];
-
-            var marker = {
-              latitude: latitude,
-              longitude: longitude,
-              id: id,
-              icon: './images/man_icon.svg'
-            };
-
-            vm.markers.push(marker);
-          }
-        }
-
-        function getLocation (){
-          return dataservice.getLocation().then(function(data){
-            var latitude = data.coords.latitude;
-            var longitude = data.coords.longitude;
-
-            vm.map.center = { latitude:latitude, longitude:longitude };
-
-            getTechnicians(data);
-          });
-      }
 
     }
 })();
