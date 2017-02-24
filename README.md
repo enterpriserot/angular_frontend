@@ -15,11 +15,9 @@
 
 var gith = require('gith').create(9000);  // run on port 9000
 var exec = require('child_process').exec;
-
 gith({
   repo: 'github-user/repo-name'  // the github-user/repo-name
 }).on('all', function(payload){
-
     console.log("push received");
     exec('/home/username/projectname/post-update.sh ' + payload.branch, function(err, stdout, stderr){
       if (err) return err;
@@ -27,6 +25,7 @@ gith({
       console.log("git deployed to branch " + payload.branch);
     });
 });
+
 * You can find the official gith repository/documentation here: https://github.com/danheberden/gith and http://codesquire.com/post/ContinuousDeployment
 
 4. As you can see in the post-update.sh placed at the root of the project you must edit it and change the PROJECTFOLDER in the line 2 of the script.

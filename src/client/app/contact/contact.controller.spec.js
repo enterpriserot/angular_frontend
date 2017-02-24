@@ -9,7 +9,7 @@ describe('ContactController', function() {
 
   beforeEach(function() {
     ds = {
-        sendEmail: function(data) {
+      sendEmail: function(data) {
           return $q.when(true);
         }
     };
@@ -59,7 +59,7 @@ describe('ContactController', function() {
         expect(controller.resultMessage)
         .to.equal('Problem sending your email, please try again later!');
 
-        });
+      });
     });
   });
 });
