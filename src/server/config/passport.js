@@ -38,6 +38,7 @@ module.exports = function (passport) {
     passReqToCallback: true // allows us to pass back the entire request to the callback
   },
   function (req, email, password, done) {
+    console.log(email);
     sql.countUser(email, function (rows) {
       if (rows[0].count >= 1) {
         return done(null, false, 'e-mail is in use in our database');

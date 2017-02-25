@@ -17,6 +17,7 @@
       signup: signup,
       checkLoggedin: checkLoggedin,
       isLoggedin: isLoggedin,
+      login: login,
       logout: logout
     };
 
@@ -130,6 +131,23 @@
 
       function fail(e) {
         return exception.catcher('XHR Failed for /api/loggedin')(e);
+      }
+    }
+
+    function login(data) {
+      return $http.post('/api/login', data)
+      .then(success)
+      .catch(fail);
+
+      function success(response) {
+        console.log(response);
+        console.log('true signup');
+        return response;
+      }
+
+      function fail() {
+        console.log('false signup');
+        return false;
       }
     }
 

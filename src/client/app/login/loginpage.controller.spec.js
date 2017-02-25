@@ -4,7 +4,7 @@ describe('LoginPageController', function() {
 
   beforeEach(function() {
     bard.appModule('app.login');
-    bard.inject('$controller', '$log', '$rootScope');
+    bard.inject('$controller', '$log', '$rootScope', '$http');
   });
 
   beforeEach(function() {
@@ -26,6 +26,17 @@ describe('LoginPageController', function() {
 
       it('should have logged "Activated"', function() {
         expect($log.info.logs).to.match(/Activated/);
+      });
+
+      it('function loginSend should be defined', function() {
+        expect(controller.loginSend).to.be.defined;
+      });
+    });
+
+    describe('loginSend functionality', function() {
+      it('password incorrect is shown if is detected on server', function() {
+        var res = { data : 'errorcredentials' };
+
       });
     });
   });

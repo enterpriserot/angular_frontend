@@ -22,12 +22,12 @@
 
     function loginSend() {
 
-      $http({
-        url: '/api/login',
-        method: 'POST',
-        data: { 'email' :vm.inputEmail, 'password':vm.inputPassword }
-      })
+      var data = { 'email': vm.inputEmail,
+                   'password': vm.inputPassword };
+
+      dataservice.login(data)
       .then(function(response) {
+        console.log(response);
         if (response.data === 'errorcredentials') {
           logger.error('e-mail / password incorrect');
           vm.error = 'e-mail / password incorrect';
