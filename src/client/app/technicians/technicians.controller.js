@@ -1,69 +1,69 @@
 (function() {
-    // 'use strict';
+  // 'use strict';
 
-    angular
-        .module('app.technicians')
-        .controller('techniciansController', techniciansController);
+  angular
+  .module('app.technicians')
+  .controller('techniciansController', techniciansController);
 
-    techniciansController.$inject = ['$translatePartialLoader', '$q','dataservice','logger','$scope', '$uibModal', 'NgMap'];
+  techniciansController.$inject = ['$translatePartialLoader', '$q','dataservice','logger','$scope',
+  '$uibModal', 'NgMap'];
 
-    /* @ngInject */
-    function techniciansController($translatePartialLoader, $q, dataservice, logger, $scope, $uibModal, NgMap) {
-        var vm = this;
-        vm.title = 'Technicians';
-        vm.technicians= [];
-        vm.filteredTechnicians = [];
-        vm.markers = [];
-        vm.maxSize = 5;
-        vm.currentPage = 1;
-        vm.itemsPerPage = 4;
-        vm.filtro = '';
-        vm.lat = 0;
-        vm.lng = 0;
-        vm.modalDetails = modalDetails;
-        vm.showDetailMarker = showDetailMarker;
-        $scope.viewOnMap = viewOnMap;
+  /* @ngInject */
+  function techniciansController($translatePartialLoader, $q, dataservice, logger, $scope,
+    $uibModal, NgMap) {
+    var vm = this;
+    vm.title = 'Technicians';
+    vm.technicians = [];
+    vm.filteredTechnicians = [];
+    vm.markers = [];
+    vm.maxSize = 5;
+    vm.currentPage = 1;
+    vm.itemsPerPage = 4;
+    vm.filtro = '';
+    vm.lat = 0;
+    vm.lng = 0;
+    vm.modalDetails = modalDetails;
+    vm.showDetailMarker = showDetailMarker;
+    $scope.viewOnMap = viewOnMap;
 
-        $translatePartialLoader.addPart('technicians');
+    $translatePartialLoader.addPart('technicians');
 
-        vm.pageChanged = function() {
-          update();
-        };
+    vm.pageChanged = function() {
+      update();
+    };
 
-        activate();
+    activate();
 
-        function activate() {
-          var promises = [ getMarkersMap()];
-          return $q.all(promises).then(function(){
-            logger.info('Activated Technicians View');
-          });
+    function activate() {
+      var promises = [getMarkersMap()];
+      return $q.all(promises).then(function() {
+        logger.info('Activated Technicians View');
+      });
+    }
 
-        }
+    function getMarkersMap() {
+      return NgMap.getMap().then(function(map) {
+        vm.map = map;
+        vm.map.setZoom(12);
+        // vm.lat = vm.map.getCenter().lat();
+        // console.log(vm.lat);
+        // vm.lng = vm.map.getCenter().lng();
+        // console.log(vm.lng);
+        vm.coords = vm.map.getCenter();
+        getTechnicians(vm.coords);
 
+      });
+    }
 
-        function getMarkersMap() {
-          return NgMap.getMap().then(function(map) {
-            vm.map = map;
-            vm.map.setZoom(12);
-            // vm.lat = vm.map.getCenter().lat();
-            // console.log(vm.lat);
-            // vm.lng = vm.map.getCenter().lng();
-            // console.log(vm.lng);
-            vm.coords = vm.map.getCenter();
-            getTechnicians(vm.coords);
+    function getTechnicians(location) {
+      return dataservice.getTechnicians(location).then(function (data) {
+        vm.technicians = data;
+        update();
+        vm.markers = vm.technicians;
 
-          });
-        }
-
-        function getTechnicians(location){
-          return dataservice.getTechnicians(location).then(function (data) {
-            vm.technicians = data;
-            update();
-            vm.markers = vm.technicians;
-
-            return vm.technicians;
-          });
-        }
+        return vm.technicians;
+      });
+    }
 
     function update() {
       var begin = ((vm.currentPage - 1) * vm.itemsPerPage), end = begin + vm.itemsPerPage;
@@ -97,7 +97,7 @@
       }
     }
 
-    function viewOnMap(){
+    function viewOnMap() {
       vm.map.setCenter({lat: vm.technicianDetails.latitude, lng: vm.technicianDetails.longitude});
 
       vm.map.setZoom(15);
