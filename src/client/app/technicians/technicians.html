@@ -5,23 +5,24 @@
   </div>
   <div class="techniciansContent container">
       <div class="techniciansMap">
-          <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+        <!-- [{{vm.lat}},{{vm.lng}}] -->
+        <ng-map  default-style="true" center="current-position" geo-fallback-center="[40.74, -74.18]" zoom="12">
+                 <!-- <marker position="current" animation="Animation.BOUNCE" centered="true"></marker> -->
+                <marker ng-repeat="marker in vm.markers" id="{{marker.id}}" position="{{marker.latitude}},{{marker.longitude}}" icon="{
+                        url:'images/man_icon.svg'}" on-click="vm.showDetailMarker(marker)"></marker>
 
-            <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'" events="vm.map.markersEvents"></ui-gmap-markers>
-            <ui-gmap-window show="vm.map.windows.show" coords= "vm.map.windows.model">
-              <div class="techBoxInfo">
-                <div class="desc">{{vm.infoWindow.name}} {{vm.infoWindow.surname}}</div>
-                <div class="points">{{ 'RATING' | translate }} <p class="stars-container stars-{{vm.infoWindow.points/vm.infoWindow.val_qty}}"  > ★★★★★ </p></div>
-                <div class="hora">{{ 'SCHEDULE' | translate }} {{vm.infoWindow.time_start}} - {{vm.infoWindow.time_end}}</div>
-                <div class="details">
-                <a href="#" ng-click="$parent.vm.modalDetails(vm.infoWindow.id)">+info</a>
-                  <a href="#">{{ 'CONTACT' | translate }}</a>
-                </div>
-              </div>
-            </ui-gmap-window>
-
-
-          </ui-gmap-google-map>
+                <info-window id="foo-iw" position="{{vm.marker.latitude}},{{vm.marker.longitude}}">
+                  <div class="techBoxInfo">
+                    <div class="desc">{{vm.marker.name}} {{vm.marker.surname}}</div>
+                    <div class="points">{{ 'RATING' | translate }} <p class="stars-container stars-{{vm.marker.points/vm.marker.val_qty}}"  > ★★★★★ </p></div>
+                    <div class="hora">{{ 'SCHEDULE' | translate }} {{vm.marker.time_start}} - {{vm.marker.time_end}}</div>
+                    <div class="details">
+                    <a href="#" ng-click="$parent.vm.modalDetails(vm.marker.id)">+info</a>
+                      <a href="#">{{ 'CONTACT' | translate }}</a>
+                    </div>
+                  </div>
+              </info-window>
+              </ng-map>
       </div>
 
       <div class="techniciansInfo">

@@ -5,9 +5,9 @@
     .module('app.main')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['$translatePartialLoader','$q', 'dataservice', 'logger'];
+  MainController.$inject = ['$translatePartialLoader','$q', 'dataservice', 'logger', 'NgMap'];
   /* @ngInject */
-  function MainController($translatePartialLoader, $q, dataservice, logger) {
+  function MainController($translatePartialLoader, $q, dataservice, logger, NgMap) {
     var vm = this;
     vm.news = {
       title: 'Repair on time',
@@ -15,6 +15,12 @@
     };
     $translatePartialLoader.addPart('main');
     vm.title = 'Main';
+
+    vm.placeChanged = function() {
+      vm.place = this.getPlace();
+      vm.location = vm.place.geometry.location;
+      console.log(vm.location);
+    };
 
     activate();
 

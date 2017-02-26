@@ -715,6 +715,17 @@ section div.techniciansContent div.techniciansInfo {
 	float: left;
 }
 
+div.techniciansContent .ng-map-info-window div.techBoxInfo {
+	width: 100%;
+	background: #757575;
+	border: 2px solid #FF5722;
+	@include border_rounder(4px);
+  margin-bottom: 2px;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+}
+
 div.techniciansContent div.techniciansInfo .techBoxInfo {
 	width: 100%;
 	background: #757575;
