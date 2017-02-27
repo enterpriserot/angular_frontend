@@ -41,7 +41,7 @@
         logger.info('Activated Technicians View');
       });
     }
-<<<<<<< HEAD
+
 
     function getMarkersMap() {
       return NgMap.getMap().then(function(map) {
@@ -49,20 +49,7 @@
         vm.map.setZoom(12);
         vm.coords = vm.map.getCenter();
         getTechnicians(vm.coords);
-=======
 
-    function getMarkersMap() {
-      return NgMap.getMap().then(function(map) {
-        vm.map = map;
-        vm.map.setZoom(12);
-        // vm.lat = vm.map.getCenter().lat();
-        // console.log(vm.lat);
-        // vm.lng = vm.map.getCenter().lng();
-        // console.log(vm.lng);
-        vm.coords = vm.map.getCenter();
-        getTechnicians(vm.coords);
-
->>>>>>> 2206cbb3b85605390c33206293e341e459f37e9e
       });
     }
 
