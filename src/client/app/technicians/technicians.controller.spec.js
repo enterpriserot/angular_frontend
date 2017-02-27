@@ -11,6 +11,7 @@ describe('techniciansController', function() {
     scope = $rootScope.$new();
     controller = $controller('techniciansController', {$scope: scope});
 
+
     $rootScope.$apply();
   });
 
@@ -22,12 +23,16 @@ describe('techniciansController', function() {
     });
 
     describe('after activate', function() {
-      it('should have title of Contact', function() {
+      it('should have title of Technicians', function() {
         expect(controller.title).to.equal('Technicians');
       });
 
       it('should have logged "Activated"', function() {
         expect($log.info.logs).to.match(/Activated/);
+      });
+
+      it('controler.map (Google maps API) should be created successfully', function() {
+        expect(controller.map).to.be.defined;
       });
     });
   });

@@ -5,8 +5,8 @@
         <div class="inner">
             <h1 class="cursive">Repair on Time</h1>
             <section class="search">
-              <!-- <input type="text" id="searchBox" name="search-box" class="search-box" autocomplete="on" placeholder="{{ 'SEARCH' | translate }}"> -->
-              <input id="searchBox" name="search-box" class="search-box" places-auto-complete ng-model="vm.address" types="geocode" on-place-changed="vm.placeChanged()" />
+              <input type="text" id="searchBox" name="search-box" class="search-box" autocomplete="on" placeholder="{{ 'SEARCH' | translate }}">
+              <!-- <input id="searchBox" name="search-box" class="search-box" places-auto-complete ng-model="vm.address" types="geocode" on-place-changed="vm.placeChanged()" /> -->
               <input type="button" id="searchButton" name="search-button" class="btn btn-primary btn-xl" value="{{ 'SEARCH_BTN' | translate }}">
               <div ng-show="vm.place">
                 Address = {{vm.place.formatted_address}} <br/>
