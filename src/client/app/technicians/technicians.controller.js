@@ -1,16 +1,17 @@
 (function() {
-  //'use strict';
+
+  // 'use strict';
 
   angular
-    .module('app.technicians')
-    .controller('techniciansController', techniciansController);
+  .module('app.technicians')
+  .controller('techniciansController', techniciansController);
 
-  techniciansController.$inject = ['$translatePartialLoader','$q','dataservice',
-  'logger','$scope','$uibModal','NgMap'];
+  techniciansController.$inject = ['$translatePartialLoader', '$q','dataservice',
+  'logger','$scope', '$uibModal', 'NgMap'];
 
   /* @ngInject */
-  function techniciansController($translatePartialLoader,
-    $q, dataservice, logger, $scope, $uibModal, NgMap) {
+  function techniciansController($translatePartialLoader, $q, dataservice, logger, $scope,
+    $uibModal, NgMap) {
     var vm = this;
     vm.title = 'Technicians';
     vm.technicians = [];
@@ -40,6 +41,7 @@
         logger.info('Activated Technicians View');
       });
     }
+<<<<<<< HEAD
 
     function getMarkersMap() {
       return NgMap.getMap().then(function(map) {
@@ -47,6 +49,20 @@
         vm.map.setZoom(12);
         vm.coords = vm.map.getCenter();
         getTechnicians(vm.coords);
+=======
+
+    function getMarkersMap() {
+      return NgMap.getMap().then(function(map) {
+        vm.map = map;
+        vm.map.setZoom(12);
+        // vm.lat = vm.map.getCenter().lat();
+        // console.log(vm.lat);
+        // vm.lng = vm.map.getCenter().lng();
+        // console.log(vm.lng);
+        vm.coords = vm.map.getCenter();
+        getTechnicians(vm.coords);
+
+>>>>>>> 2206cbb3b85605390c33206293e341e459f37e9e
       });
     }
 
